@@ -36,12 +36,25 @@
   },
   "storyboard_revisions": {
     "V1.1_DRAFT": {
-      "status": "QC_WAITING",
+      "status": "SUPERSEDED_BY_FINAL_LOCK",
       "github_file": "STORYBOARD_V1.1_DRAFT.md",
       "drive_file_id": "19aTW_ZSg8Q_MJbKrYGCIH6fLLOa86xhk",
       "drive_parent_folder_id": "169XR6Fsw0m4myrBgaeEJstyHYocHOLd9",
       "sha256": "7cd91abccc3f83a73c27b204c9c5ca464964ad391f6402f0e8972aec7f441dab"
+    },
+    "V1.1_FINAL_LOCK": {
+      "status": "FINAL_LOCKED",
+      "github_file": "STORYBOARD_V1.1_FINAL_LOCK.md",
+      "github_commit_sha": "491b6f81b0a17a0811c9f267ae445bb72e3e563e",
+      "drive_file_id": "1tOygmpRKChMpOGWwI0vKuUqvnA_1ArhF",
+      "drive_parent_folder_id": "169XR6Fsw0m4myrBgaeEJstyHYocHOLd9",
+      "sha256": "fdbf86112888ebd4f8a86e99a73c71c14a7d4995448d5824757d0bb768ae72ee",
+      "approved_at": "2026-07-25T23:21:28+08:00"
     }
+  },
+  "active_keyframe_versions": {
+    "A1": "A1",
+    "A2": "A2_V1.1"
   },
   "keyframes": {
     "A1": {
@@ -59,12 +72,14 @@
       "approved_at": "2026-07-25T23:06:03+08:00"
     },
     "A2_V1.1": {
-      "status": "QC_WAITING",
+      "status": "LOCKED",
       "revision_of": "A2",
-      "file_name": "A2_V1.1_QC_PENDING.png",
+      "file_name": "A2_V1.1.png",
       "drive_file_id": "1yRgyTakLEmN2rz6iCJUIHAhRjJtI6VYL",
-      "drive_parent_folder_id": "154684CrcHW3cALKSAnVzlbFv-bahLAPr",
-      "sha256": "4f977a56253c208d06658829e6c33aa791f588933b2f632edd6255f34b1a5aaf"
+      "drive_parent_folder_id": "1fR0IMk20X9QLoLOoT06fEaj60rKXOuKq",
+      "sha256": "4f977a56253c208d06658829e6c33aa791f588933b2f632edd6255f34b1a5aaf",
+      "qc_result": "PASS+APPROVED",
+      "approved_at": "2026-07-25T23:21:28+08:00"
     }
   },
   "flow_videos": {},
