@@ -1,0 +1,52 @@
+{
+  "episode_id": "EP02",
+  "segment_id": "S1",
+  "package_version": "V1.1",
+  "status": "READY_FOR_GENERATION",
+  "story_lock_version": "V1.1",
+  "visual_lock_version": "V1.0",
+  "aspect_ratio": "9:16",
+  "target_duration_seconds": 10,
+  "fallback_duration_seconds": 8,
+  "generation_mode": "FIRST_LAST_FRAME",
+  "recommended_model": "OmniNow or current Flow model with first/last frame control",
+  "input_assets": {
+    "first_frame": {
+      "asset_id": "A1",
+      "file_name": "A1.png",
+      "drive_file_id": "1VZAg0Uube2FiPKB7d0M7THw3N8vTnt-E",
+      "sha256": "5f9da2ec32cab8e86ec564b827c21936a022102cb695404bf164a2dea4985f95",
+      "status": "LOCKED"
+    },
+    "last_frame": {
+      "asset_id": "A2_V1.1",
+      "file_name": "A2_V1.1.png",
+      "drive_file_id": "1yRgyTakLEmN2rz6iCJUIHAhRjJtI6VYL",
+      "sha256": "4f977a56253c208d06658829e6c33aa791f588933b2f632edd6255f34b1a5aaf",
+      "status": "LOCKED"
+    }
+  },
+  "story_task": "從美容館主理人平靜工作，推進到她看見今日預約大量空缺並產生克制而明確的經營壓力。",
+  "primary_action": "Existing monitor rotates naturally toward the audience while Lin Muqing notices the sparse appointment grid and lightly points to it.",
+  "secondary_motion": [
+    "slow smooth camera push-in",
+    "natural breathing",
+    "one subtle blink",
+    "gaze shifts to screen",
+    "restrained eyebrow and mouth change"
+  ],
+  "camera_motion": "Slow dolly-in with minimal lateral adjustment; no sudden pan, zoom jump, or handheld shake.",
+  "lighting": "Constant 3000K warm white",
+  "audio_policy": "No dialogue or lip-sync; optional subtle clinic room tone only.",
+  "ending_state_asset_id": "A2_V1.1",
+  "continuity_risks": [
+    "monitor morph or duplication",
+    "character identity drift",
+    "hand and finger deformation",
+    "screen UI text artifacts",
+    "scene geometry drift",
+    "failure to land on approved last frame"
+  ],
+  "output_drive_folder_id": "1Agd5P1s6XglVV56r5mVpjSfBZhCuFT-k",
+  "next_action": "GENERATE_FLOW_S1"
+}
