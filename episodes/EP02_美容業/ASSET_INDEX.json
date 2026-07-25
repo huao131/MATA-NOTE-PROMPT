@@ -83,5 +83,24 @@
     }
   },
   "flow_videos": {},
-  "final_assets": {}
+  "final_assets": {},
+  "flow_packages": {
+    "S1_V1.1": {
+      "status": "READY_FOR_GENERATION",
+      "package_file": "flow/S1_FLOW_PACKAGE_V1.1.md",
+      "package_github_commit_sha": "132806efe21176b08329183c11b831e598ccb6f9",
+      "package_drive_file_id": "1i3J_wGImBAhQN_dAnWcHpYau9abKl0np",
+      "package_drive_parent_folder_id": "1r9Hco-9q9YxhxkyIePRpg1q-mjaWhOI7",
+      "package_sha256": "c4353bbc8e2694e836dde042cc7fdd4ad1ee92965950ff4b1a5c66405023e736",
+      "manifest_file": "flow/S1_FLOW_MANIFEST_V1.1.json",
+      "manifest_github_commit_sha": "dd540cd5429670d26484f921e1c3de66e206c0c7",
+      "manifest_drive_file_id": "1cjtAop9Xl2y3mLUxpycA4edzRhBj6HbT",
+      "manifest_drive_parent_folder_id": "1r9Hco-9q9YxhxkyIePRpg1q-mjaWhOI7",
+      "manifest_sha256": "ccdbdd5bb680f75e606545007fc50d0e58de82a7bb7d36909c551a4acf51c68f",
+      "first_frame_drive_file_id": "1VZAg0Uube2FiPKB7d0M7THw3N8vTnt-E",
+      "last_frame_drive_file_id": "1yRgyTakLEmN2rz6iCJUIHAhRjJtI6VYL",
+      "output_drive_folder_id": "1Agd5P1s6XglVV56r5mVpjSfBZhCuFT-k",
+      "created_at": "2026-07-25T23:32:10+08:00"
+    }
+  }
 }
