@@ -1,14 +1,48 @@
 {
   "episode_id": "EP02",
   "masters": {
-    "logo": {"file": "masters/LOGO_MASTER_EXACT.png", "class": "EXACT", "status": "LOCKED"},
-    "character": {"file": "masters/CHARACTER_MASTER_林沐晴.png", "class": "LOCKED", "status": "LOCKED"},
-    "scene": {"file": "masters/SCENE_MASTER_日光美學館.png", "class": "LOCKED", "status": "LOCKED"},
-    "prop": {"file": "masters/PROP_MASTER_日光美學館.png", "class": "LOCKED", "status": "LOCKED"}
+    "logo": {
+      "file": "masters/LOGO_MASTER_EXACT.png",
+      "class": "EXACT",
+      "status": "LOCKED",
+      "drive_file_id": "1h8QJXBH4JMvG4VzX8q6dmpfEuXgn-16y",
+      "drive_parent_folder_id": "1Ea0dXnm-KryCo7Ngu5MoD5jwJXMac0wY",
+      "sha256": "8e94ab11977c85e9b32adc47f5f822024e820c3788f2cc219d3b848bdfeaf771"
+    },
+    "character": {
+      "file": "masters/CHARACTER_MASTER_林沐晴.png",
+      "class": "LOCKED",
+      "status": "LOCKED",
+      "drive_file_id": "1ZJZlAiTiiQsqd6jnwP4WLjW_G01XJZnb",
+      "drive_parent_folder_id": "1Ea0dXnm-KryCo7Ngu5MoD5jwJXMac0wY",
+      "sha256": "91affe3606078cf4e36353e791e0c3b83c85598e9094a2ef9e712ce7625682d9"
+    },
+    "scene": {
+      "file": "masters/SCENE_MASTER_日光美學館.png",
+      "class": "LOCKED",
+      "status": "LOCKED",
+      "drive_file_id": "1qJxZKC62YY7M6WuUycFBnORIbE1iRS12",
+      "drive_parent_folder_id": "1Ea0dXnm-KryCo7Ngu5MoD5jwJXMac0wY",
+      "sha256": "6a7172da2d6d7d8ce1fd322ed3a56c3673801850a066e87e433e0a74acfbc5a2"
+    },
+    "prop": {
+      "file": "masters/PROP_MASTER_日光美學館.png",
+      "class": "LOCKED",
+      "status": "LOCKED",
+      "drive_file_id": "1HEKEGLDkajXXk6Jx-aYvyY2MhZO8RB2v",
+      "drive_parent_folder_id": "1Ea0dXnm-KryCo7Ngu5MoD5jwJXMac0wY",
+      "sha256": "7192e2f943b15a5466732c0a8a439d7799a5af5114866d888829e61a3958319f"
+    }
   },
   "keyframes": {
-    "A1": {"status": "LOCKED", "drive_file_id": "1VZAg0Uube2FiPKB7d0M7THw3N8vTnt-E"},
-    "A2": {"status": "PENDING_REGENERATION"}
+    "A1": {
+      "status": "LOCKED",
+      "drive_file_id": "1VZAg0Uube2FiPKB7d0M7THw3N8vTnt-E",
+      "drive_parent_folder_id": "1fR0IMk20X9QLoLOoT06fEaj60rKXOuKq"
+    },
+    "A2": {
+      "status": "PENDING_REGENERATION"
+    }
   },
   "flow_videos": {},
   "final_assets": {}
