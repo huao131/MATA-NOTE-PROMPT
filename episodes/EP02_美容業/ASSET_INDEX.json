@@ -54,7 +54,8 @@
   },
   "active_keyframe_versions": {
     "A1": "A1",
-    "A2": "A2_V1.1"
+    "A2": "A2_V1.1",
+    "B1": "B1_V1.2"
   },
   "keyframes": {
     "A1": {
@@ -80,6 +81,18 @@
       "sha256": "4f977a56253c208d06658829e6c33aa791f588933b2f632edd6255f34b1a5aaf",
       "qc_result": "PASS+APPROVED",
       "approved_at": "2026-07-25T23:21:28+08:00"
+    },
+    "B1_V1_2": {
+      "status": "LOCKED",
+      "revision_of": "B1_V1.1",
+      "file_name": "B1_V1.2.png",
+      "drive_file_id": "13Ueo_LQaw6mJgpUiFWqF-yv-8fmXWmL-",
+      "drive_parent_folder_id": "1fR0IMk20X9QLoLOoT06fEaj60rKXOuKq",
+      "sha256": "819551420bfca3ff3deb73f154204a1d7fc3c186d0acf32b176268e87f0b2ca9",
+      "qc_result": "PASS+APPROVED",
+      "approved_at": "2026-07-26T00:00:00+08:00",
+      "reference_eligible": true,
+      "notes": "B1 V1.2 approved after isolated notebook-orientation correction. Character, scene, workstation, composition and imagination visuals retained from the approved B1 reference."
     }
   },
   "flow_videos": {},
