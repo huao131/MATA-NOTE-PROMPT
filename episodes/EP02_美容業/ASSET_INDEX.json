@@ -34,6 +34,15 @@
       "sha256": "7192e2f943b15a5466732c0a8a439d7799a5af5114866d888829e61a3958319f"
     }
   },
+  "storyboard_revisions": {
+    "V1.1_DRAFT": {
+      "status": "QC_WAITING",
+      "github_file": "STORYBOARD_V1.1_DRAFT.md",
+      "drive_file_id": "19aTW_ZSg8Q_MJbKrYGCIH6fLLOa86xhk",
+      "drive_parent_folder_id": "169XR6Fsw0m4myrBgaeEJstyHYocHOLd9",
+      "sha256": "7cd91abccc3f83a73c27b204c9c5ca464964ad391f6402f0e8972aec7f441dab"
+    }
+  },
   "keyframes": {
     "A1": {
       "status": "LOCKED",
@@ -48,6 +57,14 @@
       "sha256": "4975d70c1d7e5a76581fed99208997bf9a49a5a345428e344c3630ea0fc5d960",
       "qc_result": "PASS+APPROVED",
       "approved_at": "2026-07-25T23:06:03+08:00"
+    },
+    "A2_V1.1": {
+      "status": "QC_WAITING",
+      "revision_of": "A2",
+      "file_name": "A2_V1.1_QC_PENDING.png",
+      "drive_file_id": "1yRgyTakLEmN2rz6iCJUIHAhRjJtI6VYL",
+      "drive_parent_folder_id": "154684CrcHW3cALKSAnVzlbFv-bahLAPr",
+      "sha256": "4f977a56253c208d06658829e6c33aa791f588933b2f632edd6255f34b1a5aaf"
     }
   },
   "flow_videos": {},
