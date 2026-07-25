@@ -3,10 +3,11 @@
   "current_phase": "KEYFRAME_PRODUCTION",
   "current_segment": "S1",
   "current_keyframe": "A2",
-  "runtime_state": "KEYFRAME_READY",
+  "runtime_state": "QC_WAITING",
   "last_approved_frame": "A1",
-  "next_action": "PRE_FLIGHT_THEN_GENERATE_A2",
+  "next_action": "WAIT_FOR_QC_COMMAND",
+  "current_candidate_drive_file_id": "1913KiK3zKenYljDwYtc82y5722uQs7I5",
   "story_lock_version": "V1.0",
   "visual_lock_version": "V1.0",
-  "updated_at": "2026-07-25T00:00:00+00:00"
+  "updated_at": "2026-07-25T23:03:04+08:00"
 }
