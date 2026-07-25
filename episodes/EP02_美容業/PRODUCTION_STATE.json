@@ -1,13 +1,12 @@
 {
   "episode_id": "EP02",
-  "current_phase": "KEYFRAME_REVISION",
+  "current_phase": "FLOW_PREPARATION",
   "current_segment": "S1",
-  "current_keyframe": "A2_V1.1",
-  "runtime_state": "QC_WAITING",
-  "last_approved_frame": "A2",
-  "next_action": "WAIT_FOR_QC_COMMAND",
-  "current_candidate_drive_file_id": "1yRgyTakLEmN2rz6iCJUIHAhRjJtI6VYL",
-  "story_lock_version": "V1.1_DRAFT",
+  "current_keyframe": null,
+  "runtime_state": "FLOW_PACKAGE_READY",
+  "last_approved_frame": "A2_V1.1",
+  "next_action": "BUILD_FLOW_PACKAGE_S1",
+  "story_lock_version": "V1.1",
   "visual_lock_version": "V1.0",
-  "updated_at": "2026-07-25T23:18:19+08:00"
+  "updated_at": "2026-07-25T23:21:28+08:00"
 }
