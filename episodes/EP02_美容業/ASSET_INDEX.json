@@ -41,7 +41,11 @@
       "drive_parent_folder_id": "1fR0IMk20X9QLoLOoT06fEaj60rKXOuKq"
     },
     "A2": {
-      "status": "PENDING_REGENERATION"
+      "status": "QC_WAITING",
+      "file_name": "A2_QC_PENDING_V1.png",
+      "drive_file_id": "1913KiK3zKenYljDwYtc82y5722uQs7I5",
+      "drive_parent_folder_id": "154684CrcHW3cALKSAnVzlbFv-bahLAPr",
+      "sha256": "4975d70c1d7e5a76581fed99208997bf9a49a5a345428e344c3630ea0fc5d960"
     }
   },
   "flow_videos": {},
