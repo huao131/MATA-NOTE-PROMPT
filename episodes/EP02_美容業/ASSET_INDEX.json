@@ -1,0 +1,15 @@
+{
+  "episode_id": "EP02",
+  "masters": {
+    "logo": {"file": "masters/LOGO_MASTER_EXACT.png", "class": "EXACT", "status": "LOCKED"},
+    "character": {"file": "masters/CHARACTER_MASTER_林沐晴.png", "class": "LOCKED", "status": "LOCKED"},
+    "scene": {"file": "masters/SCENE_MASTER_日光美學館.png", "class": "LOCKED", "status": "LOCKED"},
+    "prop": {"file": "masters/PROP_MASTER_日光美學館.png", "class": "LOCKED", "status": "LOCKED"}
+  },
+  "keyframes": {
+    "A1": {"status": "LOCKED", "drive_file_id": "1VZAg0Uube2FiPKB7d0M7THw3N8vTnt-E"},
+    "A2": {"status": "PENDING_REGENERATION"}
+  },
+  "flow_videos": {},
+  "final_assets": {}
+}

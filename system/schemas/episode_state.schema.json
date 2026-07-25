@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MATA Episode Production State",
+  "type": "object",
+  "required": ["episode_id", "current_phase", "runtime_state", "next_action"],
+  "properties": {
+    "episode_id": {"type": "string", "minLength": 1},
+    "current_phase": {"type": "string"},
+    "current_segment": {"type": ["string", "null"]},
+    "current_keyframe": {"type": ["string", "null"]},
+    "runtime_state": {"type": "string"},
+    "last_approved_frame": {"type": ["string", "null"]},
+    "next_action": {"type": "string"},
+    "story_lock_version": {"type": ["string", "null"]},
+    "visual_lock_version": {"type": ["string", "null"]},
+    "updated_at": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}
