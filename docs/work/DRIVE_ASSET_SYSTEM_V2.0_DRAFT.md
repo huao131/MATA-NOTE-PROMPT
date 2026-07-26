@@ -1,92 +1,42 @@
 # DRIVE_ASSET_SYSTEM_V2.0（DRAFT｜第一批審閱版）
 
-**Status:** DRAFT — Work specification only.  
-**Depends on:** PRODUCT DEFINITION LOCK V2.0 and verified Folder Registry V2.  
-**Prohibited at this stage:** SYSTEM SPECIFICATION LOCK V2.0, Codex implementation, Drive migration, deletion, or creation of parallel folders.
+**Status:** V2_SPECIFICATION_REVIEW_PAUSED  
+**Evidence statuses:** VERIFIED, INFERRED, UNVERIFIED, CONFLICTED. Only VERIFIED evidence may automatically update Canonical Production State.
 
-## 1. Purpose and boundary
+## Canonical folder records
 
-Google Drive is the media and project-asset data store. GitHub remains the authoritative source for specifications, production state, version registers, locks, and asset indexes. Drive must not become an untracked second source of production truth.
+| stable_folder_code | display_name_zh_TW | google_drive_folder_id | parent_folder_id | folder_purpose | allowed_content | prohibited_content | verification_status | verified_at |
+|---|---|---|---|---|---|---|---|---|
+| V2_ROOT | MATA AI 原創影片製片系統 V2 | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 0ABSV-eJBI2nfUk9PVA | 唯一 V2 根目錄 | 五大 V2 根目錄 | 平行根目錄、未登錄資產 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_GLOBAL_OS | 01_全域系統規範 | 1EN1rMhvq3_RVy1f8wfJ04fup3U6-2n_5 | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 共用規範副本 | 全域參考、受控副本 | Episode 媒體與單集規則 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_ORIGINAL_VIDEO_LIBRARY | 02_原創影片資料庫 | 14mSHtk6_AGUJgx58qPiyPFl0KarFjqtC | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | Industry→Series→Episode 媒體 | Episode 資產 | 全域 Master、未登錄來源 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_SHARED_ASSET_LIBRARY | 03_共用素材資料庫 | 1Tv5Y2WslnnshOn6Im4Be2tJFiBYN00aV | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 可重用 Master 與 Exact Assets | 核准角色、場景、道具、Exact Assets | 未核准生成替代品 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_PRODUCTION_DATABASE | 04_製片控制與索引 | 1cm52SBzr7Lsay3ZIxoXyTGp3Y90fvniG | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 受控匯出、manifest、log 副本 | Drive manifests、logs、受控匯出 | Canonical Production State 唯一來源 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_ARCHIVE | 05_封存資料庫 | 1uLoGd1X1Iri-y-1UQMI0Fsj3jjfng3Wz | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 封存與舊系統稽核 | 封存資產、稽核清單 | 新 V2 生產資產 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_ARCHIVE_LEGACY_AUDIT | 01_舊系統稽核 | 1HxcUf9pQ4Djjlc_eIoTlRwm1O7XbNqu6 | 1uLoGd1X1Iri-y-1UQMI0Fsj3jjfng3Wz | Legacy 分類證據 | 保留、遷移、封存、待刪除候選清單 | 自動移轉或刪除 | VERIFIED | 2026-07-26T04:45:00Z |
 
-V2 adopts one physical root, one Chinese display-name interface, stable codes, and immutable Drive IDs. The logical layers Global OS, Series, and Episode are mapped into the verified five-root structure; they are not separate top-level Drive roots.
+## Identity and write controls
 
-## 2. Verified canonical root
+- Stable code and Drive ID are the identity pair; Chinese display name is an interface label only.
+- Before a write, resolve stable_folder_code, then verify Drive ID and parent ID. If any ID is absent or mismatched, stop and report; do not create a replacement folder.
+- Do not infer canonical status from a similar title. No Chinese/English parallel hierarchy is permitted.
+- Partner installations use their own V2_ROOT and their own independent mapping; no partner may reuse Mata老師’s Drive IDs.
+- Existing V2 folder skeleton is VERIFIED; proposed Series, Episode, and subfolder nodes are UNVERIFIED until separately approved and physically verified.
 
-| Stable code | Display name | Drive ID | Role |
-|---|---|---|---|
-| V2_ROOT | MATA AI 原創影片製片系統 V2 | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | Only V2 physical root |
-| V2_GLOBAL_OS | 01_全域系統規範 | 1EN1rMhvq3_RVy1f8wfJ04fup3U6-2n_5 | Global reference copies and reusable operating assets |
-| V2_ORIGINAL_VIDEO_LIBRARY | 02_原創影片資料庫 | 14mSHtk6_AGUJgx58qPiyPFl0KarFjqtC | Industry → Series/Content Direction → Episode media hierarchy |
-| V2_SHARED_ASSET_LIBRARY | 03_共用素材資料庫 | 1Tv5Y2WslnnshOn6Im4Be2tJFiBYN00aV | Reusable Character, Scene, Prop, Exact Asset masters |
-| V2_PRODUCTION_DATABASE | 04_製片控制與索引 | 1cm52SBzr7Lsay3ZIxoXyTGp3Y90fvniG | Controlled export copies, registry snapshots, manifests, logs |
-| V2_ARCHIVE | 05_封存資料庫 | 1uLoGd1X1Iri-y-1UQMI0Fsj3jjfng3Wz | Archive and legacy audit containment |
+## GitHub and Drive boundary
 
-## 3. Logical-to-physical mapping
+GitHub is canonical for specification, Asset Index, Production State, approvals, locks, version and dependency registers. Drive is canonical for physical files, folder IDs and media storage. Drive placement alone never changes Canonical Production State.
 
-| Logical layer | Physical Drive location | Rule |
-|---|---|---|
-| Global OS | 01_全域系統規範, 03_共用素材資料庫, 04_製片控制與索引 | Shared standards and reusable assets only; no Episode-specific rule becomes Global by default. |
-| Series | 02_原創影片資料庫 / 產業 / 系列或內容方向 | Series rules are scoped to that Series node. |
-| Episode | 02_原創影片資料庫 / 產業 / 系列或內容方向 / Episode | One Episode owns one physical media directory and one GitHub state. |
-| Legacy audit | 05_封存資料庫 / 01_舊系統稽核 | Retain and classify only; no automatic migration or deletion. |
+## Freeze
 
-## 4. Proposed Episode folder template — not yet created
+No SYSTEM SPECIFICATION LOCK V2.0, Codex implementation, Flow-point use, Legacy move, deletion, migration, or overwrite is authorized.
 
-When separately approved, every new Episode folder uses the following stable-code template beneath its Series node. The Chinese display names are the Drive interface; the codes are recorded in GitHub registries.
+## Episode asset template — proposed only
 
-| Order | Stable code suffix | Display name | Contents |
-|---:|---|---|---|
-| 01 | PROJECT_CONTROL | 01_專案控制 | Drive manifest copy, links, read-only handoff references |
-| 02 | BRIEF_INSIGHT | 02_企劃與洞察 | Brief, insight evidence, approved references |
-| 03 | CREATIVE_HOOK | 03_創意與鉤子 | Creative alternatives and Creative Lock copies |
-| 04 | STORY | 04_故事與腳本 | Treatment, script, timeline, Story Lock copies |
-| 05 | VISUAL_BIBLE | 05_視覺聖經 | Character/Scene/Prop/Lighting specifications |
-| 06 | STORYBOARD | 06_分鏡 | Storyboard sheets and frame plans |
-| 07 | KEYFRAMES | 07_關鍵影格 | Draft, passed, approved, locked frame outputs |
-| 08 | FLOW_PRODUCTION | 08_Flow製片 | Flow packages, inputs, outputs, retry evidence |
-| 09 | AUDIO | 09_音訊 | Narration sources, recordings, music licenses |
-| 10 | SUBTITLES | 10_字幕 | SRT, transcript, subtitle QA files |
-| 11 | EDITING_PACKAGE | 11_剪輯交接包 | Editing manifest, timeline, exports |
-| 12 | FINAL_OUTPUT | 12_正式成品 | Final-approved delivery media only |
-| 13 | PRODUCTION_LOG | 13_製片紀錄 | QA evidence, production log, learning exports |
-| 14 | REJECTED_ARCHIVE | 14_退件與封存 | Rejected or superseded assets; never treated as approved |
+Episode folders are not yet created and remain UNVERIFIED. When approved, the logical sequence is Project Control, Brief/Insight, Creative/Hook, Story, Visual Bible, Storyboard, Keyframes, Flow Production, Audio, Subtitles, Editing Package, Final Output, Production Log, Rejected/Archive.
 
-This table is a specification, not authorization to create folders.
+## Asset control
 
-## 5. Asset state and version controls
+Asset names use {episode_id}__{asset_type}__{logical_name}__{version}__{approval_status}.{ext}. DRAFT and PASSED are not APPROVED. APPROVED requires a GitHub approval record; LOCKED fixes the downstream baseline. REJECTED retains source ID and reason but cannot enter approved paths. LOCK, FINAL, MASTER and APPROVED originals are never overwritten; CURRENT_EFFECTIVE and SUPERSEDED exist only in external registers.
 
-- Drive represents physical media state; GitHub registers the authoritative status and version.
-- `DRAFT`: exploratory output; may be regenerated.
-- `PASSED`: machine/system QC passed; still awaits human decision where required.
-- `APPROVED`: human-approved asset; preserve its file and ID.
-- `LOCKED`: immutable reference for downstream continuity.
-- `REJECTED`: retained in rejected/archive location with reason; cannot enter approved paths.
-- `ARCHIVED`: no longer current but retained under governed archive conditions.
-- `SUPERSEDED` and `CURRENT_EFFECTIVE` are recorded in external version/lock registers; they do not alter historical LOCK, FINAL, MASTER, or APPROVED files.
-
-## 6. Asset identity fields
-
-Each registered asset must include: `asset_id`, `episode_id`, `stable_folder_code`, `drive_folder_id`, `google_drive_file_id`, `asset_type`, `version`, `status`, `source_asset_ids`, `created_at`, `verified_at`, and `continuity_dependencies`.
-
-For Exact Assets (logos, brand marks, approved portraits, supplied images), additionally record `exact_asset=true` and the approved source file ID. Generative AI must not recreate them as a substitute.
-
-## 7. Legacy governance
-
-The verified legacy audit area is `05_封存資料庫 / 01_舊系統稽核` and presently contains four classification folders: retain, migrate, archive, and delete candidates. A `DELETE CANDIDATE` classification is not deletion approval. Dependency checks, retention decisions, and human authorization are mandatory before any destructive action.
-
-The older standalone root `MATA AI VIDEO STUDIO OS` is kept as external legacy evidence. It is not a V2 root and must not be copied into a new parallel hierarchy.
-
-## 8. Controls and acceptance checks
-
-Before this draft can be promoted for lock review, the following must be completed:
-
-1. Approve or revise the Episode template and naming convention.
-2. Define GitHub schemas for Folder Registry, Asset Index, and Version/Lock Registers.
-3. Define a repeatable new-Episode folder creation checklist.
-4. Define index write-back timing for each Stage 0–9.
-5. Test one new Episode without creating a parallel root.
-6. Confirm legacy classification ownership and delete-approval process.
-
-## 9. Explicit non-actions
-
-This document does not authorize any folder creation, rename, move, deletion, migration, version overwrite, production-state rewrite, SYSTEM SPECIFICATION LOCK V2.0, or Codex implementation.
+All source_asset_ids and downstream_dependency_ids must be recorded. Any upstream revision requires dependency re-check of every linked Flow package, output, editing manifest and final-QC record. Exact Assets (logo, brand mark, approved portrait, supplied/licensed image) must be copied or composited from approved source file ID. Generative AI must not redraw, imitate, or substitute them; any substitute is REJECTED.
