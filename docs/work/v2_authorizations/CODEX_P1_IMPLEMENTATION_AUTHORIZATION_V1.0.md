@@ -13,6 +13,7 @@
 | P0 accepted baseline | `296a70fd87e4bde4b3bcc064e9aa6612531a4cb1` |
 | System Specification Lock ID | `SYS-SPEC-LOCK-V2.0-20260726-001` |
 | Current Effective Manifest | `docs/work/v2_drafts/20_SYSTEM_SPECIFICATION_LOCK_CANDIDATE_MANIFEST_V2.2_DRAFT.md` |
+| Remediation reference | `CODEX-P1-WRITE-SCOPE-ADDENDUM-V1.0-20260727-001`; `CODEX-P1-TEST-MAPPING-ADDENDUM-V1.0-20260727-001` |
 
 本文件只建立 P1 實作授權與 phase gates。本次治理作業不建立 P1
 實作分支、不建立 P1 程式、不修改 P0，亦不授權 P2 或 P3。
@@ -28,8 +29,9 @@
 - P0 程式、Schema、測試與報告不得被破壞、刪除、覆寫或繞過。
 - P1 開始前，實作分支必須由上述 P0 Accepted Commit 建立，並確認
   remote history 一致。
-- 所有未被 Current Effective 規格精確定義的實作路徑或測試映射均受
-  `STOP_AND_REPORT_REQUIRED` phase gate 約束。
+- P1 精確實作路徑由 Write Scope Addendum 核准；P1 一對一測試 ID
+  由 Test Mapping Addendum 核准。兩份 Addendum 必須與本授權一起
+  通過 P1 Authorization Review。
 
 ## 3. Exact P1 Scope
 
@@ -44,9 +46,8 @@ D08、D09、D10、D11、D12，不得擴充。
 - 輸入：D04 Workflow Schema、D10 Portable Installation Guide。
 - 輸出：New Episode initialization plan。
 - 依賴：P0 已接受；Repository Publication Gate 已解除。
-- 實作邊界：只處理新 V2 Episode／測試範圍的初始化規劃；正式精確
-  寫入路徑尚未由 Current Effective 文件定義，故為
-  `STOP_AND_REPORT_REQUIRED`。
+- 實作邊界：只處理新 V2 Episode／測試範圍的初始化規劃；精確寫入
+  路徑由 Write Scope Addendum 核准。
 - 驗收測試：新 Episode／`TEST_` scope 隔離；P0 path governance
   回歸；不得觸碰 Legacy 或正式 Production State。
 - 不包含：Legacy 遷移、正式 Episode 資料修改、Drive 資料夾建立、
@@ -95,8 +96,7 @@ D08、D09、D10、D11、D12，不得擴充。
 - 輸出：Prompt Library metadata model。
 - 依賴：D04 GAP 已由 Current Effective Workflow Schema 解除。
 - 實作邊界：僅處理 metadata 與來源追溯；精確 schema／repository
-  寫入路徑及 D12 一對一 test ID 未明定，均為
-  `STOP_AND_REPORT_REQUIRED`。
+  路徑及一對一 Test ID 由兩份 remediation Addendum 核准。
 - 驗收測試：approved input traceability、Evidence／version refs、
   非 VERIFIED 阻塞與不得控制 Flow 的負向測試。
 - 不包含：Prompt 內容生成、Flow 控制、外部 API 呼叫、正式資產處理。
@@ -111,8 +111,7 @@ D08、D09、D10、D11、D12，不得擴充。
 - 依賴：D08 GAP 已由 Current Effective Tool Handoff Specification
   解除。
 - 實作邊界：只產出檔案化交接資料與驗證缺口；精確 repository
-  寫入路徑及 D12 一對一 test ID 未明定，均為
-  `STOP_AND_REPORT_REQUIRED`。
+  路徑及一對一 Test ID 由兩份 remediation Addendum 核准。
 - 驗收測試：handoff 必填欄位、VERIFIED evidence、Gate／dependency
   阻塞、Rejected／Exact Asset 保護，以及不得呼叫 Flow 的負向測試。
 - 不包含：Flow 自動呼叫、點數消耗、媒體生成、CapCut 操作或發布。
@@ -147,24 +146,25 @@ P1 Codex 只可讀取：
 
 ## 6. Authorized Write Scope
 
-Repository Structure 只定義 `schemas/`、`registries/`、`episodes/`、
-`templates/`、`tests/` 等邏輯根目錄，未定義 P1 專用精確路徑與命名。
-因此不得把這些根目錄視為廣泛寫入授權。
+Write Scope Addendum
+`CODEX-P1-WRITE-SCOPE-ADDENDUM-V1.0-20260727-001` 核准下列最小、
+隔離、可回復的 P1 專用路徑：
 
-| Work item | Authorized artifact type | Exact path status |
+| Work item | Exact authorized paths | Status |
 |---|---|---|
-| P1-01 | New Episode initialization plan／template | `STOP_AND_REPORT_REQUIRED` |
-| P1-02 | Production State workflow／schema／TEST fixture | `STOP_AND_REPORT_REQUIRED` |
-| P1-03 | Gate Register operation／schema／TEST fixture | `STOP_AND_REPORT_REQUIRED` |
-| P1-04 | Segment／Asset status handler／schema／TEST fixture | `STOP_AND_REPORT_REQUIRED` |
-| P1-05 | Prompt Library metadata model／schema／TEST fixture | `STOP_AND_REPORT_REQUIRED` |
-| P1-06 | Storyboard／Flow handoff manifest／schema／TEST fixture | `STOP_AND_REPORT_REQUIRED` |
-| P1 delivery | P1 validation report | `docs/work/v2_reports/P1_*_REPORT_V*.md` |
+| P1-01 | `src/mata_p1/episode_initialization.py`; `schemas/p1/episode_initialization.schema.json`; `tests/p1/test_episode_initialization.py`; `tests/p1/fixtures/TEST_*` | `AUTHORIZED` |
+| P1-02 | `src/mata_p1/production_state.py`; `schemas/p1/production_state.schema.json`; `tests/p1/test_production_state.py`; `tests/p1/fixtures/TEST_*` | `AUTHORIZED` |
+| P1-03 | `src/mata_p1/gate_register.py`; `schemas/p1/gate_register.schema.json`; `tests/p1/test_gate_register.py`; `tests/p1/fixtures/TEST_*` | `AUTHORIZED` |
+| P1-04 | `src/mata_p1/status_handling.py`; `schemas/p1/segment_asset_status.schema.json`; `tests/p1/test_status_handling.py`; `tests/p1/fixtures/TEST_*` | `AUTHORIZED` |
+| P1-05 | `src/mata_p1/prompt_metadata.py`; `schemas/p1/prompt_library_metadata.schema.json`; `tests/p1/test_prompt_metadata.py`; `tests/p1/fixtures/TEST_*` | `AUTHORIZED` |
+| P1-06 | `src/mata_p1/handoff_manifest.py`; `schemas/p1/storyboard_flow_handoff.schema.json`; `tests/p1/test_handoff_manifest.py`; `tests/p1/fixtures/TEST_*` | `AUTHORIZED` |
+| Shared | `src/mata_p1/__init__.py`; `src/mata_p1/constants.py`; `src/mata_p1/errors.py`; `tests/p1/__init__.py`; `tests/p1/_support.py` | `AUTHORIZED` |
+| P1 delivery | `docs/work/v2_reports/P1_IMPLEMENTATION_VALIDATION_REPORT_V1.0.md` | `AUTHORIZED` |
 
-除 P1 驗證報告外，開始任何程式寫入前，必須由正式治理補充文件核准
-每個工作項目的 P1 專用精確路徑與檔案類型。禁止以 `src/`、`tests/`
-或 `docs/` 作為替代授權。即使路徑獲補充核准，也不得修改 P0、
-Legacy、媒體、正式 Episode／Production State 或受保護檔案。
+本授權不授權整個 `src/`、`schemas/`、`tests/` 或 `docs/`。除上表
+精確路徑與 `TEST_*` fixture pattern 外，任何寫入均須
+`STOP_AND_REPORT`。不得修改 P0、Legacy、媒體、正式 Episode／
+Production State 或受保護檔案。
 
 ## 7. P1 Mandatory Controls
 
@@ -194,9 +194,8 @@ P1 測試必須包含：
 - REC-01 至 REC-05 Stop／Recovery／Conflict／Gate blocking 測試；
   不得操作 Drive。
 - Gate 順序與六 Gate 完整稽核欄位測試。
-- P1-01 scope isolation、P1-05 Prompt traceability 與 P1-06
-  no-Flow-execution 測試；在 D12 未提供一對一 test ID 前標記
-  `STOP_AND_REPORT_REQUIRED`，不得省略或自行降低驗收標準。
+- Test Mapping Addendum 中 P1-01～P1-06 的 25 個一對一 Test ID；
+  P1-05 與 P1-06 mapping status 為 `AUTHORIZED`。
 - Repository path traversal／allowlist 回歸測試。
 - P0 全部 `62` 項測試持續通過。
 - P1 新增測試全部通過。
@@ -244,7 +243,7 @@ P1 完成後必須交付：
 
 | Phase | Status |
 |---|---|
-| P1 | `AUTHORIZED`，但受本文件的 `STOP_AND_REPORT_REQUIRED` 精確路徑與測試映射 gates 約束 |
+| P1 | `AUTHORIZED`；精確路徑與一對一測試映射由兩份 remediation Addendum 核准，仍須 P1 Authorization Review PASS |
 | P2 | `BLOCKED` |
 | P3 | `BLOCKED` |
 
