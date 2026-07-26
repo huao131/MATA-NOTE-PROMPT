@@ -1,0 +1,9 @@
+{
+  "dependency_status": "DEPENDENCY_RECHECK_REQUIRED",
+  "affected_assets": ["TEST_ASSET_001"],
+  "affected_segments": ["TEST_SEGMENT_001"],
+  "affected_outputs": ["TEST_OUTPUT_001"],
+  "recheck_owner": "TEST_OWNER",
+  "recheck_result": "DEPENDENCY_RECHECK_REQUIRED",
+  "evidence_source": ["TEST_COMMIT_SHA"]
+}

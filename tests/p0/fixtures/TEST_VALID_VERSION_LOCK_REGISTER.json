@@ -1,0 +1,9 @@
+{
+  "records": [
+    {
+      "scope_id": "TEST_SCOPE",
+      "artifact_id": "TEST_ARTIFACT",
+      "version": "V1.0"
+    }
+  ]
+}
