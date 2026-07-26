@@ -1,59 +1,36 @@
 # 03｜V2 Google Drive Canonical Mapping（DRAFT）
 
-**Status:** DRAFT — verification completed; not a SYSTEM SPECIFICATION LOCK  
-**Verified at:** 2026-07-26T04:45:00Z  
-**Verification scope:** existing Google Drive IDs; metadata, direct-child listings, and exact-name searches.  
-**Change authority:** none. This document records the post-rename state only.
+**Status:** V2_SPECIFICATION_REVIEW_PAUSED  
+**Evidence statuses:** VERIFIED, INFERRED, UNVERIFIED, CONFLICTED. Only VERIFIED evidence may automatically update Canonical Production State.
 
-## 1. Verification conclusion
+## Canonical folder records
 
-The V2 root was renamed in place. Its Google Drive folder ID is unchanged. The root contains exactly five direct child folders, all using the approved 「編號＋繁體中文顯示名稱」 convention.
+| stable_folder_code | display_name_zh_TW | google_drive_folder_id | parent_folder_id | folder_purpose | allowed_content | prohibited_content | verification_status | verified_at |
+|---|---|---|---|---|---|---|---|---|
+| V2_ROOT | MATA AI 原創影片製片系統 V2 | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 0ABSV-eJBI2nfUk9PVA | 唯一 V2 根目錄 | 五大 V2 根目錄 | 平行根目錄、未登錄資產 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_GLOBAL_OS | 01_全域系統規範 | 1EN1rMhvq3_RVy1f8wfJ04fup3U6-2n_5 | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 共用規範副本 | 全域參考、受控副本 | Episode 媒體與單集規則 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_ORIGINAL_VIDEO_LIBRARY | 02_原創影片資料庫 | 14mSHtk6_AGUJgx58qPiyPFl0KarFjqtC | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | Industry→Series→Episode 媒體 | Episode 資產 | 全域 Master、未登錄來源 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_SHARED_ASSET_LIBRARY | 03_共用素材資料庫 | 1Tv5Y2WslnnshOn6Im4Be2tJFiBYN00aV | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 可重用 Master 與 Exact Assets | 核准角色、場景、道具、Exact Assets | 未核准生成替代品 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_PRODUCTION_DATABASE | 04_製片控制與索引 | 1cm52SBzr7Lsay3ZIxoXyTGp3Y90fvniG | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 受控匯出、manifest、log 副本 | Drive manifests、logs、受控匯出 | Canonical Production State 唯一來源 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_ARCHIVE | 05_封存資料庫 | 1uLoGd1X1Iri-y-1UQMI0Fsj3jjfng3Wz | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 封存與舊系統稽核 | 封存資產、稽核清單 | 新 V2 生產資產 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_ARCHIVE_LEGACY_AUDIT | 01_舊系統稽核 | 1HxcUf9pQ4Djjlc_eIoTlRwm1O7XbNqu6 | 1uLoGd1X1Iri-y-1UQMI0Fsj3jjfng3Wz | Legacy 分類證據 | 保留、遷移、封存、待刪除候選清單 | 自動移轉或刪除 | VERIFIED | 2026-07-26T04:45:00Z |
 
-The historic folder `MATA AI VIDEO STUDIO OS` remains a separate Legacy root under the same shared-drive parent. It is not a parallel directory inside V2. No folders matching the former English V2 root names or the prohibited parallel structure `00_GLOBAL_OS / 01_SERIES / 02_EPISODES` were found.
+## Identity and write controls
 
-## 2. Canonical records
+- Stable code and Drive ID are the identity pair; Chinese display name is an interface label only.
+- Before a write, resolve stable_folder_code, then verify Drive ID and parent ID. If any ID is absent or mismatched, stop and report; do not create a replacement folder.
+- Do not infer canonical status from a similar title. No Chinese/English parallel hierarchy is permitted.
+- Partner installations use their own V2_ROOT and their own independent mapping; no partner may reuse Mata老師’s Drive IDs.
+- Existing V2 folder skeleton is VERIFIED; proposed Series, Episode, and subfolder nodes are UNVERIFIED until separately approved and physically verified.
 
-| stable_folder_code | display_name_zh_TW | google_drive_folder_id | parent_folder_id | child_folder_count | verification_status | verified_at |
-|---|---|---|---|---:|---|---|
-| V2_ROOT | MATA AI 原創影片製片系統 V2 | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 0ABSV-eJBI2nfUk9PVA | 5 | VERIFIED | 2026-07-26T04:45:00Z |
-| V2_GLOBAL_OS | 01_全域系統規範 | 1EN1rMhvq3_RVy1f8wfJ04fup3U6-2n_5 | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 0 | VERIFIED | 2026-07-26T04:45:00Z |
-| V2_ORIGINAL_VIDEO_LIBRARY | 02_原創影片資料庫 | 14mSHtk6_AGUJgx58qPiyPFl0KarFjqtC | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 0 | VERIFIED | 2026-07-26T04:45:00Z |
-| V2_SHARED_ASSET_LIBRARY | 03_共用素材資料庫 | 1Tv5Y2WslnnshOn6Im4Be2tJFiBYN00aV | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 0 | VERIFIED | 2026-07-26T04:45:00Z |
-| V2_PRODUCTION_DATABASE | 04_製片控制與索引 | 1cm52SBzr7Lsay3ZIxoXyTGp3Y90fvniG | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 0 | VERIFIED | 2026-07-26T04:45:00Z |
-| V2_ARCHIVE | 05_封存資料庫 | 1uLoGd1X1Iri-y-1UQMI0Fsj3jjfng3Wz | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 1 | VERIFIED | 2026-07-26T04:45:00Z |
-| V2_ARCHIVE_LEGACY_AUDIT | 01_舊系統稽核 | 1HxcUf9pQ4Djjlc_eIoTlRwm1O7XbNqu6 | 1uLoGd1X1Iri-y-1UQMI0Fsj3jjfng3Wz | 4 | VERIFIED | 2026-07-26T04:45:00Z |
+## GitHub and Drive boundary
 
-## 3. Root and child verification
+GitHub is canonical for specification, Asset Index, Production State, approvals, locks, version and dependency registers. Drive is canonical for physical files, folder IDs and media storage. Drive placement alone never changes Canonical Production State.
 
-- Root display name: `MATA AI 原創影片製片系統 V2` — VERIFIED.
-- Root parent folder ID: `0ABSV-eJBI2nfUk9PVA` — VERIFIED.
-- Root direct-child count: **5** — VERIFIED.
-- Root direct children: exactly the five canonical V2 folders in Section 2 — VERIFIED.
-- 05_封存資料庫 direct child: `01_舊系統稽核` — VERIFIED.
-- 01_舊系統稽核 direct-child count: **4** — VERIFIED:
-  - `01_保留清單`
-  - `02_遷移清單`
-  - `03_封存清單`
-  - `04_待刪除候選清單`
+## Freeze
 
-## 4. Parallel-structure check
+No SYSTEM SPECIFICATION LOCK V2.0, Codex implementation, Flow-point use, Legacy move, deletion, migration, or overwrite is authorized.
 
-| Check target | Result | Interpretation |
-|---|---|---|
-| Former English root names: `01_GLOBAL_OS`, `02_ORIGINAL_VIDEO_LIBRARY`, `03_SHARED_ASSET_LIBRARY`, `04_PRODUCTION_DATABASE`, `05_ARCHIVE` | NOT FOUND | No English-name V2 parallel root found. |
-| Prohibited parallel structure: `00_GLOBAL_OS`, `01_SERIES`, `02_EPISODES` | NOT FOUND | No prohibited V2 parallel hierarchy found. |
-| V2 root direct children | Exactly 5 | No additional Chinese or English sibling root under V2. |
-| `MATA AI VIDEO STUDIO OS` | FOUND outside V2; ID `1euWtGAXp4CflYr7mEG3gTYoOVJWjXs3p`; parent `0ABSV-eJBI2nfUk9PVA` | Legacy source retained for audit; not V2 structure and not to be renamed, moved, or deleted by this work. |
+## Physical verification
 
-## 5. Mapping rules now in force
-
-1. `stable_folder_code` is immutable and is the programmatic reference.
-2. `display_name_zh_TW` is the Drive-facing display name.
-3. `google_drive_folder_id` is immutable for an in-place rename and must be used for writes and relationship checks.
-4. Paths are explanatory only; folder ID plus parent ID is the authoritative location check.
-5. A folder is not Canonical merely because its title is similar. It must match the registered stable code, Drive ID, and parent ID.
-6. No migration, deletion, or creation of a parallel hierarchy is authorized by this document.
-
-## 6. Open follow-up
-
-This verification establishes only the current physical skeleton. Episode-level folder templates, asset registry fields, and migration decisions remain DRAFT work items and require separate approval before any Drive mutation.
+The V2 root has five direct children. Archive has one direct child, V2_ARCHIVE_LEGACY_AUDIT. The legacy root MATA AI VIDEO STUDIO OS (ID 1euWtGAXp4CflYr7mEG3gTYoOVJWjXs3p) is outside V2 and is audit-only. Former English V2 names and the prohibited 00_GLOBAL_OS / 01_SERIES / 02_EPISODES structure were not found inside V2.
