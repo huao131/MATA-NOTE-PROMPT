@@ -34,10 +34,11 @@
         "P0 accepted",
         "Repository Publication Gate released"
       ],
-      "implementation_boundary": "New V2 Episode and TEST scope planning only; exact write path requires a formal governance supplement.",
+      "implementation_boundary": "New V2 Episode and TEST scope planning only. Exact write paths are formally approved by the Write Scope Addendum; implementation is limited to those paths and the approved P1-EPI-01 through P1-EPI-03 test IDs. Anything outside the Addenda requires STOP_AND_REPORT.",
       "acceptance_tests": [
-        "P1-01-SCOPE-ISOLATION",
-        "P0-REPOSITORY-PATH-GOVERNANCE-REGRESSION"
+        "P1-EPI-01",
+        "P1-EPI-02",
+        "P1-EPI-03"
       ],
       "excluded": [
         "Legacy migration",
@@ -60,13 +61,12 @@
         "P0-01",
         "P0-05"
       ],
-      "implementation_boundary": "Validated state candidates only; no inferred Canonical State or formal Production State write.",
+      "implementation_boundary": "Validated state candidates only; no inferred Canonical State or formal Production State write. Exact write paths are approved by the Write Scope Addendum, and implementation is limited to those paths and P1-STATE-01 through P1-STATE-04. Anything outside the Addenda requires STOP_AND_REPORT.",
       "acceptance_tests": [
-        "EVD-01",
-        "EVD-02",
-        "EVD-03",
-        "EVD-04",
-        "REC-05"
+        "P1-STATE-01",
+        "P1-STATE-02",
+        "P1-STATE-03",
+        "P1-STATE-04"
       ],
       "excluded": [
         "Segment READY promotion of Episode READY",
@@ -87,13 +87,12 @@
       "dependencies": [
         "P1-02"
       ],
-      "implementation_boundary": "Full D05 Gate records only; booleans and Codex-declared human approval are forbidden.",
+      "implementation_boundary": "Full D05 Gate records only; booleans and Codex-declared human approval are forbidden. Exact write paths are approved by the Write Scope Addendum, and implementation is limited to those paths and P1-GATE-01 through P1-GATE-04. Anything outside the Addenda requires STOP_AND_REPORT.",
       "acceptance_tests": [
-        "EVD-03",
-        "VLK-04",
-        "REC-04",
-        "REC-05",
-        "P1-GATE-ORDER-AND-REQUIRED-FIELDS"
+        "P1-GATE-01",
+        "P1-GATE-02",
+        "P1-GATE-03",
+        "P1-GATE-04"
       ],
       "excluded": [
         "human approval",
@@ -113,13 +112,13 @@
       "dependencies": [
         "P0-03"
       ],
-      "implementation_boundary": "Segment, Asset, Lifecycle, and QC status domains remain separate; Rejected remains isolated evidence.",
+      "implementation_boundary": "Segment, Asset, Lifecycle, and QC status domains remain separate; Rejected remains isolated evidence. Exact write paths are approved by the Write Scope Addendum, and implementation is limited to those paths and P1-STATUS-01 through P1-STATUS-05. Anything outside the Addenda requires STOP_AND_REPORT.",
       "acceptance_tests": [
-        "EVD-02",
-        "AST-01",
-        "AST-02",
-        "AST-03",
-        "AST-04"
+        "P1-STATUS-01",
+        "P1-STATUS-02",
+        "P1-STATUS-03",
+        "P1-STATUS-04",
+        "P1-STATUS-05"
       ],
       "excluded": [
         "Rejected downstream use",
@@ -141,11 +140,12 @@
       "dependencies": [
         "D04 GAP resolved"
       ],
-      "implementation_boundary": "Metadata and traceability only; exact schema path and one-to-one D12 test ID require formal resolution.",
+      "implementation_boundary": "Metadata and traceability only. Exact write paths are formally approved by the Write Scope Addendum and one-to-one test mapping is formally approved by the Test Mapping Addendum. Implementation is limited to those paths and P1-PROMPT-01 through P1-PROMPT-04. Anything outside the Addenda requires STOP_AND_REPORT.",
       "acceptance_tests": [
-        "P1-05-PROMPT-TRACEABILITY",
-        "P1-05-NON-VERIFIED-BLOCK",
-        "P1-05-NO-FLOW-CONTROL"
+        "P1-PROMPT-01",
+        "P1-PROMPT-02",
+        "P1-PROMPT-03",
+        "P1-PROMPT-04"
       ],
       "excluded": [
         "Prompt content generation",
@@ -168,12 +168,13 @@
       "dependencies": [
         "D08 GAP resolved"
       ],
-      "implementation_boundary": "Handoff data and validation gaps only; exact repository path and one-to-one D12 test ID require formal resolution.",
+      "implementation_boundary": "Handoff data and validation gaps only. Exact write paths are formally approved by the Write Scope Addendum and one-to-one test mapping is formally approved by the Test Mapping Addendum. Implementation is limited to those paths and P1-HANDOFF-01 through P1-HANDOFF-05. Anything outside the Addenda requires STOP_AND_REPORT.",
       "acceptance_tests": [
-        "P1-06-HANDOFF-REQUIRED-FIELDS",
-        "P1-06-GATE-DEPENDENCY-BLOCK",
-        "P1-06-REJECTED-EXACT-ASSET-PROTECTION",
-        "P1-06-NO-FLOW-EXECUTION"
+        "P1-HANDOFF-01",
+        "P1-HANDOFF-02",
+        "P1-HANDOFF-03",
+        "P1-HANDOFF-04",
+        "P1-HANDOFF-05"
       ],
       "excluded": [
         "Flow invocation",
@@ -335,16 +336,36 @@
     },
     {
       "test_ids": [
-        "P1-01-SCOPE-ISOLATION",
-        "P1-GATE-ORDER-AND-REQUIRED-FIELDS",
-        "P1-05-PROMPT-TRACEABILITY",
-        "P1-05-NO-FLOW-CONTROL",
-        "P1-06-HANDOFF-REQUIRED-FIELDS",
-        "P1-06-NO-FLOW-EXECUTION"
+        "P1-EPI-01",
+        "P1-EPI-02",
+        "P1-EPI-03",
+        "P1-STATE-01",
+        "P1-STATE-02",
+        "P1-STATE-03",
+        "P1-STATE-04",
+        "P1-GATE-01",
+        "P1-GATE-02",
+        "P1-GATE-03",
+        "P1-GATE-04",
+        "P1-STATUS-01",
+        "P1-STATUS-02",
+        "P1-STATUS-03",
+        "P1-STATUS-04",
+        "P1-STATUS-05",
+        "P1-PROMPT-01",
+        "P1-PROMPT-02",
+        "P1-PROMPT-03",
+        "P1-PROMPT-04",
+        "P1-HANDOFF-01",
+        "P1-HANDOFF-02",
+        "P1-HANDOFF-03",
+        "P1-HANDOFF-04",
+        "P1-HANDOFF-05"
       ],
-      "category": "Backlog acceptance and P1-specific negative tests",
-      "source": "D11 acceptance criteria and D04/D05/D08/D09 contracts",
-      "d12_one_to_one_mapping_status": "STOP_AND_REPORT_REQUIRED"
+      "category": "Formally approved one-to-one P1 test mappings",
+      "source": "CODEX-P1-TEST-MAPPING-ADDENDUM-V1.0-20260727-001",
+      "test_mapping_authorization_reference": "CODEX-P1-TEST-MAPPING-ADDENDUM-V1.0-20260727-001",
+      "d12_one_to_one_mapping_status": "AUTHORIZED"
     },
     {
       "test_ids": [
@@ -390,8 +411,8 @@
     "SPECIFICATION_CONFLICT",
     "MANIFEST_GAP",
     "MISSING_FORMAL_SCHEMA",
-    "MISSING_TEST_PLAN_MAPPING",
-    "P1_EXACT_WRITE_PATH_NOT_FORMALLY_APPROVED",
+    "TEST_ID_OUTSIDE_APPROVED_ADDENDUM",
+    "WRITE_OUTSIDE_APPROVED_ADDENDUM_SCOPE",
     "P0_REGRESSION_FAILURE",
     "REPOSITORY_PATH_GOVERNANCE_FAILURE",
     "PROTECTED_ARTIFACT_CHANGE",
