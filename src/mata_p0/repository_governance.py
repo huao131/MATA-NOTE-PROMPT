@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import ntpath
 from pathlib import PurePosixPath
 from typing import Iterable
 
@@ -18,13 +19,38 @@ ALLOWED_P0_PREFIXES = (
 
 
 def normalize_repo_path(path: str) -> str:
-    normalized = str(PurePosixPath(path.replace("\\", "/")))
-    if normalized == "." or normalized.startswith("../") or normalized.startswith("/"):
+    if not path:
+        raise StopAndReport(
+            ContractViolation(
+                "PATH_OUTSIDE_REPOSITORY",
+                path,
+                "expected a non-empty repository-relative path",
+            )
+        )
+
+    slash_path = path.replace("\\", "/")
+    drive, _ = ntpath.splitdrive(path)
+    raw_parts = slash_path.split("/")
+    if (
+        drive
+        or slash_path.startswith("/")
+        or any(part == ".." for part in raw_parts)
+    ):
         raise StopAndReport(
             ContractViolation(
                 "PATH_OUTSIDE_REPOSITORY",
                 path,
                 "expected a repository-relative path",
+            )
+        )
+
+    normalized = str(PurePosixPath(slash_path))
+    if normalized == ".":
+        raise StopAndReport(
+            ContractViolation(
+                "PATH_OUTSIDE_REPOSITORY",
+                path,
+                "expected a non-empty repository-relative path",
             )
         )
     return normalized

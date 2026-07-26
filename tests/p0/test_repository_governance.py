@@ -16,10 +16,35 @@ class RepositoryGovernanceTests(unittest.TestCase):
             "src/mata_p0/example.py",
             "schemas/p0/example.schema.json",
             "tests/p0/test_example.py",
-            "docs/work/v2_reports/P0_REPORT.md",
+            "docs/work/v2_reports/example.md",
         ):
             with self.subTest(path=path):
                 self.assertEqual(assert_p0_write_path(path), path)
+
+    def test_parent_directory_components_stop(self) -> None:
+        for path in (
+            "src/mata_p0/../../episodes/EP02/file.json",
+            "tests/p0/../outside.json",
+            "schemas/p0/../../../README.md",
+            r"src\mata_p0\..\..\episodes\EP02\file.json",
+        ):
+            with self.subTest(path=path):
+                with self.assertRaises(StopAndReport):
+                    assert_p0_write_path(path)
+
+    def test_absolute_and_windows_drive_paths_stop(self) -> None:
+        for path in (
+            r"C:\MATA-AI-VIDEO-STUDIO-V2-P0\episodes\EP02\file.json",
+            r"\\server\share\file.json",
+            "/src/mata_p0/example.py",
+        ):
+            with self.subTest(path=path):
+                with self.assertRaises(StopAndReport):
+                    assert_p0_write_path(path)
+
+    def test_empty_path_stops(self) -> None:
+        with self.assertRaises(StopAndReport):
+            assert_p0_write_path("")
 
     def test_legacy_write_stops(self) -> None:
         with self.assertRaises(StopAndReport):
