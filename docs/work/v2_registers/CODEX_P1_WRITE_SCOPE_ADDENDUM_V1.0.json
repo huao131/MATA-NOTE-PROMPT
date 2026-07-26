@@ -1,0 +1,117 @@
+{
+  "addendum_id": "CODEX-P1-WRITE-SCOPE-ADDENDUM-V1.0-20260727-001",
+  "addendum_version": "V1.0",
+  "status": "AUTHORIZED",
+  "parent_authorization_id": "CODEX-P1-AUTH-V1.0-20260727-001",
+  "effective_date": "2026-07-27",
+  "repository": "huao131/MATA-AI-VIDEO-STUDIO",
+  "p0_accepted_commit": "296a70fd87e4bde4b3bcc064e9aa6612531a4cb1",
+  "governance_basis": [
+    "D04",
+    "D05",
+    "D06",
+    "D08",
+    "D09",
+    "D11",
+    "D12",
+    "P0_ACCEPTED_IMPLEMENTATION"
+  ],
+  "path_selection_policy": "MINIMAL_ISOLATED_RECOVERABLE_P1_PATHS_APPROVED_BY_GOVERNANCE_ADDENDUM",
+  "authorized_work_item_paths": [
+    {
+      "work_item_id": "P1-01",
+      "paths": [
+        "src/mata_p1/episode_initialization.py",
+        "schemas/p1/episode_initialization.schema.json",
+        "tests/p1/test_episode_initialization.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-02",
+      "paths": [
+        "src/mata_p1/production_state.py",
+        "schemas/p1/production_state.schema.json",
+        "tests/p1/test_production_state.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-03",
+      "paths": [
+        "src/mata_p1/gate_register.py",
+        "schemas/p1/gate_register.schema.json",
+        "tests/p1/test_gate_register.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-04",
+      "paths": [
+        "src/mata_p1/status_handling.py",
+        "schemas/p1/segment_asset_status.schema.json",
+        "tests/p1/test_status_handling.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-05",
+      "paths": [
+        "src/mata_p1/prompt_metadata.py",
+        "schemas/p1/prompt_library_metadata.schema.json",
+        "tests/p1/test_prompt_metadata.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-06",
+      "paths": [
+        "src/mata_p1/handoff_manifest.py",
+        "schemas/p1/storyboard_flow_handoff.schema.json",
+        "tests/p1/test_handoff_manifest.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
+    }
+  ],
+  "authorized_shared_paths": [
+    "src/mata_p1/__init__.py",
+    "src/mata_p1/constants.py",
+    "src/mata_p1/errors.py",
+    "tests/p1/__init__.py",
+    "tests/p1/_support.py"
+  ],
+  "authorized_report_paths": [
+    "docs/work/v2_reports/P1_IMPLEMENTATION_VALIDATION_REPORT_V1.0.md"
+  ],
+  "fixture_policy": {
+    "path_pattern": "tests/p1/fixtures/TEST_*",
+    "offline_or_simulated_only": true,
+    "formal_data_allowed": false,
+    "media_allowed": false,
+    "exact_asset_allowed": false,
+    "external_credentials_allowed": false
+  },
+  "broad_roots_authorized": false,
+  "p0_modification_allowed": false,
+  "legacy_modification_allowed": false,
+  "formal_episode_modification_allowed": false,
+  "formal_production_state_modification_allowed": false,
+  "media_modification_allowed": false,
+  "exact_asset_modification_allowed": false,
+  "google_drive_operations_allowed": false,
+  "flow_operations_allowed": false,
+  "capcut_operations_allowed": false,
+  "external_paid_api_allowed": false,
+  "unapproved_third_party_packages_allowed": false,
+  "blocked_phases": [
+    "P2",
+    "P3"
+  ],
+  "out_of_scope_path_action": "STOP_AND_REPORT_REQUIRED"
+}

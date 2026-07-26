@@ -1,0 +1,439 @@
+{
+  "authorization_id": "CODEX-P1-AUTH-V1.0-20260727-001",
+  "authorization_version": "V1.0",
+  "status": "AUTHORIZED_WITH_PHASE_GATES",
+  "authorized_by": "Mata老師",
+  "effective_date": "2026-07-27",
+  "repository": "huao131/MATA-AI-VIDEO-STUDIO",
+  "system_specification_lock_id": "SYS-SPEC-LOCK-V2.0-20260726-001",
+  "p0_accepted_commit": "296a70fd87e4bde4b3bcc064e9aa6612531a4cb1",
+  "p0_acceptance_status": "PASS",
+  "manifest": "docs/work/v2_drafts/20_SYSTEM_SPECIFICATION_LOCK_CANDIDATE_MANIFEST_V2.2_DRAFT.md",
+  "remediation_reference": {
+    "write_scope_addendum_id": "CODEX-P1-WRITE-SCOPE-ADDENDUM-V1.0-20260727-001",
+    "test_mapping_addendum_id": "CODEX-P1-TEST-MAPPING-ADDENDUM-V1.0-20260727-001"
+  },
+  "authorized_phase": "P1",
+  "blocked_phases": [
+    "P2",
+    "P3"
+  ],
+  "authorized_implementation_branch": "implementation/v2-p1-orchestration",
+  "implementation_branch_base_commit": "296a70fd87e4bde4b3bcc064e9aa6612531a4cb1",
+  "authorized_work_items": [
+    {
+      "work_item_id": "P1-01",
+      "name": "New Episode initialization plan",
+      "purpose": "Plan isolated initialization for a new V2 Episode and TEST scope.",
+      "inputs": [
+        "D04",
+        "D10"
+      ],
+      "output": "New Episode initialization plan",
+      "dependencies": [
+        "P0 accepted",
+        "Repository Publication Gate released"
+      ],
+      "implementation_boundary": "New V2 Episode and TEST scope planning only. Exact write paths are formally approved by the Write Scope Addendum; implementation is limited to those paths and the approved P1-EPI-01 through P1-EPI-03 test IDs. Anything outside the Addenda requires STOP_AND_REPORT.",
+      "acceptance_tests": [
+        "P1-EPI-01",
+        "P1-EPI-02",
+        "P1-EPI-03"
+      ],
+      "excluded": [
+        "Legacy migration",
+        "formal Episode mutation",
+        "Google Drive folder creation",
+        "P2",
+        "P3"
+      ],
+      "exact_write_path_status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-02",
+      "name": "Production State update workflow",
+      "purpose": "Provide an auditable Episode, Segment, and Asset state update workflow.",
+      "inputs": [
+        "D05"
+      ],
+      "output": "Production State update workflow",
+      "dependencies": [
+        "P0-01",
+        "P0-05"
+      ],
+      "implementation_boundary": "Validated state candidates only; no inferred Canonical State or formal Production State write. Exact write paths are approved by the Write Scope Addendum, and implementation is limited to those paths and P1-STATE-01 through P1-STATE-04. Anything outside the Addenda requires STOP_AND_REPORT.",
+      "acceptance_tests": [
+        "P1-STATE-01",
+        "P1-STATE-02",
+        "P1-STATE-03",
+        "P1-STATE-04"
+      ],
+      "excluded": [
+        "Segment READY promotion of Episode READY",
+        "replacement of human approval",
+        "formal Production State mutation"
+      ],
+      "exact_write_path_status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-03",
+      "name": "Gate Register operations",
+      "purpose": "Provide complete auditable operations for the six fixed Gates.",
+      "inputs": [
+        "D05",
+        "D11"
+      ],
+      "output": "Gate Register operations",
+      "dependencies": [
+        "P1-02"
+      ],
+      "implementation_boundary": "Full D05 Gate records only; booleans and Codex-declared human approval are forbidden. Exact write paths are approved by the Write Scope Addendum, and implementation is limited to those paths and P1-GATE-01 through P1-GATE-04. Anything outside the Addenda requires STOP_AND_REPORT.",
+      "acceptance_tests": [
+        "P1-GATE-01",
+        "P1-GATE-02",
+        "P1-GATE-03",
+        "P1-GATE-04"
+      ],
+      "excluded": [
+        "human approval",
+        "P2 or P3 gate automation",
+        "formal Gate PASS mutation"
+      ],
+      "exact_write_path_status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-04",
+      "name": "Segment and Asset status handling",
+      "purpose": "Handle Segment and Asset status while isolating Rejected assets.",
+      "inputs": [
+        "D08"
+      ],
+      "output": "Segment and Asset status handling",
+      "dependencies": [
+        "P0-03"
+      ],
+      "implementation_boundary": "Segment, Asset, Lifecycle, and QC status domains remain separate; Rejected remains isolated evidence. Exact write paths are approved by the Write Scope Addendum, and implementation is limited to those paths and P1-STATUS-01 through P1-STATUS-05. Anything outside the Addenda requires STOP_AND_REPORT.",
+      "acceptance_tests": [
+        "P1-STATUS-01",
+        "P1-STATUS-02",
+        "P1-STATUS-03",
+        "P1-STATUS-04",
+        "P1-STATUS-05"
+      ],
+      "excluded": [
+        "Rejected downstream use",
+        "Exact Asset generation",
+        "Exact Asset redraw",
+        "Exact Asset replacement"
+      ],
+      "exact_write_path_status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-05",
+      "name": "Prompt Library metadata model",
+      "purpose": "Model Prompt metadata traceable to approved inputs.",
+      "inputs": [
+        "D04",
+        "D08"
+      ],
+      "output": "Prompt Library metadata model",
+      "dependencies": [
+        "D04 GAP resolved"
+      ],
+      "implementation_boundary": "Metadata and traceability only. Exact write paths are formally approved by the Write Scope Addendum and one-to-one test mapping is formally approved by the Test Mapping Addendum. Implementation is limited to those paths and P1-PROMPT-01 through P1-PROMPT-04. Anything outside the Addenda requires STOP_AND_REPORT.",
+      "acceptance_tests": [
+        "P1-PROMPT-01",
+        "P1-PROMPT-02",
+        "P1-PROMPT-03",
+        "P1-PROMPT-04"
+      ],
+      "excluded": [
+        "Prompt content generation",
+        "Flow control",
+        "external API calls",
+        "formal asset processing"
+      ],
+      "exact_write_path_status": "AUTHORIZED",
+      "test_plan_mapping_status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-06",
+      "name": "Storyboard and Flow handoff manifest",
+      "purpose": "Produce a file-based handoff manifest and expose validation gaps.",
+      "inputs": [
+        "D08",
+        "D09"
+      ],
+      "output": "Storyboard and Flow handoff manifest",
+      "dependencies": [
+        "D08 GAP resolved"
+      ],
+      "implementation_boundary": "Handoff data and validation gaps only. Exact write paths are formally approved by the Write Scope Addendum and one-to-one test mapping is formally approved by the Test Mapping Addendum. Implementation is limited to those paths and P1-HANDOFF-01 through P1-HANDOFF-05. Anything outside the Addenda requires STOP_AND_REPORT.",
+      "acceptance_tests": [
+        "P1-HANDOFF-01",
+        "P1-HANDOFF-02",
+        "P1-HANDOFF-03",
+        "P1-HANDOFF-04",
+        "P1-HANDOFF-05"
+      ],
+      "excluded": [
+        "Flow invocation",
+        "Flow credit consumption",
+        "media generation",
+        "CapCut operation",
+        "publication"
+      ],
+      "exact_write_path_status": "AUTHORIZED",
+      "test_plan_mapping_status": "AUTHORIZED"
+    }
+  ],
+  "authorized_read_paths": [
+    "docs/work/v2_locks/SYSTEM_SPECIFICATION_LOCK_V2.0_RECORD.md",
+    "docs/work/v2_locks/SYSTEM_SPECIFICATION_LOCK_V2.0_ADDENDUM_V1.0.md",
+    "docs/work/v2_registers/SYSTEM_SPECIFICATION_LOCK_REGISTER_V2.0.json",
+    "docs/work/v2_authorizations/CODEX_IMPLEMENTATION_AUTHORIZATION_V1.1.md",
+    "docs/work/v2_drafts/20_SYSTEM_SPECIFICATION_LOCK_CANDIDATE_MANIFEST_V2.2_DRAFT.md",
+    "MANIFEST_V2.2:D01-D12:CURRENT_EFFECTIVE:LOCKED:VERIFIED:CODEX_READ_ALLOWED",
+    "MANIFEST_V2.2:S01-S02:CURRENT_EFFECTIVE:LOCKED:VERIFIED:CODEX_READ_ALLOWED",
+    "P0_ACCEPTED_COMMIT:src/mata_p0/",
+    "P0_ACCEPTED_COMMIT:schemas/p0/",
+    "P0_ACCEPTED_COMMIT:tests/p0/",
+    "P0_ACCEPTED_COMMIT:docs/work/v2_reports/P0_FOUNDATION_VALIDATION_REPORT_V1.0.md",
+    "P0_ACCEPTED_COMMIT:docs/work/v2_reports/P0_FOUNDATION_REMEDIATION_REPORT_V1.1.md",
+    "P1_CREATED_FILES_WITHIN_FORMALLY_APPROVED_EXACT_WRITE_SCOPE"
+  ],
+  "authorized_write_paths": [
+    {
+      "work_item_id": "P1-01",
+      "artifact_type": "New Episode initialization plan or template",
+      "paths": [
+        "src/mata_p1/episode_initialization.py",
+        "schemas/p1/episode_initialization.schema.json",
+        "tests/p1/test_episode_initialization.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-02",
+      "artifact_type": "Production State workflow, schema, and TEST fixture",
+      "paths": [
+        "src/mata_p1/production_state.py",
+        "schemas/p1/production_state.schema.json",
+        "tests/p1/test_production_state.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-03",
+      "artifact_type": "Gate Register operation, schema, and TEST fixture",
+      "paths": [
+        "src/mata_p1/gate_register.py",
+        "schemas/p1/gate_register.schema.json",
+        "tests/p1/test_gate_register.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-04",
+      "artifact_type": "Segment and Asset status handler, schema, and TEST fixture",
+      "paths": [
+        "src/mata_p1/status_handling.py",
+        "schemas/p1/segment_asset_status.schema.json",
+        "tests/p1/test_status_handling.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-05",
+      "artifact_type": "Prompt Library metadata model, schema, and TEST fixture",
+      "paths": [
+        "src/mata_p1/prompt_metadata.py",
+        "schemas/p1/prompt_library_metadata.schema.json",
+        "tests/p1/test_prompt_metadata.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-06",
+      "artifact_type": "Storyboard and Flow handoff manifest, schema, and TEST fixture",
+      "paths": [
+        "src/mata_p1/handoff_manifest.py",
+        "schemas/p1/storyboard_flow_handoff.schema.json",
+        "tests/p1/test_handoff_manifest.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-SHARED",
+      "artifact_type": "Shared P1 package and test support files",
+      "paths": [
+        "src/mata_p1/__init__.py",
+        "src/mata_p1/constants.py",
+        "src/mata_p1/errors.py",
+        "tests/p1/__init__.py",
+        "tests/p1/_support.py"
+      ],
+      "status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-DELIVERY",
+      "artifact_type": "P1 validation report",
+      "paths": [
+        "docs/work/v2_reports/P1_IMPLEMENTATION_VALIDATION_REPORT_V1.0.md"
+      ],
+      "status": "AUTHORIZED"
+    }
+  ],
+  "mandatory_tests": [
+    {
+      "test_ids": [
+        "EVD-01",
+        "EVD-02",
+        "EVD-03",
+        "EVD-04"
+      ],
+      "category": "Evidence, State, and Gate blocking",
+      "source": "D12"
+    },
+    {
+      "test_ids": [
+        "VLK-01",
+        "VLK-02",
+        "VLK-03",
+        "VLK-04"
+      ],
+      "category": "Protected Artifact, version, and dependency recheck",
+      "source": "D12"
+    },
+    {
+      "test_ids": [
+        "AST-01",
+        "AST-02",
+        "AST-03",
+        "AST-04"
+      ],
+      "category": "Rejected, Exact Asset, metadata, and Final Asset List",
+      "source": "D12",
+      "drive_interaction": "OFFLINE_FIXTURES_ONLY"
+    },
+    {
+      "test_ids": [
+        "REC-01",
+        "REC-02",
+        "REC-03",
+        "REC-04",
+        "REC-05"
+      ],
+      "category": "Stop, recovery, conflict, and Gate blocking",
+      "source": "D12",
+      "drive_interaction": "OFFLINE_FIXTURES_ONLY"
+    },
+    {
+      "test_ids": [
+        "P1-EPI-01",
+        "P1-EPI-02",
+        "P1-EPI-03",
+        "P1-STATE-01",
+        "P1-STATE-02",
+        "P1-STATE-03",
+        "P1-STATE-04",
+        "P1-GATE-01",
+        "P1-GATE-02",
+        "P1-GATE-03",
+        "P1-GATE-04",
+        "P1-STATUS-01",
+        "P1-STATUS-02",
+        "P1-STATUS-03",
+        "P1-STATUS-04",
+        "P1-STATUS-05",
+        "P1-PROMPT-01",
+        "P1-PROMPT-02",
+        "P1-PROMPT-03",
+        "P1-PROMPT-04",
+        "P1-HANDOFF-01",
+        "P1-HANDOFF-02",
+        "P1-HANDOFF-03",
+        "P1-HANDOFF-04",
+        "P1-HANDOFF-05"
+      ],
+      "category": "Formally approved one-to-one P1 test mappings",
+      "source": "CODEX-P1-TEST-MAPPING-ADDENDUM-V1.0-20260727-001",
+      "test_mapping_authorization_reference": "CODEX-P1-TEST-MAPPING-ADDENDUM-V1.0-20260727-001",
+      "d12_one_to_one_mapping_status": "AUTHORIZED"
+    },
+    {
+      "test_ids": [
+        "P0-ALL-62",
+        "P0-REPOSITORY-PATH-GOVERNANCE-REGRESSION",
+        "P1-ALL-NEW-TESTS",
+        "COMPILEALL",
+        "GIT-DIFF-CHECK",
+        "PROTECTED-CHANGES-ZERO",
+        "LEGACY-OR-FORMAL-TREE-CHANGES-ZERO",
+        "MEDIA-CHANGES-ZERO"
+      ],
+      "category": "Regression and delivery acceptance",
+      "source": "P0 accepted reports and this authorization"
+    }
+  ],
+  "prohibited_operations": [
+    "START_P2",
+    "START_P3",
+    "MODIFY_MAIN",
+    "MERGE_MAIN",
+    "FORCE_PUSH",
+    "FORCE_WITH_LEASE",
+    "REBASE",
+    "RESET_HARD",
+    "AMEND_PUBLISHED_COMMIT",
+    "MODIFY_OR_DELETE_P0_HISTORY",
+    "MODIFY_P0_CODE_SCHEMA_TESTS_OR_REPORTS",
+    "MODIFY_LEGACY",
+    "MODIFY_FORMAL_EPISODE_DATA",
+    "MODIFY_FORMAL_PRODUCTION_STATE",
+    "MODIFY_IMAGE_VIDEO_OR_AUDIO",
+    "GENERATE_REDRAW_OR_REPLACE_EXACT_ASSET",
+    "OPERATE_GOOGLE_DRIVE",
+    "OPERATE_FLOW",
+    "OPERATE_CAPCUT",
+    "USE_PAID_API",
+    "INSTALL_UNAPPROVED_THIRD_PARTY_PACKAGE",
+    "EXPAND_SPECIFICATION",
+    "GUESS_ON_CONFLICT"
+  ],
+  "stop_conditions": [
+    "SPECIFICATION_CONFLICT",
+    "MANIFEST_GAP",
+    "MISSING_FORMAL_SCHEMA",
+    "TEST_ID_OUTSIDE_APPROVED_ADDENDUM",
+    "WRITE_OUTSIDE_APPROVED_ADDENDUM_SCOPE",
+    "P0_REGRESSION_FAILURE",
+    "REPOSITORY_PATH_GOVERNANCE_FAILURE",
+    "PROTECTED_ARTIFACT_CHANGE",
+    "LEGACY_MEDIA_EXACT_ASSET_OR_FORMAL_STATE_CHANGE",
+    "PAID_API_REQUIRED",
+    "GOOGLE_DRIVE_FLOW_OR_CAPCUT_OPERATION_REQUIRED",
+    "UNAPPROVED_THIRD_PARTY_PACKAGE_REQUIRED",
+    "REMOTE_BRANCH_HISTORY_MISMATCH",
+    "P0_ACCEPTED_BASELINE_MISMATCH"
+  ],
+  "phase_gates": {
+    "P1": "AUTHORIZED",
+    "P2": "BLOCKED",
+    "P3": "BLOCKED"
+  },
+  "external_paid_api_allowed": false,
+  "google_drive_operations_allowed": false,
+  "flow_operations_allowed": false,
+  "capcut_operations_allowed": false,
+  "legacy_modification_allowed": false,
+  "formal_asset_modification_allowed": false,
+  "main_modification_allowed": false,
+  "p0_modification_allowed": false
+}
