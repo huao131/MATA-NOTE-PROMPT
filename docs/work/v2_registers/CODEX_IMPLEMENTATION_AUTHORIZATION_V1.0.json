@@ -1,0 +1,95 @@
+{
+  "authorization_id": "CODEX-AUTH-V1.0-20260726-001",
+  "scope_type": "GLOBAL",
+  "scope_id": "MATA_AI_ORIGINAL_VIDEO_STUDIO_OS_V2",
+  "artifact_type": "CODEX_IMPLEMENTATION_AUTHORIZATION",
+  "version": "V1.0",
+  "status": "AUTHORIZED_WITH_PHASE_GATES",
+  "repository": "huao131/MATA-AI-VIDEO-STUDIO",
+  "locked_specification_head": "b2215507075b9f90c02f4c6b992a7285a0956d99",
+  "lock_record": "docs/work/v2_locks/SYSTEM_SPECIFICATION_LOCK_V2.0_RECORD.md",
+  "lock_register": "docs/work/v2_registers/SYSTEM_SPECIFICATION_LOCK_REGISTER_V2.0.json",
+  "allowed_manifest": "docs/work/v2_drafts/20_SYSTEM_SPECIFICATION_LOCK_CANDIDATE_MANIFEST_V2.1_DRAFT.md",
+  "implementation_branch": "implementation/v2-p0-foundation",
+  "base_branch": "review/v2-system-specification-publication-v2",
+  "main_merge_authorized": false,
+  "force_push_authorized": false,
+  "external_paid_api_authorized": false,
+  "flow_control_authorized": false,
+  "capcut_control_authorized": false,
+  "legacy_change_authorized": false,
+  "formal_asset_change_authorized": false,
+  "phase_authorization": {
+    "P0": {
+      "status": "AUTHORIZED",
+      "scope": [
+        "Schema validation",
+        "Folder Registry read and validation",
+        "Asset Index read/write contracts",
+        "Version and Lock protection",
+        "Evidence Status validation",
+        "Dependency Recheck engine",
+        "Repository governance scaffolding",
+        "Unit tests for P0 controls"
+      ]
+    },
+    "P1": {
+      "status": "BLOCKED_PENDING_P0_ACCEPTANCE",
+      "scope": [
+        "New Episode initialization",
+        "Production State updates",
+        "Gate Register",
+        "Segment and Asset status",
+        "Prompt Library",
+        "Storyboard and Flow handoff data structures"
+      ]
+    },
+    "P2": {
+      "status": "BLOCKED_PENDING_P1_ACCEPTANCE",
+      "scope": [
+        "Drive ID mapping",
+        "Physical asset registration",
+        "Exact Asset validation",
+        "CapCut Editing Manifest",
+        "SRT and Voiceover handoff"
+      ]
+    },
+    "P3": {
+      "status": "BLOCKED_PENDING_P2_ACCEPTANCE",
+      "scope": [
+        "Rejected isolation",
+        "Broken Dependency detection",
+        "Lock violation interception",
+        "Duplicate version interception",
+        "Missing Drive ID stop rules",
+        "Rollback and Recovery"
+      ]
+    }
+  },
+  "required_tests": [
+    "All P0 unit tests pass",
+    "Non-VERIFIED evidence cannot write Canonical State",
+    "Locked or protected files cannot be overwritten",
+    "Duplicate version numbers are rejected",
+    "Upstream changes trigger DEPENDENCY_RECHECK_REQUIRED",
+    "Segment Ready cannot promote Episode Ready",
+    "Missing Drive ID causes STOP_AND_REPORT",
+    "Rejected assets cannot become references",
+    "Exact Assets cannot be replaced by generated assets"
+  ],
+  "acceptance_gate": {
+    "required_result": "PASS",
+    "required_evidence": [
+      "Implementation commit SHA",
+      "Changed-file list",
+      "Test report",
+      "Failure and recovery report",
+      "No protected file modifications",
+      "No external paid API dependency"
+    ],
+    "approver": "Mata老師"
+  },
+  "codex_read_policy": "Codex may read only the twelve CURRENT_EFFECTIVE documents listed in Manifest V2.1, plus this authorization, the System Specification Lock Record, Lock Register, and files it creates on the implementation branch.",
+  "created_at": "2026-07-26T23:06:48+08:00",
+  "created_by": "Mata老師 / ChatGPT AI製片中樞"
+}
