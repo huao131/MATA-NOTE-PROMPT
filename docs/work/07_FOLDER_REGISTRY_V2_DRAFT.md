@@ -1,62 +1,36 @@
 # 07｜Folder Registry V2（DRAFT）
 
-**Status:** DRAFT — verified physical-folder registry; no Lock is created by this document.  
-**Verified at:** 2026-07-26T04:45:00Z  
-**Authority:** GitHub is the registry source of truth; Google Drive is the physical asset store.
+**Status:** V2_SPECIFICATION_REVIEW_PAUSED  
+**Evidence statuses:** VERIFIED, INFERRED, UNVERIFIED, CONFLICTED. Only VERIFIED evidence may automatically update Canonical Production State.
 
-## 1. Registry contract
+## Canonical folder records
 
-Each folder record must retain all six mandatory identity fields:
+| stable_folder_code | display_name_zh_TW | google_drive_folder_id | parent_folder_id | folder_purpose | allowed_content | prohibited_content | verification_status | verified_at |
+|---|---|---|---|---|---|---|---|---|
+| V2_ROOT | MATA AI 原創影片製片系統 V2 | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 0ABSV-eJBI2nfUk9PVA | 唯一 V2 根目錄 | 五大 V2 根目錄 | 平行根目錄、未登錄資產 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_GLOBAL_OS | 01_全域系統規範 | 1EN1rMhvq3_RVy1f8wfJ04fup3U6-2n_5 | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 共用規範副本 | 全域參考、受控副本 | Episode 媒體與單集規則 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_ORIGINAL_VIDEO_LIBRARY | 02_原創影片資料庫 | 14mSHtk6_AGUJgx58qPiyPFl0KarFjqtC | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | Industry→Series→Episode 媒體 | Episode 資產 | 全域 Master、未登錄來源 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_SHARED_ASSET_LIBRARY | 03_共用素材資料庫 | 1Tv5Y2WslnnshOn6Im4Be2tJFiBYN00aV | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 可重用 Master 與 Exact Assets | 核准角色、場景、道具、Exact Assets | 未核准生成替代品 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_PRODUCTION_DATABASE | 04_製片控制與索引 | 1cm52SBzr7Lsay3ZIxoXyTGp3Y90fvniG | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 受控匯出、manifest、log 副本 | Drive manifests、logs、受控匯出 | Canonical Production State 唯一來源 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_ARCHIVE | 05_封存資料庫 | 1uLoGd1X1Iri-y-1UQMI0Fsj3jjfng3Wz | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 封存與舊系統稽核 | 封存資產、稽核清單 | 新 V2 生產資產 | VERIFIED | 2026-07-26T04:45:00Z |
+| V2_ARCHIVE_LEGACY_AUDIT | 01_舊系統稽核 | 1HxcUf9pQ4Djjlc_eIoTlRwm1O7XbNqu6 | 1uLoGd1X1Iri-y-1UQMI0Fsj3jjfng3Wz | Legacy 分類證據 | 保留、遷移、封存、待刪除候選清單 | 自動移轉或刪除 | VERIFIED | 2026-07-26T04:45:00Z |
 
-- `stable_folder_code`
-- `display_name_zh_TW`
-- `google_drive_folder_id`
-- `parent_folder_id`
-- `verification_status`
-- `verified_at`
+## Identity and write controls
 
-`google_drive_folder_id` and `parent_folder_id` are identifiers, not display labels. A folder rename must update only `display_name_zh_TW` after the physical Drive rename is verified; it must never replace the Drive ID.
+- Stable code and Drive ID are the identity pair; Chinese display name is an interface label only.
+- Before a write, resolve stable_folder_code, then verify Drive ID and parent ID. If any ID is absent or mismatched, stop and report; do not create a replacement folder.
+- Do not infer canonical status from a similar title. No Chinese/English parallel hierarchy is permitted.
+- Partner installations use their own V2_ROOT and their own independent mapping; no partner may reuse Mata老師’s Drive IDs.
+- Existing V2 folder skeleton is VERIFIED; proposed Series, Episode, and subfolder nodes are UNVERIFIED until separately approved and physically verified.
 
-## 2. Verified folders
+## GitHub and Drive boundary
 
-| stable_folder_code | display_name_zh_TW | google_drive_folder_id | parent_folder_id | child_folder_count | verification_status | verified_at |
-|---|---|---|---|---:|---|---|
-| V2_ROOT | MATA AI 原創影片製片系統 V2 | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 0ABSV-eJBI2nfUk9PVA | 5 | VERIFIED | 2026-07-26T04:45:00Z |
-| V2_GLOBAL_OS | 01_全域系統規範 | 1EN1rMhvq3_RVy1f8wfJ04fup3U6-2n_5 | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 0 | VERIFIED | 2026-07-26T04:45:00Z |
-| V2_ORIGINAL_VIDEO_LIBRARY | 02_原創影片資料庫 | 14mSHtk6_AGUJgx58qPiyPFl0KarFjqtC | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 0 | VERIFIED | 2026-07-26T04:45:00Z |
-| V2_SHARED_ASSET_LIBRARY | 03_共用素材資料庫 | 1Tv5Y2WslnnshOn6Im4Be2tJFiBYN00aV | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 0 | VERIFIED | 2026-07-26T04:45:00Z |
-| V2_PRODUCTION_DATABASE | 04_製片控制與索引 | 1cm52SBzr7Lsay3ZIxoXyTGp3Y90fvniG | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 0 | VERIFIED | 2026-07-26T04:45:00Z |
-| V2_ARCHIVE | 05_封存資料庫 | 1uLoGd1X1Iri-y-1UQMI0Fsj3jjfng3Wz | 18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT | 1 | VERIFIED | 2026-07-26T04:45:00Z |
-| V2_ARCHIVE_LEGACY_AUDIT | 01_舊系統稽核 | 1HxcUf9pQ4Djjlc_eIoTlRwm1O7XbNqu6 | 1uLoGd1X1Iri-y-1UQMI0Fsj3jjfng3Wz | 4 | VERIFIED | 2026-07-26T04:45:00Z |
+GitHub is canonical for specification, Asset Index, Production State, approvals, locks, version and dependency registers. Drive is canonical for physical files, folder IDs and media storage. Drive placement alone never changes Canonical Production State.
 
-## 3. Parent-child assertions
+## Freeze
 
-| Parent stable code | Expected direct children | Observed | Status |
-|---|---|---:|---|
-| V2_ROOT | V2_GLOBAL_OS, V2_ORIGINAL_VIDEO_LIBRARY, V2_SHARED_ASSET_LIBRARY, V2_PRODUCTION_DATABASE, V2_ARCHIVE | 5 | VERIFIED |
-| V2_ARCHIVE | V2_ARCHIVE_LEGACY_AUDIT | 1 | VERIFIED |
-| V2_ARCHIVE_LEGACY_AUDIT | 01_保留清單, 02_遷移清單, 03_封存清單, 04_待刪除候選清單 | 4 | VERIFIED |
+No SYSTEM SPECIFICATION LOCK V2.0, Codex implementation, Flow-point use, Legacy move, deletion, migration, or overwrite is authorized.
 
-## 4. Status vocabulary
+## Registry operations
 
-- `VERIFIED`: metadata title, folder ID, parent relationship, and direct-child count were observed in Drive.
-- `PENDING_VERIFICATION`: planned record not yet physically present or not yet rechecked.
-- `MISMATCH`: a physical Drive record differs from its registered ID, parent, or required display name.
-- `DEPRECATED_REFERENCE`: retained only for historical traceability; never a target for new V2 writes.
-
-## 5. Legacy boundary
-
-The separate historical root `MATA AI VIDEO STUDIO OS` (ID `1euWtGAXp4CflYr7mEG3gTYoOVJWjXs3p`) has the same shared-drive parent as V2 but is outside the V2 root. It is a `DEPRECATED_REFERENCE` for audit only. It must not receive new V2 assets, and it is not a parallel V2 hierarchy.
-
-## 6. Write and change controls
-
-1. Before any write, resolve the target by stable folder code through this registry.
-2. Before creating a child, list the intended parent and check the proposed child name and code for collision.
-3. After any Drive-side rename, move, or child creation, re-read metadata and update `verification_status` and `verified_at`.
-4. A folder title alone must not be used to infer parentage or canonical status.
-5. `LOCK`, `FINAL`, `MASTER`, and `APPROVED` files are not altered by registry maintenance.
-6. The legacy root may be audited but may not be moved, renamed, or deleted under the V2 work scope.
-
-## 7. Deferred records
-
-Episode templates, Series nodes, Project Control folders, and registry/index files are intentionally absent from this registry because they do not yet physically exist in V2. They must be added first as `PENDING_VERIFICATION` only after their creation is separately approved.
+A rename changes only display_name_zh_TW after re-verification. A new record begins UNVERIFIED and cannot become a write target until its physical folder ID and parent relationship are VERIFIED. The external legacy root is a historical reference, not a V2 write target.
