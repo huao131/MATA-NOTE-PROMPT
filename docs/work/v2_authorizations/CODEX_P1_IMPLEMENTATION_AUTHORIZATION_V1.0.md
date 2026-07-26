@@ -47,9 +47,10 @@ D08、D09、D10、D11、D12，不得擴充。
 - 輸出：New Episode initialization plan。
 - 依賴：P0 已接受；Repository Publication Gate 已解除。
 - 實作邊界：只處理新 V2 Episode／測試範圍的初始化規劃；精確寫入
-  路徑由 Write Scope Addendum 核准。
-- 驗收測試：新 Episode／`TEST_` scope 隔離；P0 path governance
-  回歸；不得觸碰 Legacy 或正式 Production State。
+  路徑已由 Write Scope Addendum 正式核准，實作只能使用核准路徑與
+  `P1-EPI-01`～`P1-EPI-03`，超出 Addendum 範圍即 `STOP_AND_REPORT`。
+- 驗收測試：`P1-EPI-01`～`P1-EPI-03`；P0 path governance 回歸另列
+  於共用 mandatory tests。
 - 不包含：Legacy 遷移、正式 Episode 資料修改、Drive 資料夾建立、
   P2／P3。
 
@@ -60,8 +61,10 @@ D08、D09、D10、D11、D12，不得擴充。
 - 輸出：Production State update workflow。
 - 依賴：P0-01 Schema validation、P0-05 Evidence validator。
 - 實作邊界：只允許符合 D05 Schema、Evidence 與 Gate 順序的狀態候選；
-  不得推定 Canonical State。
-- 驗收測試：EVD-01、EVD-02、EVD-03、EVD-04、REC-05。
+  不得推定 Canonical State。精確路徑已由 Write Scope Addendum 核准，
+  實作只能使用核准路徑與 `P1-STATE-01`～`P1-STATE-04`，超出範圍即
+  `STOP_AND_REPORT`。
+- 驗收測試：`P1-STATE-01`～`P1-STATE-04`。
 - 不包含：Segment READY 自動推升 Episode READY、人工核准取代、
   正式 Production State 寫入。
 
@@ -72,9 +75,10 @@ D08、D09、D10、D11、D12，不得擴充。
 - 輸出：Gate Register operations。
 - 依賴：P1-02。
 - 實作邊界：Gate entry 必須保存 D05 規定欄位；不得以布林值取代
-  Gate record，亦不得由 Codex 宣告人工 Gate PASS。
-- 驗收測試：EVD-03、VLK-04、REC-04、REC-05，以及六 Gate 順序、
-  必填欄位與阻塞負向測試。
+  Gate record，亦不得由 Codex 宣告人工 Gate PASS。精確路徑已由
+  Write Scope Addendum 核准，實作只能使用核准路徑與
+  `P1-GATE-01`～`P1-GATE-04`，超出範圍即 `STOP_AND_REPORT`。
+- 驗收測試：`P1-GATE-01`～`P1-GATE-04`。
 - 不包含：人工核准、P2／P3 Gate 自動化、正式 Gate PASS 寫入。
 
 ### P1-04 — Segment／Asset status handling
@@ -84,8 +88,10 @@ D08、D09、D10、D11、D12，不得擴充。
 - 輸出：Segment／Asset status handling。
 - 依賴：P0-03 Asset Index contract。
 - 實作邊界：Segment、Asset、Lifecycle 與 QC 狀態維持分離；
-  `REJECTED` 只保留為歷史或隔離證據。
-- 驗收測試：EVD-02、AST-01、AST-02、AST-03、AST-04。
+  `REJECTED` 只保留為歷史或隔離證據。精確路徑已由 Write Scope
+  Addendum 核准，實作只能使用核准路徑與
+  `P1-STATUS-01`～`P1-STATUS-05`，超出範圍即 `STOP_AND_REPORT`。
+- 驗收測試：`P1-STATUS-01`～`P1-STATUS-05`。
 - 不包含：把 Rejected 納入 Reference／Dependency／Final Asset List、
   Exact Asset 生成、重繪或替代。
 
@@ -95,10 +101,12 @@ D08、D09、D10、D11、D12，不得擴充。
 - 輸入：D04 Workflow Schema、D08 Tool Handoff Specification。
 - 輸出：Prompt Library metadata model。
 - 依賴：D04 GAP 已由 Current Effective Workflow Schema 解除。
-- 實作邊界：僅處理 metadata 與來源追溯；精確 schema／repository
-  路徑及一對一 Test ID 由兩份 remediation Addendum 核准。
-- 驗收測試：approved input traceability、Evidence／version refs、
-  非 VERIFIED 阻塞與不得控制 Flow 的負向測試。
+- 實作邊界：僅處理 metadata 與來源追溯；精確 write paths 已由 Write
+  Scope Addendum 正式核准，一對一 test mapping 已由 Test Mapping
+  Addendum 正式核准。實作只能使用核准路徑與
+  `P1-PROMPT-01`～`P1-PROMPT-04`，超出 Addendum 範圍即
+  `STOP_AND_REPORT`。
+- 驗收測試：`P1-PROMPT-01`～`P1-PROMPT-04`。
 - 不包含：Prompt 內容生成、Flow 控制、外部 API 呼叫、正式資產處理。
 
 ### P1-06 — Storyboard／Flow handoff manifest
@@ -110,10 +118,12 @@ D08、D09、D10、D11、D12，不得擴充。
 - 輸出：Storyboard／Flow handoff manifest。
 - 依賴：D08 GAP 已由 Current Effective Tool Handoff Specification
   解除。
-- 實作邊界：只產出檔案化交接資料與驗證缺口；精確 repository
-  路徑及一對一 Test ID 由兩份 remediation Addendum 核准。
-- 驗收測試：handoff 必填欄位、VERIFIED evidence、Gate／dependency
-  阻塞、Rejected／Exact Asset 保護，以及不得呼叫 Flow 的負向測試。
+- 實作邊界：只產出檔案化交接資料與驗證缺口；精確 write paths 已由
+  Write Scope Addendum 正式核准，一對一 test mapping 已由 Test
+  Mapping Addendum 正式核准。實作只能使用核准路徑與
+  `P1-HANDOFF-01`～`P1-HANDOFF-05`，超出 Addendum 範圍即
+  `STOP_AND_REPORT`。
+- 驗收測試：`P1-HANDOFF-01`～`P1-HANDOFF-05`。
 - 不包含：Flow 自動呼叫、點數消耗、媒體生成、CapCut 操作或發布。
 
 ## 4. Authorized Implementation Branch
@@ -194,8 +204,19 @@ P1 測試必須包含：
 - REC-01 至 REC-05 Stop／Recovery／Conflict／Gate blocking 測試；
   不得操作 Drive。
 - Gate 順序與六 Gate 完整稽核欄位測試。
-- Test Mapping Addendum 中 P1-01～P1-06 的 25 個一對一 Test ID；
-  P1-05 與 P1-06 mapping status 為 `AUTHORIZED`。
+- Test Mapping Addendum 中 P1-01～P1-06 的 25 個正式一對一 Test ID：
+  - P1-01：`P1-EPI-01`、`P1-EPI-02`、`P1-EPI-03`
+  - P1-02：`P1-STATE-01`、`P1-STATE-02`、`P1-STATE-03`、
+    `P1-STATE-04`
+  - P1-03：`P1-GATE-01`、`P1-GATE-02`、`P1-GATE-03`、
+    `P1-GATE-04`
+  - P1-04：`P1-STATUS-01`、`P1-STATUS-02`、`P1-STATUS-03`、
+    `P1-STATUS-04`、`P1-STATUS-05`
+  - P1-05：`P1-PROMPT-01`、`P1-PROMPT-02`、`P1-PROMPT-03`、
+    `P1-PROMPT-04`
+  - P1-06：`P1-HANDOFF-01`、`P1-HANDOFF-02`、`P1-HANDOFF-03`、
+    `P1-HANDOFF-04`、`P1-HANDOFF-05`
+- P1-01～P1-06 的 test mapping status 全部為 `AUTHORIZED`。
 - Repository path traversal／allowlist 回歸測試。
 - P0 全部 `62` 項測試持續通過。
 - P1 新增測試全部通過。
@@ -258,7 +279,7 @@ P2 只有在 P1 Acceptance Review 為 `PASS`，且新的正式 P2 授權生效�
 - Manifest 缺口或讀取白名單不完整。
 - 缺少工作項目所需正式 Schema。
 - 缺少 Test Plan 一對一對照或驗收標準。
-- P1 精確 write path 尚未獲正式核准。
+- 嘗試寫入 Write Scope Addendum 核准範圍以外的路徑。
 - P0 任一回歸測試失敗。
 - Repository path governance 失敗或被繞過。
 - Protected Artifact 發生異動。
