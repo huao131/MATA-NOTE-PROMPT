@@ -2,12 +2,12 @@
   "episode_id": "EP02",
   "current_phase": "KEYFRAME_PRODUCTION",
   "current_segment": "S2",
-  "current_keyframe": "B2_V1.2",
-  "runtime_state": "NEXT_KEYFRAME",
-  "last_approved_frame": "B1_V1.2",
-  "next_action": "GENERATE_B2_V1.2",
+  "current_keyframe": "B1_V2.0",
+  "runtime_state": "REVISION_REQUIRED",
+  "last_approved_frame": "A2_V1.1",
+  "next_action": "REBUILD_B1_V2.0_FROM_UPDATED_STORY",
   "story_lock_version": "V1.1",
   "visual_lock_version": "V1.0",
-  "updated_at": "2026-07-26T00:00:00+08:00",
+  "updated_at": "2026-07-26T10:00:00+08:00",
   "current_flow_package": "S1_V1.1"
 }
