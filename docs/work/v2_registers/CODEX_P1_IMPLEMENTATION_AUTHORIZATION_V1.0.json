@@ -9,6 +9,10 @@
   "p0_accepted_commit": "296a70fd87e4bde4b3bcc064e9aa6612531a4cb1",
   "p0_acceptance_status": "PASS",
   "manifest": "docs/work/v2_drafts/20_SYSTEM_SPECIFICATION_LOCK_CANDIDATE_MANIFEST_V2.2_DRAFT.md",
+  "remediation_reference": {
+    "write_scope_addendum_id": "CODEX-P1-WRITE-SCOPE-ADDENDUM-V1.0-20260727-001",
+    "test_mapping_addendum_id": "CODEX-P1-TEST-MAPPING-ADDENDUM-V1.0-20260727-001"
+  },
   "authorized_phase": "P1",
   "blocked_phases": [
     "P2",
@@ -42,7 +46,7 @@
         "P2",
         "P3"
       ],
-      "exact_write_path_status": "STOP_AND_REPORT_REQUIRED"
+      "exact_write_path_status": "AUTHORIZED"
     },
     {
       "work_item_id": "P1-02",
@@ -69,7 +73,7 @@
         "replacement of human approval",
         "formal Production State mutation"
       ],
-      "exact_write_path_status": "STOP_AND_REPORT_REQUIRED"
+      "exact_write_path_status": "AUTHORIZED"
     },
     {
       "work_item_id": "P1-03",
@@ -96,7 +100,7 @@
         "P2 or P3 gate automation",
         "formal Gate PASS mutation"
       ],
-      "exact_write_path_status": "STOP_AND_REPORT_REQUIRED"
+      "exact_write_path_status": "AUTHORIZED"
     },
     {
       "work_item_id": "P1-04",
@@ -123,7 +127,7 @@
         "Exact Asset redraw",
         "Exact Asset replacement"
       ],
-      "exact_write_path_status": "STOP_AND_REPORT_REQUIRED"
+      "exact_write_path_status": "AUTHORIZED"
     },
     {
       "work_item_id": "P1-05",
@@ -149,8 +153,8 @@
         "external API calls",
         "formal asset processing"
       ],
-      "exact_write_path_status": "STOP_AND_REPORT_REQUIRED",
-      "test_plan_mapping_status": "STOP_AND_REPORT_REQUIRED"
+      "exact_write_path_status": "AUTHORIZED",
+      "test_plan_mapping_status": "AUTHORIZED"
     },
     {
       "work_item_id": "P1-06",
@@ -178,8 +182,8 @@
         "CapCut operation",
         "publication"
       ],
-      "exact_write_path_status": "STOP_AND_REPORT_REQUIRED",
-      "test_plan_mapping_status": "STOP_AND_REPORT_REQUIRED"
+      "exact_write_path_status": "AUTHORIZED",
+      "test_plan_mapping_status": "AUTHORIZED"
     }
   ],
   "authorized_read_paths": [
@@ -201,43 +205,87 @@
     {
       "work_item_id": "P1-01",
       "artifact_type": "New Episode initialization plan or template",
-      "path": null,
-      "status": "STOP_AND_REPORT_REQUIRED"
+      "paths": [
+        "src/mata_p1/episode_initialization.py",
+        "schemas/p1/episode_initialization.schema.json",
+        "tests/p1/test_episode_initialization.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
     },
     {
       "work_item_id": "P1-02",
       "artifact_type": "Production State workflow, schema, and TEST fixture",
-      "path": null,
-      "status": "STOP_AND_REPORT_REQUIRED"
+      "paths": [
+        "src/mata_p1/production_state.py",
+        "schemas/p1/production_state.schema.json",
+        "tests/p1/test_production_state.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
     },
     {
       "work_item_id": "P1-03",
       "artifact_type": "Gate Register operation, schema, and TEST fixture",
-      "path": null,
-      "status": "STOP_AND_REPORT_REQUIRED"
+      "paths": [
+        "src/mata_p1/gate_register.py",
+        "schemas/p1/gate_register.schema.json",
+        "tests/p1/test_gate_register.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
     },
     {
       "work_item_id": "P1-04",
       "artifact_type": "Segment and Asset status handler, schema, and TEST fixture",
-      "path": null,
-      "status": "STOP_AND_REPORT_REQUIRED"
+      "paths": [
+        "src/mata_p1/status_handling.py",
+        "schemas/p1/segment_asset_status.schema.json",
+        "tests/p1/test_status_handling.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
     },
     {
       "work_item_id": "P1-05",
       "artifact_type": "Prompt Library metadata model, schema, and TEST fixture",
-      "path": null,
-      "status": "STOP_AND_REPORT_REQUIRED"
+      "paths": [
+        "src/mata_p1/prompt_metadata.py",
+        "schemas/p1/prompt_library_metadata.schema.json",
+        "tests/p1/test_prompt_metadata.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
     },
     {
       "work_item_id": "P1-06",
       "artifact_type": "Storyboard and Flow handoff manifest, schema, and TEST fixture",
-      "path": null,
-      "status": "STOP_AND_REPORT_REQUIRED"
+      "paths": [
+        "src/mata_p1/handoff_manifest.py",
+        "schemas/p1/storyboard_flow_handoff.schema.json",
+        "tests/p1/test_handoff_manifest.py",
+        "tests/p1/fixtures/TEST_*"
+      ],
+      "status": "AUTHORIZED"
+    },
+    {
+      "work_item_id": "P1-SHARED",
+      "artifact_type": "Shared P1 package and test support files",
+      "paths": [
+        "src/mata_p1/__init__.py",
+        "src/mata_p1/constants.py",
+        "src/mata_p1/errors.py",
+        "tests/p1/__init__.py",
+        "tests/p1/_support.py"
+      ],
+      "status": "AUTHORIZED"
     },
     {
       "work_item_id": "P1-DELIVERY",
       "artifact_type": "P1 validation report",
-      "path": "docs/work/v2_reports/P1_*_REPORT_V*.md",
+      "paths": [
+        "docs/work/v2_reports/P1_IMPLEMENTATION_VALIDATION_REPORT_V1.0.md"
+      ],
       "status": "AUTHORIZED"
     }
   ],
