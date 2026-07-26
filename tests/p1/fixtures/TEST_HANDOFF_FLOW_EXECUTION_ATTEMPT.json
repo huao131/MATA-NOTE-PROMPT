@@ -1,0 +1,1 @@
+{"handoff_id":"TEST_H5","from":"STORYBOARD","to":"FLOW","scope":"TEST","input_refs":[],"output_refs":[],"owner":"HUMAN","version_refs":["V1"],"evidence_status":"VERIFIED","dependency_status":"PASS","gate_approval":{"approved_by":"HUMAN"},"timestamp":"2026","failure_action":"STOP_AND_REPORT","execute_flow":true}
