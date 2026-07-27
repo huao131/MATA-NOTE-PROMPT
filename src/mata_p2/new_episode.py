@@ -28,6 +28,7 @@ from mata_p1.status_handling import validate_status
 WORK_ITEM_ID = "P2-WF-01"
 TECHNICAL_ID = "p2_wf_01"
 REMEDIATION_ID = "P2-WF-01.1"
+IDENTITY_REMEDIATION_ID = "P2-WF-01.2"
 BRIEF_FIELDS = (
     "episode_id",
     "title",
@@ -464,6 +465,190 @@ def assert_dependency_ready(status: str) -> None:
         )
 
 
+def validate_episode_identity(
+    package: Mapping[str, Any],
+    expected_episode_id: str,
+) -> dict[str, Any]:
+    """Validate Episode identity by each output's top-level JSON structure."""
+    if not isinstance(expected_episode_id, str) or not EPISODE_ID.fullmatch(
+        expected_episode_id
+    ):
+        stop(
+            "INVALID_EXPECTED_EPISODE_ID",
+            "$.expected_episode_id",
+            "expected Episode ID must satisfy the governed Episode ID pattern",
+        )
+    if not isinstance(package, Mapping):
+        stop("INVALID_CANDIDATE_PACKAGE", "$.package", "expected an output mapping")
+
+    expected_files = set(OUTPUT_FILES)
+    actual_files = set(package)
+    if actual_files != expected_files:
+        stop(
+            "OUTPUT_SET_MISMATCH",
+            "$.package",
+            f"expected exactly {len(OUTPUT_FILES)} governed outputs",
+        )
+
+    violations: list[ContractViolation] = []
+    file_results: list[dict[str, Any]] = []
+    missing_count = 0
+    mismatch_count = 0
+    ambiguous_count = 0
+    object_count = 0
+    array_count = 0
+    passed_count = 0
+
+    for filename in OUTPUT_FILES:
+        value = package[filename]
+        file_missing = 0
+        file_mismatch = 0
+        file_ambiguous = 0
+        record_count = 1
+        matched_count = 0
+
+        if isinstance(value, Mapping):
+            object_count += 1
+            mode = "TOP_LEVEL_OBJECT_IDENTITY"
+            identity = value.get("episode_id")
+            if not isinstance(identity, str) or not identity:
+                file_missing += 1
+                violations.append(
+                    ContractViolation(
+                        "EPISODE_IDENTITY_MISSING",
+                        f"$.{filename}.episode_id",
+                        "JSON Object output requires a non-empty top-level episode_id",
+                    )
+                )
+            elif not EPISODE_ID.fullmatch(identity):
+                file_ambiguous += 1
+                violations.append(
+                    ContractViolation(
+                        "EPISODE_IDENTITY_INVALID",
+                        f"$.{filename}.episode_id",
+                        "episode_id does not satisfy the governed Episode ID pattern",
+                    )
+                )
+            elif identity != expected_episode_id:
+                file_mismatch += 1
+                violations.append(
+                    ContractViolation(
+                        "EPISODE_IDENTITY_MISMATCH",
+                        f"$.{filename}.episode_id",
+                        "output episode_id differs from the validated Brief",
+                    )
+                )
+            else:
+                matched_count = 1
+        elif isinstance(value, list):
+            array_count += 1
+            mode = "RECORD_LEVEL_ARRAY_IDENTITY"
+            record_count = len(value)
+            if not value:
+                file_ambiguous += 1
+                violations.append(
+                    ContractViolation(
+                        "EPISODE_IDENTITY_EMPTY_ARRAY",
+                        f"$.{filename}",
+                        "JSON Array identity output cannot be empty",
+                    )
+                )
+            for index, record in enumerate(value):
+                path = f"$.{filename}[{index}].episode_id"
+                if not isinstance(record, Mapping):
+                    file_ambiguous += 1
+                    violations.append(
+                        ContractViolation(
+                            "EPISODE_IDENTITY_RECORD_INVALID",
+                            f"$.{filename}[{index}]",
+                            "array identity records must be JSON Objects",
+                        )
+                    )
+                    continue
+                identity = record.get("episode_id")
+                if not isinstance(identity, str) or not identity:
+                    file_missing += 1
+                    violations.append(
+                        ContractViolation(
+                            "EPISODE_IDENTITY_MISSING",
+                            path,
+                            "array record requires a non-empty episode_id",
+                        )
+                    )
+                elif not EPISODE_ID.fullmatch(identity):
+                    file_ambiguous += 1
+                    violations.append(
+                        ContractViolation(
+                            "EPISODE_IDENTITY_INVALID",
+                            path,
+                            "episode_id does not satisfy the governed Episode ID pattern",
+                        )
+                    )
+                elif identity != expected_episode_id:
+                    file_mismatch += 1
+                    violations.append(
+                        ContractViolation(
+                            "EPISODE_IDENTITY_MISMATCH",
+                            path,
+                            "array record episode_id differs from the validated Brief",
+                        )
+                    )
+                else:
+                    matched_count += 1
+        else:
+            mode = "UNSUPPORTED_IDENTITY_STRUCTURE"
+            record_count = 0
+            file_ambiguous += 1
+            violations.append(
+                ContractViolation(
+                    "EPISODE_IDENTITY_STRUCTURE_INVALID",
+                    f"$.{filename}",
+                    "output must be a JSON Object or JSON Array",
+                )
+            )
+
+        status = (
+            "PASS"
+            if file_missing == 0
+            and file_mismatch == 0
+            and file_ambiguous == 0
+            and matched_count == record_count
+            else "FAIL"
+        )
+        if status == "PASS":
+            passed_count += 1
+        missing_count += file_missing
+        mismatch_count += file_mismatch
+        ambiguous_count += file_ambiguous
+        file_results.append(
+            {
+                "file": filename,
+                "identity_mode": mode,
+                "record_count": record_count,
+                "matched_record_count": matched_count,
+                "missing_episode_id_count": file_missing,
+                "mismatched_episode_id_count": file_mismatch,
+                "ambiguous_identity_count": file_ambiguous,
+                "status": status,
+            }
+        )
+
+    if violations:
+        raise StopAndReport(*violations)
+    return {
+        "status": "PASS",
+        "expected_episode_id": expected_episode_id,
+        "output_count": len(OUTPUT_FILES),
+        "passed_output_count": passed_count,
+        "object_identity_output_count": object_count,
+        "array_identity_output_count": array_count,
+        "missing_episode_id_count": missing_count,
+        "mismatched_episode_id_count": mismatch_count,
+        "ambiguous_identity_count": ambiguous_count,
+        "file_results": file_results,
+    }
+
+
 def build_candidate_package(brief_value: Mapping[str, Any]) -> dict[str, Any]:
     brief = validate_brief(brief_value)
     episode_id = brief["episode_id"]
@@ -501,6 +686,7 @@ def build_candidate_package(brief_value: Mapping[str, Any]) -> dict[str, Any]:
     )
     story = _story_treatment(brief)
     state = {
+        "episode_id": episode_id,
         "scope_type": "EPISODE",
         "scope_id": episode_id,
         "version_refs": ["P2_WF_01_V1"],
@@ -517,6 +703,7 @@ def build_candidate_package(brief_value: Mapping[str, Any]) -> dict[str, Any]:
     validate_state_proposal(state)
     gates = _build_gate_register(episode_id)
     status = {
+        "episode_id": episode_id,
         "asset_id": f"{episode_id}_ASSET_PLACEHOLDER",
         "lifecycle_status": "DRAFT",
         "qc_status": "PENDING",
@@ -528,6 +715,7 @@ def build_candidate_package(brief_value: Mapping[str, Any]) -> dict[str, Any]:
     }
     validate_status(status)
     prompt = {
+        "episode_id": episode_id,
         "prompt_metadata_id": f"{episode_id}_PROMPT_METADATA_PLACEHOLDER",
         "scope": episode_id,
         "approved_input_refs": [f"{episode_id}_VALIDATED_BRIEF"],
@@ -579,6 +767,7 @@ def build_candidate_package(brief_value: Mapping[str, Any]) -> dict[str, Any]:
             "external_operations": "ZERO",
             "creative_candidate_generation": "PASS",
             "brief_input_contract": REMEDIATION_ID,
+            "episode_identity_contract": IDENTITY_REMEDIATION_ID,
         },
     )
     package[OUTPUT_FILES[10]] = manifest
@@ -593,6 +782,9 @@ def build_candidate_package(brief_value: Mapping[str, Any]) -> dict[str, Any]:
         human_approval_count=0,
         canonical_write_count=0,
     )
+    identity_result = validate_episode_identity(package, episode_id)
+    manifest["episode_identity_consistency"] = identity_result
+    package[OUTPUT_FILES[11]]["episode_identity_consistency"] = identity_result
     return package
 
 
@@ -607,6 +799,7 @@ def run_workflow(
     dry_run: bool = False,
 ) -> dict[str, Any]:
     package = build_candidate_package(brief_value)
+    validate_episode_identity(package, package[OUTPUT_FILES[11]]["episode_id"])
     target = _safe_output_path(output)
     if dry_run:
         return {
