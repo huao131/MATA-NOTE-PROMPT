@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mata://schemas/p2/p2_wf_01_new_episode_brief.schema.json",
+  "title": "P2-WF-01 New Episode Brief",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "episode_id",
+    "title",
+    "purpose",
+    "target_audience",
+    "duration_seconds",
+    "platform",
+    "aspect_ratio",
+    "desired_action",
+    "series_name",
+    "existing_character_usage",
+    "special_requirements"
+  ],
+  "properties": {
+    "episode_id": {
+      "type": "string",
+      "pattern": "^(TEST_[A-Z0-9_]+|EP[0-9]{3,})$"
+    },
+    "title": {"type": "string", "minLength": 1},
+    "purpose": {"type": "string", "minLength": 1},
+    "target_audience": {"type": "string", "minLength": 1},
+    "duration_seconds": {"type": "integer", "minimum": 1, "maximum": 3600},
+    "platform": {"type": "string", "minLength": 1},
+    "aspect_ratio": {"enum": ["9:16", "16:9", "1:1", "4:5"]},
+    "desired_action": {"type": "string", "minLength": 1},
+    "series_name": {"type": "string", "minLength": 1},
+    "existing_character_usage": {"type": "string", "minLength": 1},
+    "special_requirements": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}
