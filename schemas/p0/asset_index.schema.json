@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/p0/asset_index.schema.json",
+  "title": "MATA P0 Asset Index",
+  "type": "object",
+  "required": ["assets"],
+  "additionalProperties": false,
+  "properties": {
+    "assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "asset_id",
+          "asset_type",
+          "scope_type",
+          "scope_id",
+          "version",
+          "folder_ref",
+          "google_drive_file_id",
+          "checksum",
+          "mime_type",
+          "file_size_bytes",
+          "evidence_status",
+          "lifecycle_status",
+          "qc_status",
+          "approval_ref",
+          "lock_ref",
+          "source_asset_ids",
+          "dependency_check_status",
+          "exact_asset"
+        ],
+        "properties": {
+          "asset_id": {"type": "string", "minLength": 1},
+          "asset_type": {"type": "string", "minLength": 1},
+          "scope_type": {"type": "string", "minLength": 1},
+          "scope_id": {"type": "string", "minLength": 1},
+          "version": {"type": "string", "minLength": 1},
+          "folder_ref": {
+            "type": "object",
+            "required": [
+              "stable_folder_code",
+              "display_name_zh_TW",
+              "google_drive_folder_id",
+              "parent_folder_id"
+            ]
+          },
+          "google_drive_file_id": {"type": "string", "minLength": 1},
+          "checksum": {"type": "string", "minLength": 1},
+          "mime_type": {"type": "string", "minLength": 1},
+          "file_size_bytes": {"type": "integer", "minimum": 0},
+          "evidence_status": {
+            "enum": ["VERIFIED", "INFERRED", "UNVERIFIED", "CONFLICTED"]
+          },
+          "lifecycle_status": {
+            "enum": [
+              "DRAFT",
+              "REVIEW",
+              "APPROVED",
+              "LOCKED",
+              "SUPERSEDED",
+              "ARCHIVED",
+              "REJECTED"
+            ]
+          },
+          "qc_status": {"type": "string", "minLength": 1},
+          "approval_ref": {"type": ["string", "null"]},
+          "lock_ref": {"type": ["string", "null"]},
+          "source_asset_ids": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1}
+          },
+          "dependency_check_status": {
+            "enum": [
+              "NOT_EVALUATED",
+              "PASS",
+              "FAIL",
+              "DEPENDENCY_RECHECK_REQUIRED",
+              "BLOCKED_BY_UPSTREAM"
+            ]
+          },
+          "exact_asset": {"type": "boolean"}
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {"exact_asset": {"const": true}},
+              "required": ["exact_asset"]
+            },
+            "then": {
+              "required": [
+                "exact_asset_id",
+                "approved_original_drive_file_id",
+                "approved_version",
+                "usage_locations",
+                "crop_or_scale_allowed"
+              ]
+            }
+          }
+        ],
+        "additionalProperties": true
+      }
+    }
+  }
+}

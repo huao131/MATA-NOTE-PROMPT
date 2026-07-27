@@ -1,0 +1,81 @@
+{
+  "folders": [
+    {
+      "stable_folder_code": "MATA_AI_ORIGINAL_VIDEO_STUDIO_OS_V2",
+      "display_name_zh_TW": "MATA AI 原創影片製片系統 V2",
+      "google_drive_folder_id": "18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT",
+      "parent_folder_id": "ROOT_PARENT_NOT_IN_V2_SCOPE",
+      "folder_purpose": "TEST root contract",
+      "allowed_content": "TEST controlled roots",
+      "prohibited_content": "TEST parallel roots",
+      "verification_status": "VERIFIED",
+      "verified_at": "2026-07-26T12:36:35+08:00"
+    },
+    {
+      "stable_folder_code": "GLOBAL_OS",
+      "display_name_zh_TW": "01_全域系統規範",
+      "google_drive_folder_id": "1EN1rMhvq3_RVy1f8wfJ04fup3U6-2n_5",
+      "parent_folder_id": "18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT",
+      "folder_purpose": "TEST global contract",
+      "allowed_content": "TEST specifications",
+      "prohibited_content": "TEST media",
+      "verification_status": "VERIFIED",
+      "verified_at": "2026-07-26T12:36:31+08:00"
+    },
+    {
+      "stable_folder_code": "ORIGINAL_VIDEO_LIBRARY",
+      "display_name_zh_TW": "02_原創影片資料庫",
+      "google_drive_folder_id": "14mSHtk6_AGUJgx58qPiyPFl0KarFjqtC",
+      "parent_folder_id": "18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT",
+      "folder_purpose": "TEST original video contract",
+      "allowed_content": "TEST registered assets",
+      "prohibited_content": "TEST parallel roots",
+      "verification_status": "VERIFIED",
+      "verified_at": "2026-07-26T12:36:32+08:00"
+    },
+    {
+      "stable_folder_code": "SHARED_ASSET_LIBRARY",
+      "display_name_zh_TW": "03_共用素材資料庫",
+      "google_drive_folder_id": "1Tv5Y2WslnnshOn6Im4Be2tJFiBYN00aV",
+      "parent_folder_id": "18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT",
+      "folder_purpose": "TEST shared asset contract",
+      "allowed_content": "TEST approved assets",
+      "prohibited_content": "TEST rejected assets",
+      "verification_status": "VERIFIED",
+      "verified_at": "2026-07-26T12:36:33+08:00"
+    },
+    {
+      "stable_folder_code": "PRODUCTION_DATABASE",
+      "display_name_zh_TW": "04_製片控制與索引",
+      "google_drive_folder_id": "1cm52SBzr7Lsay3ZIxoXyTGp3Y90fvniG",
+      "parent_folder_id": "18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT",
+      "folder_purpose": "TEST production metadata contract",
+      "allowed_content": "TEST metadata",
+      "prohibited_content": "TEST media",
+      "verification_status": "VERIFIED",
+      "verified_at": "2026-07-26T12:36:34+08:00"
+    },
+    {
+      "stable_folder_code": "ARCHIVE",
+      "display_name_zh_TW": "05_封存資料庫",
+      "google_drive_folder_id": "1uLoGd1X1Iri-y-1UQMI0Fsj3jjfng3Wz",
+      "parent_folder_id": "18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT",
+      "folder_purpose": "TEST archive contract",
+      "allowed_content": "TEST historical evidence",
+      "prohibited_content": "TEST active work",
+      "verification_status": "VERIFIED",
+      "verified_at": "2026-07-26T12:36:35+08:00"
+    },
+    {
+      "stable_folder_code": "LEGACY_SYSTEM_AUDIT",
+      "display_name_zh_TW": "01_舊系統稽核",
+      "google_drive_folder_id": "1HxcUf9pQ4Djjlc_eIoTlRwm1O7XbNqu6",
+      "parent_folder_id": "1uLoGd1X1Iri-y-1UQMI0Fsj3jjfng3Wz",
+      "folder_purpose": "TEST read-only audit contract",
+      "allowed_content": "TEST audit evidence",
+      "prohibited_content": "TEST mutations",
+      "verification_status": "VERIFIED",
+      "verified_at": "2026-07-26T12:36:35+08:00"
+    }
+  ]
+}
