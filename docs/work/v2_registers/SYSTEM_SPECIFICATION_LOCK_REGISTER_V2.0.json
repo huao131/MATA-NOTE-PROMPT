@@ -1,0 +1,58 @@
+{
+  "register_id": "SYS-SPEC-LOCK-V2.0-20260726-001",
+  "scope_type": "GLOBAL",
+  "scope_id": "MATA_AI_ORIGINAL_VIDEO_STUDIO_OS_V2",
+  "artifact_id": "SYSTEM_SPECIFICATION_V2",
+  "artifact_type": "SYSTEM_SPECIFICATION_LOCK",
+  "version": "V2.0",
+  "lifecycle_status": "LOCKED",
+  "protected_designation": ["LOCK", "MASTER", "APPROVED"],
+  "repository": "huao131/MATA-AI-VIDEO-STUDIO",
+  "publication_branch": "review/v2-system-specification-publication-v2",
+  "pull_request": 2,
+  "locked_remote_head": "b2215507075b9f90c02f4c6b992a7285a0956d99",
+  "lock_candidate_manifest": {
+    "path": "docs/work/v2_drafts/20_SYSTEM_SPECIFICATION_LOCK_CANDIDATE_MANIFEST_V2.1_DRAFT.md",
+    "source_content_commit": "2e1f1d16754388b377ec0501fb70db4768da95fb"
+  },
+  "crosswalk": {
+    "path": "docs/work/v2_drafts/06_DELIVERY_CROSSWALK_AND_FIRST_BATCH_SPECS_V1.5_DRAFT.md",
+    "source_content_commit": "ee6df47dddee849414c99db13a73418f7f323dc3"
+  },
+  "integration_review": {
+    "path": "docs/work/v2_drafts/12_FULL_SYSTEM_INTEGRATION_REVIEW_V1.2_DRAFT.md",
+    "source_content_commit": "d898078773f03d4e8103fafb50c8cf2388a2725b"
+  },
+  "evidence_status": "VERIFIED",
+  "evidence_source": [
+    "PR #2 SYSTEM SPECIFICATION LOCK V2.0 REVIEW — RECHECK: PASS",
+    "Mata老師 explicit approval command on 2026-07-26"
+  ],
+  "approval_ref": "USER_APPROVAL_2026-07-26_SYSTEM_SPECIFICATION_LOCK_V2.0",
+  "lock_ref": "docs/work/v2_locks/SYSTEM_SPECIFICATION_LOCK_V2.0_RECORD.md",
+  "change_reason": "Freeze the reviewed V2 system specification baseline and its twelve current-effective deliverables before any Codex implementation.",
+  "affected_scope": ["GLOBAL", "SERIES", "EPISODE", "SEGMENT", "ASSET"],
+  "upstream_impact": "NONE_VERIFIED",
+  "downstream_impact": "CODEX_IMPLEMENTATION_REQUIRES_SEPARATE_AUTHORIZATION",
+  "dependency_recheck_status": "PASS",
+  "current_effective_deliverables": [
+    {"id":"D01","path":"docs/work/v2_drafts/13_CHATGPT_PROJECT_INSTRUCTIONS_V2.0_DRAFT.md","version":"V2.0","source_content_commit":"4cbd60675c1cfbb9cd141c58d9903cd2911b2c6b"},
+    {"id":"D02","path":"docs/work/v2_drafts/14_GEMINI_GEM_INSTRUCTIONS_V2.0_DRAFT.md","version":"V2.0","source_content_commit":"4cbd60675c1cfbb9cd141c58d9903cd2911b2c6b"},
+    {"id":"D03","path":"docs/work/v2_drafts/19_GLOBAL_MASTER_SOP_V2.0_DRAFT.md","version":"V2.0","source_content_commit":"1dadff44448da8caf1e38c940c01a7f62ca6b752"},
+    {"id":"D04","path":"docs/work/v2_drafts/15_WORKFLOW_SCHEMA_V2.0_DRAFT.md","version":"V2.0","source_content_commit":"4cbd60675c1cfbb9cd141c58d9903cd2911b2c6b"},
+    {"id":"D05","path":"docs/work/v2_drafts/04_PRODUCTION_STATE_AND_GATE_MODEL_V2.1_DRAFT.md","version":"V2.1","source_content_commit":"4cbd60675c1cfbb9cd141c58d9903cd2911b2c6b"},
+    {"id":"D06","path":"docs/work/v2_drafts/16_GITHUB_REPOSITORY_STRUCTURE_V2.0_DRAFT.md","version":"V2.0","source_content_commit":"4cbd60675c1cfbb9cd141c58d9903cd2911b2c6b"},
+    {"id":"D07","path":"docs/work/v2_drafts/DRIVE_ASSET_SYSTEM_V2.1_DRAFT.md","version":"V2.1","source_content_commit":"4cbd60675c1cfbb9cd141c58d9903cd2911b2c6b"},
+    {"id":"D08","path":"docs/work/v2_drafts/17_TOOL_HANDOFF_SPECIFICATION_V2.0_DRAFT.md","version":"V2.0","source_content_commit":"4cbd60675c1cfbb9cd141c58d9903cd2911b2c6b"},
+    {"id":"D09","path":"docs/work/v2_drafts/18_QC_AND_RECOVERY_SPECIFICATION_V2.0_DRAFT.md","version":"V2.0","source_content_commit":"4cbd60675c1cfbb9cd141c58d9903cd2911b2c6b"},
+    {"id":"D10","path":"docs/work/v2_drafts/09_PORTABLE_INSTALLATION_GUIDE_V2.1_DRAFT.md","version":"V2.1","source_content_commit":"4cbd60675c1cfbb9cd141c58d9903cd2911b2c6b"},
+    {"id":"D11","path":"docs/work/v2_drafts/10_CODEX_BACKLOG_V2.1_DRAFT.md","version":"V2.1","source_content_commit":"4cbd60675c1cfbb9cd141c58d9903cd2911b2c6b"},
+    {"id":"D12","path":"docs/work/v2_drafts/11_TEST_PLAN_V2.1_DRAFT.md","version":"V2.1","source_content_commit":"4cbd60675c1cfbb9cd141c58d9903cd2911b2c6b"}
+  ],
+  "codex_implementation_authorized": false,
+  "main_merge_authorized": false,
+  "flow_operation_authorized": false,
+  "legacy_asset_change_authorized": false,
+  "created_at": "2026-07-26T23:03:10+08:00",
+  "created_by": "Mata老師 / ChatGPT AI製片中樞"
+}

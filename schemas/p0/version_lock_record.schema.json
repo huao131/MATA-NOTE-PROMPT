@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/p0/version_lock_record.schema.json",
+  "title": "MATA P0 Version Lock Record",
+  "type": "object",
+  "required": ["records"],
+  "properties": {
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["scope_id", "artifact_id", "version"],
+        "properties": {
+          "scope_id": {"type": "string", "minLength": 1},
+          "artifact_id": {"type": "string", "minLength": 1},
+          "version": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,29 @@
+{
+  "assets": [
+    {
+      "asset_id": "TEST_ASSET_001",
+      "asset_type": "TEST_DOCUMENT",
+      "scope_type": "ASSET",
+      "scope_id": "TEST_SCOPE",
+      "version": "V1.0",
+      "folder_ref": {
+        "stable_folder_code": "GLOBAL_OS",
+        "display_name_zh_TW": "01_全域系統規範",
+        "google_drive_folder_id": "1EN1rMhvq3_RVy1f8wfJ04fup3U6-2n_5",
+        "parent_folder_id": "18kOzPEX3QO7qAAqgWYhtIfgfIynWoPbT"
+      },
+      "google_drive_file_id": "TEST_DRIVE_FILE_001",
+      "checksum": "sha256:TEST_CHECKSUM",
+      "mime_type": "application/json",
+      "file_size_bytes": 128,
+      "evidence_status": "VERIFIED",
+      "lifecycle_status": "APPROVED",
+      "qc_status": "QC_APPROVED",
+      "approval_ref": "TEST_APPROVAL",
+      "lock_ref": null,
+      "source_asset_ids": [],
+      "dependency_check_status": "PASS",
+      "exact_asset": false
+    }
+  ]
+}

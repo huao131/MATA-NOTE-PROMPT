@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/p0/common_types.schema.json",
+  "title": "MATA P0 Common Types",
+  "$defs": {
+    "evidence_status": {
+      "enum": ["VERIFIED", "INFERRED", "UNVERIFIED", "CONFLICTED"]
+    },
+    "lifecycle_status": {
+      "enum": [
+        "DRAFT",
+        "REVIEW",
+        "APPROVED",
+        "LOCKED",
+        "SUPERSEDED",
+        "ARCHIVED",
+        "REJECTED"
+      ]
+    },
+    "dependency_status": {
+      "enum": [
+        "NOT_EVALUATED",
+        "PASS",
+        "FAIL",
+        "DEPENDENCY_RECHECK_REQUIRED",
+        "BLOCKED_BY_UPSTREAM"
+      ]
+    },
+    "gate_status": {
+      "enum": [
+        "NOT_STARTED",
+        "PENDING",
+        "PASS",
+        "FAIL",
+        "BLOCKED",
+        "SUPERSEDED"
+      ]
+    }
+  }
+}

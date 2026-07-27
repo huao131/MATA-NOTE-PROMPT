@@ -1,0 +1,1 @@
+{"scope_type":"ASSET","scope_id":"TEST_ASSET","version_refs":["V1"],"owner":"TEST","timestamp":"2026-07-27","evidence_status":"VERIFIED","evidence_source":["TEST"],"dependency_status":"DEPENDENCY_RECHECK_REQUIRED","segment_status":null,"episode_status":null,"canonical_candidate":false,"blocked_reason":"recheck pending"}

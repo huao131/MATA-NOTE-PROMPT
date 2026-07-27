@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/p0/dependency_recheck.schema.json",
+  "title": "MATA P0 Dependency Recheck",
+  "type": "object",
+  "required": [
+    "dependency_status",
+    "affected_assets",
+    "affected_segments",
+    "affected_outputs",
+    "recheck_owner",
+    "recheck_result",
+    "evidence_source"
+  ],
+  "properties": {
+    "dependency_status": {"const": "DEPENDENCY_RECHECK_REQUIRED"},
+    "affected_assets": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "affected_segments": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "affected_outputs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "recheck_owner": {"type": "string", "minLength": 1},
+    "recheck_result": {
+      "enum": [
+        "NOT_REQUIRED",
+        "PASS",
+        "FAIL",
+        "PENDING",
+        "DEPENDENCY_RECHECK_REQUIRED"
+      ]
+    },
+    "evidence_source": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "additionalProperties": true
+}

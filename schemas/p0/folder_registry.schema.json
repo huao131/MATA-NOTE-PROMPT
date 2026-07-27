@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/p0/folder_registry.schema.json",
+  "title": "MATA P0 Folder Registry",
+  "type": "object",
+  "required": ["folders"],
+  "additionalProperties": false,
+  "properties": {
+    "folders": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": {
+        "type": "object",
+        "required": [
+          "stable_folder_code",
+          "display_name_zh_TW",
+          "google_drive_folder_id",
+          "parent_folder_id",
+          "folder_purpose",
+          "allowed_content",
+          "prohibited_content",
+          "verification_status",
+          "verified_at"
+        ],
+        "properties": {
+          "stable_folder_code": {"type": "string", "minLength": 1},
+          "display_name_zh_TW": {"type": "string", "minLength": 1},
+          "google_drive_folder_id": {"type": "string", "minLength": 1},
+          "parent_folder_id": {"type": "string", "minLength": 1},
+          "folder_purpose": {"type": "string", "minLength": 1},
+          "allowed_content": {"type": "string", "minLength": 1},
+          "prohibited_content": {"type": "string", "minLength": 1},
+          "verification_status": {"const": "VERIFIED"},
+          "verified_at": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}
