@@ -1,0 +1,1 @@
+{"type":"array","minItems":6,"maxItems":6,"items":{"type":"object","required":["gate_id","gate_status","approved_version","approved_by","approved_at","basis_documents","evidence_status","dependency_recheck_result","blocked_reason"]}}
