@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mata://schemas/local-studio/approval-event-v1.0",
+  "title": "Human Gate Approval Event V1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["approver", "artifact_version", "evidence", "comment"],
+  "properties": {
+    "approver": {"type": "string", "minLength": 1, "not": {"enum": ["CODEX", "CHATGPT", "SYSTEM", "AI"]}},
+    "artifact_version": {"type": "string", "pattern": "^V[0-9]+\\.[0-9]+$"},
+    "evidence": {"type": "string", "minLength": 1},
+    "comment": {"type": "string", "minLength": 1}
+  }
+}
