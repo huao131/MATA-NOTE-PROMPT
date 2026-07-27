@@ -1,0 +1,20 @@
+{
+  "test_only": true,
+  "test_namespace": "TEST_CONTROLLED_EPISODE_001",
+  "episode_id": "TEST_EP_P0P1_001",
+  "plan_id": "TEST_PLAN_P0P1_001",
+  "operation": "VALIDATE_PLAN",
+  "schema_name": "dependency_recheck.schema.json",
+  "contract_type": "DEPENDENCY_RECHECK",
+  "permitted_scope_values": "NOT_APPLICABLE",
+  "selected_scope_value": "NOT_APPLICABLE",
+  "payload": {
+    "dependency_status": "DEPENDENCY_RECHECK_REQUIRED",
+    "affected_assets": ["TEST_AST_REFERENCE_001"],
+    "affected_segments": ["TEST_SEG_001", "TEST_SEG_002", "TEST_SEG_003"],
+    "affected_outputs": ["TEST_OUTPUT_MANIFEST_001"],
+    "recheck_owner": "TEST_OWNER",
+    "recheck_result": "DEPENDENCY_RECHECK_REQUIRED",
+    "evidence_source": ["TEST_UPSTREAM_VERSION_CHANGE_V1_TO_V2"]
+  }
+}

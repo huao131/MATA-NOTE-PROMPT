@@ -1,0 +1,21 @@
+{
+  "test_only": true,
+  "test_namespace": "TEST_CONTROLLED_EPISODE_001",
+  "episode_id": "TEST_EP_P0P1_001",
+  "plan_id": "TEST_PLAN_P0P1_001",
+  "operation": "VALIDATE_PLAN",
+  "schema_name": "segment_asset_status.schema.json",
+  "contract_type": "SEGMENT_ASSET_STATUS",
+  "permitted_scope_values": "NOT_APPLICABLE",
+  "selected_scope_value": "NOT_APPLICABLE",
+  "payload": {
+    "asset_id": "TEST_AST_REFERENCE_001",
+    "lifecycle_status": "REVIEW",
+    "qc_status": "PASS",
+    "usage_roles": ["REFERENCE"],
+    "exact_asset": false,
+    "approved_original_drive_file_id": "",
+    "proposed_drive_file_id": "TEST_DRIVE_FILE_REFERENCE_001",
+    "generated_or_redrawn": false
+  }
+}

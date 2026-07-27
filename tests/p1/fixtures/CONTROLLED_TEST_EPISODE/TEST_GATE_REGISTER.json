@@ -1,0 +1,83 @@
+{
+  "test_only": true,
+  "test_namespace": "TEST_CONTROLLED_EPISODE_001",
+  "episode_id": "TEST_EP_P0P1_001",
+  "plan_id": "TEST_PLAN_P0P1_001",
+  "operation": "VALIDATE_PLAN",
+  "schema_name": "gate_register.schema.json",
+  "contract_type": "GATE_REGISTER",
+  "permitted_scope_values": "NOT_APPLICABLE",
+  "selected_scope_value": "NOT_APPLICABLE",
+  "simulated_approval": {
+    "approved_by": "HUMAN_TEST_APPROVER",
+    "approval_type": "TEST_ONLY_SIMULATED_APPROVAL"
+  },
+  "payload": [
+    {
+      "gate_id": "creative_lock",
+      "gate_status": "PASS",
+      "approved_version": "TEST_VERSION_V1.0",
+      "approved_by": "HUMAN_TEST_APPROVER",
+      "approved_at": "2026-07-27T00:00:00Z",
+      "basis_documents": ["TEST_ONLY_SIMULATED_APPROVAL"],
+      "evidence_status": "VERIFIED",
+      "dependency_recheck_result": "PASS",
+      "blocked_reason": ""
+    },
+    {
+      "gate_id": "story_lock",
+      "gate_status": "PASS",
+      "approved_version": "TEST_VERSION_V1.0",
+      "approved_by": "HUMAN_TEST_APPROVER",
+      "approved_at": "2026-07-27T00:00:00Z",
+      "basis_documents": ["TEST_ONLY_SIMULATED_APPROVAL"],
+      "evidence_status": "VERIFIED",
+      "dependency_recheck_result": "PASS",
+      "blocked_reason": ""
+    },
+    {
+      "gate_id": "story_visual_lock",
+      "gate_status": "PASS",
+      "approved_version": "TEST_VERSION_V1.0",
+      "approved_by": "HUMAN_TEST_APPROVER",
+      "approved_at": "2026-07-27T00:00:00Z",
+      "basis_documents": ["TEST_ONLY_SIMULATED_APPROVAL"],
+      "evidence_status": "VERIFIED",
+      "dependency_recheck_result": "PASS",
+      "blocked_reason": ""
+    },
+    {
+      "gate_id": "keyframe_lock",
+      "gate_status": "PASS",
+      "approved_version": "TEST_VERSION_V1.0",
+      "approved_by": "HUMAN_TEST_APPROVER",
+      "approved_at": "2026-07-27T00:00:00Z",
+      "basis_documents": ["TEST_ONLY_SIMULATED_APPROVAL"],
+      "evidence_status": "VERIFIED",
+      "dependency_recheck_result": "PASS",
+      "blocked_reason": ""
+    },
+    {
+      "gate_id": "production_lock",
+      "gate_status": "PASS",
+      "approved_version": "TEST_VERSION_V1.0",
+      "approved_by": "HUMAN_TEST_APPROVER",
+      "approved_at": "2026-07-27T00:00:00Z",
+      "basis_documents": ["TEST_ONLY_SIMULATED_APPROVAL"],
+      "evidence_status": "VERIFIED",
+      "dependency_recheck_result": "PASS",
+      "blocked_reason": ""
+    },
+    {
+      "gate_id": "final_approved",
+      "gate_status": "PASS",
+      "approved_version": "TEST_VERSION_V1.0",
+      "approved_by": "HUMAN_TEST_APPROVER",
+      "approved_at": "2026-07-27T00:00:00Z",
+      "basis_documents": ["TEST_ONLY_SIMULATED_APPROVAL"],
+      "evidence_status": "VERIFIED",
+      "dependency_recheck_result": "PASS",
+      "blocked_reason": ""
+    }
+  ]
+}
