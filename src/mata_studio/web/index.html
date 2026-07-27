@@ -19,12 +19,42 @@
     </section>
     <section id="new" class="page"><div class="panel"><h2>New Episode｜建立新 Episode</h2><p class="hint">建立後狀態固定為 AWAITING_CREATIVE_INPUT；不會自動生成 Creative。</p><form id="episodeForm" class="form"></form></div></section>
     <section id="overview" class="page"><div class="panel"><h2>Episode Overview</h2><div id="overviewBody" class="empty">請先從 Dashboard 選擇 Episode。</div></div></section>
-    <section id="creative" class="page"><div class="split"><div class="panel"><h2>Creative Studio</h2><p class="hint">此版使用 ChatGPT 工作包模式；生成後可複製完整指令，貼回 JSON 後再驗證。</p><div class="actions"><button onclick="generatePackage()">產生 ChatGPT 工作包</button><button class="ghost" onclick="copyPackage()">複製完整指令</button></div><textarea id="artifactJson" rows="18" spellcheck="false"></textarea><div class="actions"><button onclick="importArtifact()">驗證並儲存 Candidate</button><button class="ghost" onclick="submitCreativeGate()">提交 Creative Gate</button></div></div><div class="panel"><h3>版本與候選內容</h3><div id="artifactList" class="empty">尚無候選版本</div></div></div></section>
-    <section id="story" class="page"><div class="panel"><h2>Story & Storyboard</h2><div id="storyCards" class="cards"></div></div></section>
-    <section id="visual" class="page"><div class="panel"><h2>Visual Bible</h2><div id="visualCards" class="cards"></div></div></section>
-    <section id="keyframe" class="page"><div class="panel"><h2>Keyframe Studio</h2><p class="hint">Google Drive 未連線時只顯示索引與明確未連線狀態，不保存正式高解析媒體。</p><div id="keyframes" class="cards"></div></div></section>
+    <section id="creative" class="page"><div class="split"><div class="panel"><h2>Creative Studio</h2><p class="hint">此版使用 ChatGPT 工作包模式；生成後可複製完整指令，貼回 JSON 後再驗證。</p><div class="actions"><button onclick="generatePackage()">產生 ChatGPT 工作包</button><button class="ghost" onclick="copyPackage()">複製完整指令</button><button type="button" class="ghost" onclick="openChatGPT()">開啟ChatGPT</button></div>
+<p class="hint">操作順序：1.產生工作包 > 2.複製完整指令 > 3.開啟ChatGPT > 4.貼回並驗證。</p>
+<h3>人工 Gate 審閱</h3>
+<div class="form">
+  <label>Candidate Artifact
+    <select id="artifactSelect" onchange="updateArtifactFields()">
+      <option value="">請選擇...</option>
+      <!-- artifacts will be populated here -->
+    </select>
+  </label>
+  <label>Artifact Version<input id="artifactVersionInput" readonly></label>
+  <label>Approver<input id="approverInput" value="Mata老師"></label>
+  <label class="full">審閱依據<textarea id="evidenceInput" placeholder="請輸入審閱依據"></textarea></label>
+  <label class="full">審閱說明<textarea id="commentInput" placeholder="請輸入修正說明或確認理由"></textarea></label>
+  <div class="actions">
+    <button onclick="performGateAction('approve', 'creative_lock')">批准</button>
+    <button class="ghost" onclick="performGateAction('reject', 'creative_lock')">退回</button>
+  </div>
+</div>
+    <section id="story" class="page"><div class="panel"><h2>Story & Storyboard</h2>
+<div class="actions"><button type="button" class="ghost" onclick="openChatGPT()">開啟ChatGPT</button></div>
+<p class="hint">操作順序：1.產生工作包 > 2.複製完整指令 > 3.開啟ChatGPT > 4.貼回並驗證。</p>
+<div id="storyCards" class="cards"></div></div></section>
+    <section id="visual" class="page"><div class="panel"><h2>Visual Bible</h2>
+<div class="actions"><button type="button" class="ghost" onclick="openChatGPT()">開啟ChatGPT</button></div>
+<p class="hint">操作順序：1.產生工作包 > 2.複製完整指令 > 3.開啟ChatGPT > 4.貼回並驗證。</p>
+<div id="visualCards" class="cards"></div></div></section>
+    <section id="keyframe" class="page"><div class="panel"><h2>Keyframe Studio</h2><p class="hint">Google Drive 未連線時只顯示索引與明確未連線狀態，不保存正式高解析媒體。</p>
+<div class="actions"><button type="button" class="ghost" onclick="openChatGPT()">開啟ChatGPT</button></div>
+<p class="hint">操作順序：1.產生工作包 > 2.複製完整指令 > 3.開啟ChatGPT > 4.貼回並驗證。</p>
+<div id="keyframes" class="cards"></div></div></section>
     <section id="drive" class="page"><div class="panel"><h2>Drive Asset Browser</h2><div id="driveBody"></div></div></section>
-    <section id="handoff" class="page"><div class="panel"><h2>Production Handoff</h2><div class="actions"><button onclick="exportPackage('flow-package')">匯出 Flow Package</button><button onclick="exportPackage('editing-package')">匯出 Editing Package</button><button class="ghost" onclick="exportPackage('episode-summary')">Episode Summary</button></div><pre id="handoffResult"></pre></div></section>
+    <section id="handoff" class="page"><div class="panel"><h2>Production Handoff</h2>
+<div class="actions"><button onclick="exportPackage('flow-package')">匯出 Flow Package</button><button onclick="exportPackage('editing-package')">匯出 Editing Package</button><button class="ghost" onclick="exportPackage('episode-summary')">Episode Summary</button><button type="button" class="ghost" onclick="openChatGPT()">開啟ChatGPT</button></div>
+<p class="hint">操作順序：1.產生工作包 > 2.複製完整指令 > 3.開啟ChatGPT > 4.貼回並驗證。</p>
+<pre id="handoffResult"></pre></div></section>
     <section id="settings" class="page"><div class="panel"><h2>Settings／System Status</h2><div id="settingsBody"></div><h3>安全原則</h3><ul><li>只監聽 localhost</li><li>OAuth Token 不進 Repository</li><li>不呼叫付費 AI API、不操作 Flow 或 CapCut</li><li>SQLite 只保存索引；正式媒體以 Google Drive 為準</li></ul></div></section>
   </main>
   <script src="/app.js"></script>
