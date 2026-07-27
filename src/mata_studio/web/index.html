@@ -11,7 +11,7 @@
     <div id="driveBadge" class="status">Drive：讀取中</div>
   </aside>
   <main>
-    <header><div><p class="eyebrow">LOCAL PRODUCTION OS</p><h1 id="pageTitle">製片總覽</h1></div><button class="ghost" onclick="refresh()">重新整理</button></header>
+    <header><div><p class="eyebrow">LOCAL STUDIO V1.1</p><h1 id="pageTitle">CHATGPT WORK PACKAGE BRIDGE</h1></div><button class="ghost" onclick="refresh()">重新整理</button></header>
     <div id="alert"></div>
     <section id="dashboard" class="page active">
       <div class="hero"><div><p class="eyebrow">TODAY'S CONTROL ROOM</p><h2>把創意變成可追蹤的製片流程。</h2><p>候選內容、人工 Gate 與 Drive 資產，各自有清楚邊界。</p></div><button onclick="showPage('new')">＋ 建立 Episode</button></div>
@@ -19,10 +19,10 @@
     </section>
     <section id="new" class="page"><div class="panel"><h2>New Episode｜建立新 Episode</h2><p class="hint">建立後狀態固定為 AWAITING_CREATIVE_INPUT；不會自動生成 Creative。</p><form id="episodeForm" class="form"></form></div></section>
     <section id="overview" class="page"><div class="panel"><h2>Episode Overview</h2><div id="overviewBody" class="empty">請先從 Dashboard 選擇 Episode。</div></div></section>
-    <section id="creative" class="page"><div class="split"><div class="panel"><h2>Creative Studio</h2><p class="hint">貼上 ChatGPT 結構化成果，儲存 Candidate，再提交人工 Gate。</p><textarea id="artifactJson" rows="18" spellcheck="false"></textarea><div class="actions"><button onclick="importArtifact()">驗證並儲存 Candidate</button><button class="ghost" onclick="submitCreativeGate()">提交 Creative Gate</button></div></div><div class="panel"><h3>版本與候選內容</h3><div id="artifactList" class="empty">尚無候選版本</div></div></div></section>
+    <section id="creative" class="page"><div class="split"><div class="panel"><h2>Creative Studio</h2><p class="hint">此版使用 ChatGPT 工作包模式；生成後可複製完整指令，貼回 JSON 後再驗證。</p><div class="actions"><button onclick="generatePackage()">產生 ChatGPT 工作包</button><button class="ghost" onclick="copyPackage()">複製完整指令</button></div><textarea id="artifactJson" rows="18" spellcheck="false"></textarea><div class="actions"><button onclick="importArtifact()">驗證並儲存 Candidate</button><button class="ghost" onclick="submitCreativeGate()">提交 Creative Gate</button></div></div><div class="panel"><h3>版本與候選內容</h3><div id="artifactList" class="empty">尚無候選版本</div></div></div></section>
     <section id="story" class="page"><div class="panel"><h2>Story & Storyboard</h2><div id="storyCards" class="cards"></div></div></section>
     <section id="visual" class="page"><div class="panel"><h2>Visual Bible</h2><div id="visualCards" class="cards"></div></div></section>
-    <section id="keyframe" class="page"><div class="panel"><h2>Keyframe Studio</h2><p class="hint">Drive 未連線時只顯示索引與明確未連線狀態，不保存正式高解析媒體。</p><div id="keyframes" class="cards"></div></div></section>
+    <section id="keyframe" class="page"><div class="panel"><h2>Keyframe Studio</h2><p class="hint">Google Drive 未連線時只顯示索引與明確未連線狀態，不保存正式高解析媒體。</p><div id="keyframes" class="cards"></div></div></section>
     <section id="drive" class="page"><div class="panel"><h2>Drive Asset Browser</h2><div id="driveBody"></div></div></section>
     <section id="handoff" class="page"><div class="panel"><h2>Production Handoff</h2><div class="actions"><button onclick="exportPackage('flow-package')">匯出 Flow Package</button><button onclick="exportPackage('editing-package')">匯出 Editing Package</button><button class="ghost" onclick="exportPackage('episode-summary')">Episode Summary</button></div><pre id="handoffResult"></pre></div></section>
     <section id="settings" class="page"><div class="panel"><h2>Settings／System Status</h2><div id="settingsBody"></div><h3>安全原則</h3><ul><li>只監聽 localhost</li><li>OAuth Token 不進 Repository</li><li>不呼叫付費 AI API、不操作 Flow 或 CapCut</li><li>SQLite 只保存索引；正式媒體以 Google Drive 為準</li></ul></div></section>

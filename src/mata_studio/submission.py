@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import json
 import re
 import uuid
 from collections.abc import Mapping
+from pathlib import Path
 from typing import Any
 
 from mata_p0.version_lock import protected_designations
@@ -12,6 +14,47 @@ from mata_p0.version_lock import protected_designations
 from .constants import APPROVAL, ARTIFACT_TYPES, LIFECYCLE, LOCK, PRODUCTION
 from .errors import StudioError
 from .store import ProjectStore
+
+SCHEMA_ROOT = Path(__file__).resolve().parents[2] / "schemas" / "local_studio"
+
+
+def _load_schema(name: str) -> dict[str, Any]:
+    schema_path = SCHEMA_ROOT / name
+    return json.loads(schema_path.read_text(encoding="utf-8"))
+
+
+def _validate_schema(value: Any, schema: Mapping[str, Any]) -> None:
+    if not isinstance(value, Mapping):
+        raise StudioError("SCHEMA_VALIDATION_FAILED", "Payload 必須是 Object。")
+    if schema.get("type") == "object":
+        required = schema.get("required", [])
+        missing = [field for field in required if field not in value]
+        if missing:
+            raise StudioError("SCHEMA_VALIDATION_FAILED", f"缺少欄位：{missing}")
+        for field_name, field_schema in schema.get("properties", {}).items():
+            if field_name in value:
+                if field_schema.get("type") == "object":
+                    if not isinstance(value[field_name], Mapping):
+                        raise StudioError("SCHEMA_VALIDATION_FAILED", f"欄位 {field_name} 必須是 Object。")
+                elif field_schema.get("type") == "array":
+                    if not isinstance(value[field_name], list):
+                        raise StudioError("SCHEMA_VALIDATION_FAILED", f"欄位 {field_name} 必須是 Array。")
+                elif field_schema.get("type") == "string":
+                    if not isinstance(value[field_name], str):
+                        raise StudioError("SCHEMA_VALIDATION_FAILED", f"欄位 {field_name} 必須是字串。")
+                enum = field_schema.get("enum")
+                if enum and value[field_name] not in enum:
+                    raise StudioError("SCHEMA_VALIDATION_FAILED", f"欄位 {field_name} 值不合法。")
+                const = field_schema.get("const")
+                if const and value[field_name] != const:
+                    raise StudioError("SCHEMA_VALIDATION_FAILED", f"欄位 {field_name} 值不合法。")
+                pattern = field_schema.get("pattern")
+                if pattern and isinstance(value[field_name], str):
+                    if not re.fullmatch(pattern, value[field_name]):
+                        raise StudioError("SCHEMA_VALIDATION_FAILED", f"欄位 {field_name} 格式不合法。")
+                if field_name == "artifact_type" and value[field_name] not in ARTIFACT_TYPES:
+                    raise StudioError("SCHEMA_VALIDATION_FAILED", "artifact_type 不在核准清單。")
+    return None
 
 VERSION = re.compile(r"^V[0-9]+\.[0-9]+$")
 FORBIDDEN_APPROVERS = {"CODEX", "CHATGPT", "SYSTEM", "AI"}
@@ -30,6 +73,7 @@ def validate_submission(value: Any, episode: Mapping[str, Any]) -> dict[str, Any
         raise StudioError("MISSING_SUBMISSION_FIELDS", f"缺少欄位：{missing}")
     if item["episode_id"] != episode["episode_id"] or item["series_id"] != episode["series_id"]:
         raise StudioError("IDENTITY_MISMATCH", "Episode 或 Series 身分不一致。", status=409)
+    _validate_schema(item, _load_schema("artifact_submission.schema.json"))
     if item["artifact_type"] not in ARTIFACT_TYPES:
         raise StudioError("INVALID_ARTIFACT_TYPE", "artifact_type 不在核准清單。")
     if not isinstance(item["version"], str) or not VERSION.fullmatch(item["version"]):
