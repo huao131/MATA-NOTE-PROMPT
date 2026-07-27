@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mata://schemas/p2/p2_wf_01_candidate_package.schema.json",
+  "title": "P2-WF-01 Candidate Package",
+  "type": "object",
+  "required": ["work_item_id", "episode_id", "status"],
+  "properties": {
+    "work_item_id": {"const": "P2-WF-01"},
+    "episode_id": {"type": "string", "minLength": 1},
+    "status": {
+      "enum": ["CANDIDATE", "PLAN_CANDIDATE", "DRAFT", "PENDING_HUMAN_REVIEW"]
+    }
+  },
+  "additionalProperties": true
+}

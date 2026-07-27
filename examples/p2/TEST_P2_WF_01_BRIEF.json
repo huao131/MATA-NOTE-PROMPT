@@ -1,0 +1,17 @@
+{
+  "episode_id": "TEST_P2_WF_01_EPISODE_001",
+  "title": "三十秒認識專業服務價值",
+  "purpose": "以原創觀點說明專業服務如何降低客戶決策風險",
+  "target_audience": "正在比較專業服務方案的潛在客戶",
+  "duration_seconds": 30,
+  "platform": "Instagram Reels",
+  "aspect_ratio": "9:16",
+  "desired_action": "預約一次需求諮詢",
+  "series_name": "TEST_P2_WF_01_SERIES",
+  "existing_character_usage": "NONE",
+  "special_requirements": [
+    "TEST_ONLY",
+    "NO_EXTERNAL_OPERATION",
+    "NO_MEDIA_GENERATION"
+  ]
+}
