@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "lock_id": "P1-IMPLEMENTATION-LOCK-V1.0-20260727-001",
+  "created_at_utc": "2026-07-27T01:15:26Z",
+  "lock_status": "LOCKED",
+  "locked_implementation_head": "271c16d9f107b69f3c27fc67656e7e1b464e65c6",
+  "locked_integration_merge_commit": "d299b970abe75c52f29941cd1838854c4e7d5956",
+  "locked_scope": [
+    "src/mata_p1/",
+    "schemas/p1/",
+    "tests/p1/",
+    "docs/work/v2_reports/P1_IMPLEMENTATION_VALIDATION_REPORT_V1.0.md",
+    "docs/work/v2_reports/P1_GATE_REGISTER_REMEDIATION_REPORT_V1.1.md",
+    "P1_GOVERNANCE_DOCUMENTS_AUTHORIZED_BY_CODEX-P1-AUTH-V1.0-20260727-001"
+  ],
+  "rules": {
+    "direct_overwrite": "PROHIBITED",
+    "later_correction": "NEW_VERSION_AND_FORMAL_AUTHORIZATION_REQUIRED",
+    "p2_locked_scope_modification": "FORMAL_REMEDIATION_AUTHORIZATION_REQUIRED",
+    "rejected_or_unapproved_replacement": "PROHIBITED",
+    "main_included": false,
+    "pr4_second_baseline": false
+  },
+  "phase_status": {
+    "p2": "BLOCKED",
+    "p3": "BLOCKED"
+  }
+}
