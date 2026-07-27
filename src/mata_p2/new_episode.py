@@ -29,6 +29,11 @@ WORK_ITEM_ID = "P2-WF-01"
 TECHNICAL_ID = "p2_wf_01"
 REMEDIATION_ID = "P2-WF-01.1"
 IDENTITY_REMEDIATION_ID = "P2-WF-01.2"
+# Historical deterministic generation is retained exclusively for explicit
+# CLI recovery, regression, demo and offline-fixture use. Local Studio's
+# production workflow never imports or calls the generator functions below.
+CREATIVE_GENERATOR_CLASSIFICATION = "OFFLINE_FALLBACK"
+CREATIVE_GENERATOR_PRODUCTION_ENABLED = False
 BRIEF_FIELDS = (
     "episode_id",
     "title",

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mata://schemas/local-studio/artifact-submission-v1.0",
+  "title": "Local Studio Artifact Submission V1.0",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "episode_id", "series_id", "artifact_type", "version",
+    "lifecycle_status", "approval_status", "lock_status",
+    "production_state", "payload"
+  ],
+  "properties": {
+    "episode_id": {"type": "string", "pattern": "^(TEST_[A-Z0-9_]+|EP[0-9]{3,})$"},
+    "series_id": {"type": "string", "minLength": 1},
+    "artifact_type": {
+      "type": "string",
+      "enum": [
+        "EPISODE_BRIEF", "AUDIENCE_INSIGHT", "HOOK_STRATEGY",
+        "CREATIVE_CANDIDATE", "CREATIVE_LOCK_CANDIDATE", "STORY_TREATMENT",
+        "SCRIPT", "VOICEOVER", "DIALOGUE", "TIMELINE", "CHARACTER_BIBLE",
+        "SCENE_BIBLE", "PROP_CONTINUITY", "LIGHTING_PROGRESSION",
+        "EXACT_ASSET_LIST", "VISUAL_BIBLE", "STORYBOARD",
+        "KEYFRAME_DEFINITION", "KEYFRAME_ASSET_REGISTRATION",
+        "FLOW_PRODUCTION_PACKAGE", "FLOW_OUTPUT_REGISTRATION", "AUDIO_MANIFEST",
+        "SRT_MANIFEST", "EDITING_PACKAGE", "FINAL_QC", "EPISODE_SUMMARY"
+      ]
+    },
+    "version": {"type": "string", "pattern": "^V[0-9]+\\.[0-9]+$"},
+    "lifecycle_status": {"enum": ["DRAFT", "REVIEW", "SUPERSEDED", "ARCHIVED", "REJECTED"]},
+    "approval_status": {"enum": ["NOT_SUBMITTED", "PENDING_HUMAN_REVIEW", "REJECTED"]},
+    "lock_status": {"const": "UNLOCKED"},
+    "production_state": {"type": "string"},
+    "source_asset_ids": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "payload": {"type": "object"}
+  }
+}
