@@ -1,0 +1,41 @@
+{
+  "test_only": true,
+  "test_namespace": "TEST_CONTROLLED_EPISODE_001",
+  "episode_id": "TEST_EP_P0P1_001",
+  "plan_id": "TEST_PLAN_P0P1_001",
+  "operation": "VALIDATE_PLAN",
+  "schema_name": "storyboard_flow_handoff.schema.json",
+  "contract_type": "STORYBOARD_FLOW_HANDOFF",
+  "permitted_scope_values": "NOT_APPLICABLE",
+  "selected_scope_value": "NOT_APPLICABLE",
+  "simulated_approval": {
+    "approved_by": "HUMAN_TEST_APPROVER",
+    "approval_type": "TEST_ONLY_SIMULATED_APPROVAL"
+  },
+  "payload": {
+    "handoff_id": "TEST_HANDOFF_001",
+    "from": "TEST_STORYBOARD_STAGE",
+    "to": "TEST_FLOW_HANDOFF_VALIDATION_ONLY",
+    "scope": "TEST_CONTROLLED_EPISODE_001",
+    "input_refs": [
+      {
+        "asset_id": "TEST_AST_EXACT_001",
+        "lifecycle_status": "APPROVED",
+        "exact_asset": true,
+        "file_id": "TEST_DRIVE_FILE_EXACT_001",
+        "approved_original_file_id": "TEST_DRIVE_FILE_EXACT_001",
+        "generated_or_redrawn": false
+      }
+    ],
+    "output_refs": ["TEST_OUTPUT_MANIFEST_001"],
+    "owner": "TEST_OWNER",
+    "version_refs": ["TEST_VERSION_V1.0"],
+    "evidence_status": "VERIFIED",
+    "dependency_status": "PASS",
+    "gate_approval": {
+      "approved_by": "HUMAN_TEST_APPROVER"
+    },
+    "timestamp": "2026-07-27T00:00:00Z",
+    "failure_action": "STOP_AND_REPORT"
+  }
+}

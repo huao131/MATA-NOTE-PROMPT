@@ -1,0 +1,70 @@
+{
+  "test_only": true,
+  "test_namespace": "TEST_CONTROLLED_EPISODE_001",
+  "episode_id": "TEST_EP_P0P1_001",
+  "plan_id": "TEST_PLAN_P0P1_001",
+  "operation": "VALIDATE_PLAN",
+  "schema_name": "asset_index.schema.json",
+  "contract_type": "ASSET_INDEX",
+  "permitted_scope_values": "NONEMPTY_STRING",
+  "selected_scope_value": "ASSET",
+  "payload": {
+    "assets": [
+      {
+        "asset_id": "TEST_AST_REFERENCE_001",
+        "asset_type": "TEST_REFERENCE",
+        "scope_type": "ASSET",
+        "scope_id": "TEST_CONTROLLED_EPISODE_001",
+        "version": "TEST_VERSION_V1.0",
+        "folder_ref": {
+          "stable_folder_code": "TEST_CONTROLLED_EPISODE_FOLDER",
+          "display_name_zh_TW": "TEST_ONLY_CONTROLLED_EPISODE",
+          "google_drive_folder_id": "TEST_DRIVE_FOLDER_001",
+          "parent_folder_id": "TEST_DRIVE_PARENT_001"
+        },
+        "google_drive_file_id": "TEST_DRIVE_FILE_REFERENCE_001",
+        "checksum": "TEST_CHECKSUM_REFERENCE_001",
+        "mime_type": "application/json",
+        "file_size_bytes": 1,
+        "evidence_status": "VERIFIED",
+        "lifecycle_status": "REVIEW",
+        "qc_status": "PASS",
+        "approval_ref": null,
+        "lock_ref": null,
+        "source_asset_ids": [],
+        "dependency_check_status": "PASS",
+        "exact_asset": false
+      },
+      {
+        "asset_id": "TEST_AST_EXACT_001",
+        "asset_type": "TEST_EXACT",
+        "scope_type": "ASSET",
+        "scope_id": "TEST_CONTROLLED_EPISODE_001",
+        "version": "TEST_VERSION_V1.0",
+        "folder_ref": {
+          "stable_folder_code": "TEST_CONTROLLED_EPISODE_FOLDER",
+          "display_name_zh_TW": "TEST_ONLY_CONTROLLED_EPISODE",
+          "google_drive_folder_id": "TEST_DRIVE_FOLDER_001",
+          "parent_folder_id": "TEST_DRIVE_PARENT_001"
+        },
+        "google_drive_file_id": "TEST_DRIVE_FILE_EXACT_001",
+        "checksum": "TEST_CHECKSUM_EXACT_001",
+        "mime_type": "application/json",
+        "file_size_bytes": 1,
+        "evidence_status": "VERIFIED",
+        "lifecycle_status": "APPROVED",
+        "qc_status": "PASS",
+        "approval_ref": "TEST_ONLY_SIMULATED_APPROVAL",
+        "lock_ref": null,
+        "source_asset_ids": [],
+        "dependency_check_status": "PASS",
+        "exact_asset": true,
+        "exact_asset_id": "TEST_EXACT_ASSET_ID_001",
+        "approved_original_drive_file_id": "TEST_DRIVE_FILE_EXACT_001",
+        "approved_version": "TEST_VERSION_V1.0",
+        "usage_locations": ["TEST_SEG_001"],
+        "crop_or_scale_allowed": false
+      }
+    ]
+  }
+}

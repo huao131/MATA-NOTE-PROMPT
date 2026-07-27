@@ -1,0 +1,23 @@
+{
+  "test_only": true,
+  "test_namespace": "TEST_CONTROLLED_EPISODE_001",
+  "episode_id": "TEST_EP_P0P1_001",
+  "plan_id": "TEST_PLAN_P0P1_001",
+  "operation": "VALIDATE_PLAN",
+  "schema_name": "episode_initialization.schema.json",
+  "contract_type": "EPISODE_INITIALIZATION_PLAN",
+  "permitted_scope_values": ["TEST", "PLAN_CANDIDATE"],
+  "selected_scope_value": "TEST",
+  "payload": {
+    "plan_id": "TEST_PLAN_P0P1_001",
+    "scope_type": "TEST",
+    "scope_id": "TEST_CONTROLLED_EPISODE_001",
+    "episode_id": "TEST_EP_P0P1_001",
+    "evidence_status": "VERIFIED",
+    "evidence_source": ["TEST_EVIDENCE_EPISODE_INIT_001"],
+    "version_refs": ["TEST_VERSION_V1.0"],
+    "owner": "TEST_OWNER",
+    "timestamp": "2026-07-27T00:00:00Z",
+    "operation": "VALIDATE_PLAN"
+  }
+}
