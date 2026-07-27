@@ -2,13 +2,43 @@
 
 from __future__ import annotations
 
+import json
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any
 
 from .constants import GATES
 from .errors import StudioError
 from .store import ProjectStore
 from .submission import FORBIDDEN_APPROVERS
+
+SCHEMA_ROOT = Path(__file__).resolve().parents[2] / "schemas" / "local_studio"
+
+
+def _load_schema(name: str) -> dict[str, Any]:
+    return json.loads((SCHEMA_ROOT / name).read_text(encoding="utf-8"))
+
+
+def _validate_gate_event_schema(value: Any) -> None:
+    if not isinstance(value, dict):
+        raise StudioError("SCHEMA_VALIDATION_FAILED", "Approval Event 必須是 Object。")
+    schema = _load_schema("approval_event.schema.json")
+    required = schema.get("required", [])
+    missing = [field for field in required if field not in value]
+    if missing:
+        raise StudioError("SCHEMA_VALIDATION_FAILED", f"缺少欄位：{missing}")
+    for field_name, field_schema in schema.get("properties", {}).items():
+        if field_name in value:
+            if field_schema.get("type") == "string" and not isinstance(value[field_name], str):
+                raise StudioError("SCHEMA_VALIDATION_FAILED", f"欄位 {field_name} 必須是字串。")
+            not_schema = field_schema.get("not")
+            if not_schema:
+                forbidden = not_schema.get("enum")
+                if forbidden and value[field_name] in forbidden:
+                    raise StudioError("SCHEMA_VALIDATION_FAILED", f"欄位 {field_name} 不合法。")
+            pattern = field_schema.get("pattern")
+            if pattern and not __import__("re").fullmatch(pattern, value[field_name]):
+                raise StudioError("SCHEMA_VALIDATION_FAILED", f"欄位 {field_name} 格式不合法。")
 
 
 class GateService:
@@ -28,6 +58,7 @@ class GateService:
             raise StudioError("INVALID_GATE_DECISION", "Gate 只能 PASS 或 REJECTED。")
         if not isinstance(event, dict):
             raise StudioError("INVALID_APPROVAL_EVENT", "Approval Event 必須是 Object。")
+        _validate_gate_event_schema(event)
         required = ("approver", "artifact_version", "evidence", "comment")
         missing = [field for field in required if not isinstance(event.get(field), str) or not event[field].strip()]
         if missing:

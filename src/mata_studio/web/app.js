@@ -1,4 +1,4 @@
-const pages=[['dashboard','製片總覽','Dashboard'],['new','建立 Episode','New Episode'],['overview','Episode Overview','Episode Overview'],['creative','Creative Studio','Creative Studio'],['story','Story & Storyboard','Story & Storyboard'],['visual','Visual Bible','Visual Bible'],['keyframe','Keyframe Studio','Keyframe Studio'],['drive','Drive Asset Browser','Drive Assets'],['handoff','Production Handoff','Handoff'],['settings','系統設定','Settings']];
+const pages=[['dashboard','LOCAL STUDIO V1.1','Dashboard'],['new','建立新劇集','New Episode'],['overview','Episode Overview','Episode Overview'],['creative','Creative Studio','Creative Studio'],['story','故事、腳本與分鏡','Story & Storyboard'],['visual','Visual Bible','Visual Bible'],['keyframe','關鍵影格工作室','Keyframe Studio'],['drive','Google Drive資產','Drive Assets'],['handoff','生產交接','Handoff'],['settings','系統設定','Settings']];
 let selected=null,artifacts=[];
 const $=s=>document.querySelector(s);
 async function api(path,options={}){const r=await fetch('/api'+path,{headers:{'Content-Type':'application/json'},...options});const j=await r.json();if(!j.ok)throw new Error(`${j.error.code}｜${j.error.message}`);return j.data}
@@ -8,12 +8,107 @@ function buildNav(){pages.forEach(([id,,label])=>{const b=document.createElement
 const fields=[['episode_id','Episode ID'],['title','影片主題'],['purpose','影片目的'],['target_audience','核心受眾'],['duration_seconds','秒數','number'],['platform','平台'],['aspect_ratio','比例'],['desired_action','希望行動'],['series_id','Series ID'],['series_name','系列名稱'],['existing_character_usage','既有角色'],['special_requirements','特殊要求','textarea']];
 function buildForm(){fields.forEach(([name,label,type='text'])=>{const l=document.createElement('label');if(['purpose','target_audience','special_requirements'].includes(name))l.className='full';l.innerHTML=`${label}${type==='textarea'?`<textarea name="${name}"></textarea>`:`<input name="${name}" type="${type}">`}`;$('#episodeForm').append(l)});const b=document.createElement('button');b.className='full';b.textContent='建立候選 Episode';$('#episodeForm').append(b);$('#episodeForm').onsubmit=createEpisode}
 async function createEpisode(e){e.preventDefault();alertMsg('');const v=Object.fromEntries(new FormData(e.target));v.duration_seconds=Number(v.duration_seconds);v.special_requirements=v.special_requirements.split('\n').filter(Boolean);try{selected=await api('/episodes',{method:'POST',body:JSON.stringify(v)});await refresh();openEpisode(selected.episode_id)}catch(e){alertMsg(e.message)}}
-async function refresh(){try{const [status,episodes]=await Promise.all([api('/system/status'),api('/episodes')]);$('#driveBadge').textContent=`Drive：${status.drive.status}`;$('#system').innerHTML=`<p>版本 ${status.version}</p><p>監聽：${status.bind}</p><p>付費 API：${status.paid_api_calls}</p>`;const counts={creative:0,story:0,key:0,done:0};episodes.forEach(e=>{if(e.production_state==='AWAITING_CREATIVE_INPUT')counts.creative++;if(e.production_state==='STORY_REVIEW')counts.story++;if(e.production_state==='KEYFRAME_REVIEW')counts.key++;if(e.production_state==='COMPLETE')counts.done++});$('#stats').innerHTML=[['進行中',episodes.length],['等待 Creative',counts.creative],['等待 Story',counts.story],['等待 Keyframe',counts.key],['已完成',counts.done]].map(x=>`<div class="stat"><strong>${x[1]}</strong><span>${x[0]}</span></div>`).join('');$('#episodes').innerHTML=episodes.length?episodes.map(e=>`<div class="episode"><div><strong>${e.episode_id}｜${e.title}</strong><p class="hint">${e.series_id}</p></div><div><span class="pill">${e.production_state}</span> <button onclick="openEpisode('${e.episode_id}')">開啟</button></div></div>`).join(''):'<p class="empty">尚無 Episode</p>'}catch(e){alertMsg(e.message)}}
-async function openEpisode(id){selected=await api(`/episodes/${id}`);artifacts=await api(`/episodes/${id}/artifacts`);const gates=await api(`/episodes/${id}/gates`);$('#overviewBody').innerHTML=`<h3>${selected.episode_id}｜${selected.title}</h3><p><span class="pill">${selected.production_state}</span></p><p>${selected.brief.purpose}</p><h3>人工 Gate</h3>${gates.map(g=>`<p>${g.gate_id} <span class="pill">${g.gate_status}</span></p>`).join('')}`;renderArtifacts();showPage('overview')}
+async function refresh(){try{const [status,episodes]=await Promise.all([api('/system/status'),api('/episodes')]);const gitContext=status.git_build_context||{};const spec=status.specification_context||{};const driveStatus=status.google_drive_sync_status||status.drive?.status||'NOT_CONNECTED';$('#driveBadge').textContent=`Google Drive：${driveStatus}`;$('#system').innerHTML=`<p>版本 ${status.version}</p><p>監聽：${status.bind}</p><p>付費 API：${status.paid_api_calls}</p><p>Worktree：${gitContext.worktree_path||'n/a'}</p><p>Branch：${gitContext.branch||'n/a'}</p><p>Commit SHA：${gitContext.commit_sha||'n/a'}</p><p>Active Specification Ref：${spec.source_ref||'n/a'}</p><p>Specification Commit SHA：${spec.source_commit_sha||'n/a'}</p><p>SOP Version：${spec.sop_version||'n/a'}</p><p>Specification Sync Status：${spec.status||'UNAVAILABLE'}</p><p>Google Drive Sync Status：${driveStatus}</p><p>paid_ai_api_calls：${status.paid_api_calls}</p><p>working_tree_dirty：${String(Boolean(gitContext.working_tree_dirty))}</p><p>uncommitted_changes_count：${gitContext.uncommitted_changes_count||0}</p>`;const counts={creative:0,story:0,key:0,done:0};episodes.forEach(e=>{if(e.production_state==='AWAITING_CREATIVE_INPUT')counts.creative++;if(e.production_state==='STORY_REVIEW')counts.story++;if(e.production_state==='KEYFRAME_REVIEW')counts.key++;if(e.production_state==='COMPLETE')counts.done++});$('#stats').innerHTML=[['進行中',episodes.length],['等待 Creative',counts.creative],['等待 Story',counts.story],['等待 Keyframe',counts.key],['已完成',counts.done]].map(x=>`<div class="stat"><strong>${x[1]}</strong><span>${x[0]}</span></div>`).join('');$('#episodes').innerHTML=episodes.length?episodes.map(e=>`<div class="episode"><div><strong>${e.episode_id}｜${e.title}</strong><p class="hint">${e.series_id}</p></div><div><span class="pill">${e.production_state}</span> <button onclick="openEpisode('${e.episode_id}')">開啟</button></div></div>`).join(''):'<p class="empty">尚無 Episode</p>'}catch(e){alertMsg(e.message)}}
+async function openEpisode(id){selected=await api(`/episodes/${id}`);artifacts=await api(`/episodes/${id}/artifacts`);const gates=await api(`/episodes/${id}/gates`);const nextStep=await api(`/episodes/${id}/next-step`);const packageData=await api(`/episodes/${id}/chatgpt-package`);const driveMapping=await api(`/episodes/${id}/drive-mapping`);$('#overviewBody').innerHTML=`<h3>${selected.episode_id}｜${selected.title}</h3><p><span class="pill">${selected.production_state}</span></p><p>${selected.brief.purpose}</p><h3>目前階段</h3><p>${nextStep.next_task_name_zh_TW}</p><h3>下一步</h3><p>${nextStep.next_task_id}</p><h3>為什麼停在這裡</h3><p>${nextStep.why_blocked}</p><h3>ChatGPT 工作包</h3><pre>${JSON.stringify(packageData,null,2)}</pre><h3>Drive Mapping</h3><pre>${JSON.stringify(driveMapping,null,2)}</pre><h3>人工 Gate</h3>${gates.map(g=>`<p>${g.gate_id} <span class="pill">${g.gate_status}</span></p>`).join('')}`;renderArtifacts();showPage('overview')}
 function renderArtifacts(){const list=artifacts.map(a=>`<div class="card"><strong>${a.artifact_type}</strong><p>${a.version} · ${a.approval_status}</p><pre>${JSON.stringify(a.payload,null,2)}</pre></div>`).join('');$('#artifactList').innerHTML=list||'<p class="empty">尚無候選版本</p>';const types=t=>artifacts.filter(a=>t.includes(a.artifact_type)).map(a=>`<div class="card"><strong>${a.artifact_type}</strong><p>${a.version}</p><pre>${JSON.stringify(a.payload,null,2)}</pre></div>`).join('')||'<p class="empty">尚無內容</p>';$('#storyCards').innerHTML=types(['STORY_TREATMENT','SCRIPT','VOICEOVER','DIALOGUE','TIMELINE','STORYBOARD']);$('#visualCards').innerHTML=types(['CHARACTER_BIBLE','SCENE_BIBLE','PROP_CONTINUITY','LIGHTING_PROGRESSION','EXACT_ASSET_LIST','VISUAL_BIBLE']);$('#keyframes').innerHTML=types(['KEYFRAME_DEFINITION','KEYFRAME_ASSET_REGISTRATION'])}
-async function importArtifact(){if(!selected)return alertMsg('請先選擇 Episode。');try{const value=JSON.parse($('#artifactJson').value);await api(`/episodes/${selected.episode_id}/artifacts`,{method:'POST',body:JSON.stringify(value)});await openEpisode(selected.episode_id);showPage('creative')}catch(e){alertMsg(e.message)}}
+let selected=null,artifacts=[],validatedImport=null;
+
+function resetValidation() {
+    validatedImport = null;
+    $('#importBtn').disabled = true;
+}
+
+$('#artifactJson').addEventListener('input', resetValidation);
+
+async function validateArtifact() {
+    if (!selected) return alertMsg('請先選擇 Episode。');
+    const text = $('#artifactJson').value;
+    try {
+        const res = await api(`/episodes/${selected.episode_id}/chatgpt-import/validate`, {
+            method: 'POST',
+            body: JSON.stringify({ raw_text: text })
+        });
+        validatedImport = {
+            episode_id: selected.episode_id,
+            raw_text: text,
+            result: res
+        };
+        $('#importBtn').disabled = false;
+        alertMsg('Artifact 結構有效，可匯入。');
+    } catch (e) {
+        resetValidation();
+        alertMsg(e.message);
+    }
+}
+
+async function importArtifact() {
+    if (!selected || !validatedImport ||
+        validatedImport.episode_id !== selected.episode_id ||
+        validatedImport.raw_text !== $('#artifactJson').value) {
+        resetValidation();
+        return alertMsg('請重新驗證 ChatGPT 回覆');
+    }
+
+    try {
+        await api(`/episodes/${selected.episode_id}/chatgpt-import`, {
+            method: 'POST',
+            body: JSON.stringify({ raw_text: validatedImport.raw_text })
+        });
+        resetValidation();
+        await openEpisode(selected.episode_id);
+        alertMsg('匯入並保存成功。');
+    } catch (e) {
+        alertMsg(e.message);
+    }
+}
+async function generatePackage(){if(!selected)return alertMsg('請先建立或選擇一個 Episode。');try{const packageData=await api(`/episodes/${selected.episode_id}/chatgpt-package`);$('#artifactJson').value=JSON.stringify(packageData,null,2);alertMsg('已生成 ChatGPT 工作包。')}catch(e){alertMsg(e.message)}}
+async function copyPackage(){if(!selected)return alertMsg('請先建立或選擇一個 Episode。');try{const text=$('#artifactJson').value;await navigator.clipboard.writeText(text);alertMsg('已複製完整工作包。')}catch(e){alertMsg('Clipboard API 失敗，請手動複製內容。')}}
 async function submitCreativeGate(){if(!selected||!artifacts.length)return alertMsg('需要已儲存 Candidate。');try{const v=artifacts.at(-1).version;await api(`/episodes/${selected.episode_id}/gates/creative_lock/submit`,{method:'POST',body:JSON.stringify({artifact_version:v})});await openEpisode(selected.episode_id)}catch(e){alertMsg(e.message)}}
 async function exportPackage(type){if(!selected)return alertMsg('請先選擇 Episode。');try{$('#handoffResult').textContent=JSON.stringify(await api(`/episodes/${selected.episode_id}/export/${type}`,{method:'POST',body:'{}'}),null,2)}catch(e){alertMsg(e.message)}}
-async function loadDrive(){const s=await api('/system/drive-status');$('#driveBody').innerHTML=`<p class="pill">${s.status}</p><p>${s.status==='NOT_CONNECTED'?'請依 OAuth 設定說明連線。未連線時不會假造上傳或驗證。':'已連線，可依 Folder ID 瀏覽。'}</p>`}
+
+function openChatGPT() {
+  window.open("https://chatgpt.com/", "_blank", "noopener,noreferrer");
+}
+
+async function performGateAction(action, gateId) {
+    if (!selected) return;
+    const select = $('#artifactSelect');
+    if (!select.value) return alertMsg('請先選擇一個 Candidate。');
+
+    const artifact = artifacts.find(a => a.artifact_id === select.value);
+    const approver = $('#approverInput').value;
+    const evidence = $('#evidenceInput').value;
+    const comment = $('#commentInput').value;
+
+    if (!approver || !evidence || !comment) return alertMsg('請完整填寫批准資訊。');
+    const forbidden = ['CODEX', 'CHATGPT', 'SYSTEM', 'AI', 'GEMINI'];
+    if (forbidden.includes(approver.toUpperCase())) return alertMsg('不可使用AI作為批准人。');
+    if (artifact.approval_status === 'REJECTED') return alertMsg('不可批准已退回的 Candidate。');
+
+    try {
+        await api(`/episodes/${selected.episode_id}/gates/${gateId}/${action}`, {
+            method: 'POST',
+            body: JSON.stringify({
+                approver,
+                artifact_id: artifact.artifact_id,
+                artifact_version: artifact.version,
+                evidence,
+                comment
+            })
+        });
+        await openEpisode(selected.episode_id);
+        alertMsg(`${action === 'approve' ? '批准' : '退回'}成功。`);
+    } catch (e) {
+        alertMsg(e.message);
+    }
+}
+
+function updateArtifactFields() {
+    const select = $('#artifactSelect');
+    const versionInput = $('#artifactVersionInput');
+    const artifact = artifacts.find(a => a.artifact_id === select.value);
+    versionInput.value = artifact ? artifact.version : '';
+}
+async function loadDrive(){const s=await api('/system/drive-status');$('#driveBody').innerHTML=`<p class="pill">${s.status}</p><p>${s.status==='NOT_CONNECTED'?'Google Drive：未連線。未連線時不會假造上傳或驗證。':'Google Drive已連線，可依 Folder ID 瀏覽。'}</p>`}
 async function loadSettings(){const [s,c]=await Promise.all([api('/system/status'),api('/system/config')]);$('#settingsBody').innerHTML=`<pre>${JSON.stringify({system:s,config:c},null,2)}</pre>`}
 buildNav();buildForm();refresh();

@@ -69,6 +69,8 @@ def handler_factory(app: StudioApp, web_root: Path):
                 elif path == "/api/system/status": result = app.status()
                 elif path == "/api/system/config": result = app.config()
                 elif path == "/api/system/drive-status": result = app.drive.status()
+                elif path == "/api/specifications/status": result = app.specification_status()
+                elif path == "/api/specifications/context": result = app.specification_context('')
                 elif path == "/api/series": result = app.store.list_series()
                 elif path == "/api/episodes": result = app.store.list_episodes()
                 elif match := re.fullmatch(r"/api/series/([^/]+)", path): result = app.store.get_series(match[1])
@@ -76,6 +78,10 @@ def handler_factory(app: StudioApp, web_root: Path):
                 elif match := re.fullmatch(r"/api/episodes/([^/]+)/state", path): result = {"production_state": app.store.get_episode(match[1])["production_state"]}
                 elif match := re.fullmatch(r"/api/episodes/([^/]+)/gates", path): result = app.store.gates(match[1])
                 elif match := re.fullmatch(r"/api/episodes/([^/]+)/artifacts", path): result = app.store.artifacts(match[1])
+                elif match := re.fullmatch(r"/api/episodes/([^/]+)/next-step", path): result = app.next_step(match[1])
+                elif match := re.fullmatch(r"/api/episodes/([^/]+)/chatgpt-package", path): result = app.chatgpt_package(match[1])
+                elif match := re.fullmatch(r"/api/episodes/([^/]+)/chatgpt-package/latest", path): result = app.chatgpt_package(match[1])
+                elif match := re.fullmatch(r"/api/episodes/([^/]+)/drive-mapping", path): result = app.drive_mapping(match[1])
                 elif match := re.fullmatch(r"/api/episodes/([^/]+)/artifacts/([^/]+)", path): result = app.store.artifact(match[2])
                 elif match := re.fullmatch(r"/api/episodes/([^/]+)/assets", path): result = app.store.assets(match[1])
                 elif match := re.fullmatch(r"/api/assets/([^/]+)", path): result = app.store.asset(match[1])
@@ -102,6 +108,9 @@ def handler_factory(app: StudioApp, web_root: Path):
                 elif match := re.fullmatch(r"/api/episodes/([^/]+)/artifacts/([^/]+)/validate", path): result = app.validate({**body, "episode_id": match[1]})
                 elif match := re.fullmatch(r"/api/episodes/([^/]+)/gates/([^/]+)/submit", path): result = app.gates.submit(match[1], match[2], body.get("artifact_version", ""))
                 elif match := re.fullmatch(r"/api/episodes/([^/]+)/gates/([^/]+)/(approve|reject)", path): result = app.gates.decide(match[1], match[2], "PASS" if match[3] == "approve" else "REJECTED", body)
+                elif match := re.fullmatch(r"/api/episodes/([^/]+)/chatgpt-import", path): result, status = app.chatgpt_import(match[1], body.get("raw_text", "")), 201
+                elif match := re.fullmatch(r"/api/episodes/([^/]+)/chatgpt-import/validate", path): result = app.chatgpt_import(match[1], body.get("raw_text", ""))
+                elif match := re.fullmatch(r"/api/episodes/([^/]+)/drive-mapping", path): result, status = app.drive_mapping(match[1]), 200
                 elif match := re.fullmatch(r"/api/episodes/([^/]+)/assets/register", path): result, status = app.assets.register(match[1], body), 201
                 elif match := re.fullmatch(r"/api/episodes/([^/]+)/assets/upload", path): raise StudioError("DRIVE_UPLOAD_REQUIRES_OAUTH", "請先完成 Drive OAuth，且只能上傳至已驗證 Folder ID。", status=503)
                 elif match := re.fullmatch(r"/api/assets/([^/]+)/(approve|reject|lock)", path): result = app.assets.transition(match[1], match[2], body)
