@@ -1,5 +1,5 @@
 from __future__ import annotations
-import ctypes, os, subprocess, sys, time
+import ctypes, json, os, subprocess, sys, time
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 RUNTIME=ROOT/'control/runtime'; LOG=RUNTIME/'USER_CONTEXT_LAUNCHER.log'
@@ -18,7 +18,17 @@ def main():
   subprocess.Popen([r'C:\Python314\pythonw.exe',str(ROOT/'control/local_watcher.py'),'--poll-seconds','10'],cwd=ROOT,env=env)
   time.sleep(3)
   code=subprocess.call([r'C:\Python314\python.exe',str(ROOT/'control/windows/user_context_connection_test.py')],cwd=ROOT,env=env)
-  message='MATA automated production connection succeeded. ChatGPT can send tasks.' if code==0 else 'Connection failed. See: '+str(LOG)
+  if code == 0:
+   message = 'MATA automated production connection succeeded. ChatGPT can send tasks.'
+  else:
+   detail = 'UNKNOWN'
+   report = RUNTIME/'USER_CONTEXT_CONNECTION_TEST_REPORT.json'
+   try: detail = json.loads(report.read_text(encoding='utf-8')).get('error', detail)
+   except Exception: pass
+   if detail == 'GITHUB_API_401':
+    message = 'GitHub rejected the saved Token (401). Open the secure setup button and save a valid Token again. No Token is shown or logged.'
+   else:
+    message = 'Connection failed at: ' + str(detail) + '. See: ' + str(LOG)
   ctypes.windll.user32.MessageBoxW(0,message,'MATA',0x40 if code==0 else 0x10);return code
  except Exception as e:
   note('LAUNCHER_ERROR '+str(e));ctypes.windll.user32.MessageBoxW(0,'Connection failed. See: '+str(LOG),'MATA',0x10);return 1
