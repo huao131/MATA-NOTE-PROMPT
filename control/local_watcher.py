@@ -49,7 +49,7 @@ class LocalWatcher:
 
     def sync_transport(self) -> None:
         if not self.sync: return
-        completed = subprocess.run(["git", "pull", "--ff-only"], cwd=self.root, capture_output=True, text=True, check=False)
+        completed = subprocess.run(["git", "-c", f"safe.directory={self.root}", "pull", "--ff-only"], cwd=self.root, capture_output=True, text=True, check=False)
         if completed.returncode: raise RuntimeError("TRANSPORT_SYNC_FAILED: " + completed.stderr.strip())
 
     def process_once(self) -> int:
@@ -68,11 +68,12 @@ class LocalWatcher:
             (self.results / source.name).write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
             claimed.unlink(missing_ok=True); count += 1
         if count and self.sync:
-            completed = subprocess.run(["git", "add", "-A", "control/transport"], cwd=self.root, capture_output=True, text=True, check=False)
-            completed = subprocess.run(["git", "commit", "-m", "chore(transport): publish watcher results"], cwd=self.root, capture_output=True, text=True, check=False)
+            git = ["git", "-c", f"safe.directory={self.root}"]
+            completed = subprocess.run(git + ["add", "-A", "control/transport"], cwd=self.root, capture_output=True, text=True, check=False)
+            completed = subprocess.run(git + ["commit", "-m", "chore(transport): publish watcher results"], cwd=self.root, capture_output=True, text=True, check=False)
             if completed.returncode:
                 raise RuntimeError("TRANSPORT_RESULT_COMMIT_FAILED: " + completed.stderr.strip())
-            completed = subprocess.run(["git", "push"], cwd=self.root, capture_output=True, text=True, check=False)
+            completed = subprocess.run(git + ["push"], cwd=self.root, capture_output=True, text=True, check=False)
             if completed.returncode:
                 raise RuntimeError("TRANSPORT_RESULT_PUSH_FAILED: " + completed.stderr.strip())
         return count
