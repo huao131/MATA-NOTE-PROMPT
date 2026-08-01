@@ -5,4 +5,6 @@
   "sha256": "a877ca441985bfe0b8e5f41cc428413dfc4186fababed7a929b9ff3ea2c838bf",
   "released_at": "2026-08-01T00:00:00Z",
   "minimum_bridge_version": "1.0.0"
+  ,"release_role": "bridge_connection_test"
+  ,"connection_test_only": true
 }

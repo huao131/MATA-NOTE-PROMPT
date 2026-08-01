@@ -18,7 +18,7 @@ from jsonschema import Draft202012Validator
 
 ROOT = Path(__file__).resolve().parents[1]
 BRIDGE_VERSION = "1.1.0"
-VALID_STATES = {"RUNNING", "WAITING_FOR_FLOW_ASSET", "SUCCESS", "BLOCKED"}
+VALID_STATES = {"RUNNING", "WAITING_FOR_TOPIC_APPROVAL", "WAITING_FOR_FLOW_ASSET", "SUCCESS", "BLOCKED"}
 
 
 class BridgeError(Exception):
@@ -45,6 +45,7 @@ class Bridge:
         self.state_dir = self.root / "control" / "state"
         self.log_dir = self.root / "control" / "logs"
         self.schema_path = self.root / "control" / "schemas" / "episode_request.schema.json"
+        self._release_path_explicit = release_path is not None or "MATA_CURRENT_RELEASE" in os.environ
         self.release_path = release_path or Path(os.environ.get("MATA_CURRENT_RELEASE", self.root / "runners" / "CURRENT_RELEASE.json"))
 
     def load_release(self) -> tuple[dict[str, Any], Path]:
@@ -94,6 +95,8 @@ class Bridge:
         request = self.validate_request(request)
         previous_state, previous_manifest = self._resume(request)
         release, runner = self.load_release()
+        if request["request_type"] == "episode" and not self._release_path_explicit and release.get("release_role") != "history_today_production":
+            raise BridgeError("PRODUCTION_CURRENT_RELEASE_UNAVAILABLE")
         locked = previous_state["locked_release"] if previous_state else {"runner_version": release["runner_version"], "runner_path": release["runner_path"], "runner_sha256": release["sha256"]}
         if previous_state:
             runner = (self.root / locked["runner_path"]).resolve()
