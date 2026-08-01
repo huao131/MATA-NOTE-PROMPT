@@ -56,7 +56,12 @@ class LocalWatcher:
 
     def sync_transport(self) -> None:
         if not self.sync: return
-        completed = subprocess.run(["git", "-c", f"safe.directory={self.root}", "pull", "--ff-only"], cwd=self.root, capture_output=True, text=True, check=False)
+        environment = os.environ.copy()
+        environment["GIT_TERMINAL_PROMPT"] = "0"
+        try:
+            completed = subprocess.run(["git", "-c", f"safe.directory={self.root}", "pull", "--ff-only"], cwd=self.root, capture_output=True, text=True, check=False, timeout=20, env=environment)
+        except subprocess.TimeoutExpired as error:
+            raise RuntimeError("TRANSPORT_SYNC_TIMEOUT") from error
         if completed.returncode: raise RuntimeError("TRANSPORT_SYNC_FAILED: " + completed.stderr.strip())
 
     def process_once(self) -> int:
