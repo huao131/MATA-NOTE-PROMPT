@@ -35,7 +35,7 @@ class LocalWatcher:
             (self.results / source.name).write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
             claimed.unlink(missing_ok=True); count += 1
         if count and self.sync:
-            completed = subprocess.run(["git", "add", "control/transport/results"], cwd=self.root, capture_output=True, text=True, check=False)
+            completed = subprocess.run(["git", "add", "-A", "control/transport"], cwd=self.root, capture_output=True, text=True, check=False)
             completed = subprocess.run(["git", "commit", "-m", "chore(transport): publish watcher results"], cwd=self.root, capture_output=True, text=True, check=False)
             if completed.returncode:
                 raise RuntimeError("TRANSPORT_RESULT_COMMIT_FAILED: " + completed.stderr.strip())
