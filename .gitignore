@@ -1,0 +1,9 @@
+control/logs/*.log
+control/state/*.request.json
+control/state/*.state.json
+control/state/*.manifest.json
+!control/logs/.gitkeep
+!control/state/.gitkeep
+tools/ffmpeg/
+tools/*.gz
+tools/*.zip
