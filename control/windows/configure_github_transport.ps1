@@ -44,21 +44,26 @@ function Test-Credential {
 }
 
 function Test-GitHubToken([string]$value) {
-  $request = [Net.HttpWebRequest]::Create('https://api.github.com/user')
-  $request.Method = 'GET'
-  $request.Timeout = 30000
-  $request.ReadWriteTimeout = 30000
-  $request.UserAgent = 'MATA-Local-Watcher-Setup'
-  $request.Headers['Authorization'] = 'Bearer ' + $value
-  $request.Headers['Accept'] = 'application/vnd.github+json'
+  $validator = Join-Path $PSScriptRoot 'validate_github_token.py'
+  $info = New-Object Diagnostics.ProcessStartInfo
+  $info.FileName = 'C:\Python314\python.exe'
+  $info.Arguments = '"' + $validator + '"'
+  $info.UseShellExecute = $false
+  $info.RedirectStandardInput = $true
+  $info.RedirectStandardOutput = $true
+  $info.RedirectStandardError = $true
+  $process = New-Object Diagnostics.Process
+  $process.StartInfo = $info
   try {
-    $response = $request.GetResponse()
-    try {
-      if ([int]$response.StatusCode -ne 200) { throw ('GITHUB_API_' + [int]$response.StatusCode) }
-    } finally { $response.Close() }
-  } catch [Net.WebException] {
-    if ($_.Exception.Response) { throw ('GITHUB_API_' + [int]$_.Exception.Response.StatusCode) }
-    throw 'GITHUB_API_NETWORK_ERROR'
+    [void]$process.Start()
+    $process.StandardInput.Write($value)
+    $process.StandardInput.Close()
+    if (-not $process.WaitForExit(35000)) { $process.Kill(); throw 'GITHUB_API_TIMEOUT' }
+    $result = $process.StandardOutput.ReadToEnd().Trim()
+    if ($result -ne 'GITHUB_API_OK') { throw $(if ($result) { $result } else { 'GITHUB_API_NETWORK_ERROR' }) }
+  } finally {
+    $value = $null
+    $process.Dispose()
   }
 }
 
