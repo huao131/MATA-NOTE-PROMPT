@@ -43,6 +43,25 @@ function Test-Credential {
   }
 }
 
+function Test-GitHubToken([string]$value) {
+  $request = [Net.HttpWebRequest]::Create('https://api.github.com/user')
+  $request.Method = 'GET'
+  $request.Timeout = 30000
+  $request.ReadWriteTimeout = 30000
+  $request.UserAgent = 'MATA-Local-Watcher-Setup'
+  $request.Headers['Authorization'] = 'Bearer ' + $value
+  $request.Headers['Accept'] = 'application/vnd.github+json'
+  try {
+    $response = $request.GetResponse()
+    try {
+      if ([int]$response.StatusCode -ne 200) { throw ('GITHUB_API_' + [int]$response.StatusCode) }
+    } finally { $response.Close() }
+  } catch [Net.WebException] {
+    if ($_.Exception.Response) { throw ('GITHUB_API_' + [int]$_.Exception.Response.StatusCode) }
+    throw 'GITHUB_API_NETWORK_ERROR'
+  }
+}
+
 function Show-TokenDialog {
   $form = New-Object System.Windows.Forms.Form
   $form.Text = 'MATA GitHub Secure Setup'
@@ -69,6 +88,7 @@ try {
     Write-SafeStatus 'CREDENTIAL_MISSING' 'Credential target was not found for this Windows user.'; exit 1
   }
   $token = (Show-TokenDialog).Trim()
+  Test-GitHubToken $token
   $blob = [Runtime.InteropServices.Marshal]::StringToCoTaskMemUni($token)
   try {
     $credential = New-Object MataCredentialStore+CREDENTIAL
