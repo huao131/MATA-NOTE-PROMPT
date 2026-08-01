@@ -1,0 +1,18 @@
+{
+  "request_id": "connection-test-live-20260801-2",
+  "transport_status": "COMPLETED",
+  "outcome": {
+    "result": "CONNECTION_TEST_SUCCESS",
+    "status": "SUCCESS",
+    "exit_code": 0,
+    "log_path": "control\\logs\\connection-test-live-20260801-2-a61998a3.log",
+    "output_manifest": "control\\state\\connection-test-live-20260801-2-a61998a3.manifest.json",
+    "state_path": "control\\state\\connection-test-live-20260801-2-a61998a3.state.json",
+    "locked_release": {
+      "runner_version": "1.0.0",
+      "runner_path": "runners/releases/1.0.0/runner.py",
+      "runner_sha256": "a877ca441985bfe0b8e5f41cc428413dfc4186fababed7a929b9ff3ea2c838bf"
+    },
+    "error": null
+  }
+}
