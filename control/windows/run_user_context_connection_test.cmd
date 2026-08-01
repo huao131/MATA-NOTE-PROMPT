@@ -7,6 +7,10 @@ echo [%DATE% %TIME%] launcher started>>"%LOG%"
 call "%ROOT%\control\windows\start_user_watcher.cmd" >>"%LOG%" 2>&1
 "C:\Python314\python.exe" "%ROOT%\control\windows\user_context_connection_test.py" >>"%LOG%" 2>&1
 set "RESULT=%ERRORLEVEL%"
-if "%RESULT%"=="0" (powershell -NoProfile -WindowStyle Hidden -Command "Add-Type -AssemblyName System.Windows.Forms;[System.Windows.Forms.MessageBox]::Show('MATA自動製片接線成功。之後可由ChatGPT發送任務。','MATA')" >>"%LOG%" 2>&1) else (powershell -NoProfile -WindowStyle Hidden -Command "Add-Type -AssemblyName System.Windows.Forms;[System.Windows.Forms.MessageBox]::Show('接線失敗。請查看：%LOG%','MATA')" >>"%LOG%" 2>&1)
+if "%RESULT%"=="0" (
+  powershell -NoProfile -WindowStyle Hidden -Command "Add-Type -AssemblyName System.Windows.Forms;[System.Windows.Forms.MessageBox]::Show('MATA connection succeeded. ChatGPT can send tasks.','MATA')" >>"%LOG%" 2>&1
+) else (
+  powershell -NoProfile -WindowStyle Hidden -Command "Add-Type -AssemblyName System.Windows.Forms;[System.Windows.Forms.MessageBox]::Show('Connection failed. See launcher log: %LOG%','MATA')" >>"%LOG%" 2>&1
+)
 echo [%DATE% %TIME%] launcher finished exit=%RESULT%>>"%LOG%"
 endlocal
