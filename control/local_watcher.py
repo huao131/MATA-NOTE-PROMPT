@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Always-on, single-consumer transport watcher for ChatGPT run requests."""
 from __future__ import annotations
-import argparse, atexit, json, os, subprocess, time
+import argparse, atexit, json, os, subprocess, threading, time
 from datetime import datetime, timezone
 from pathlib import Path
 from chatgpt_runner_bridge import Bridge
@@ -18,6 +18,8 @@ class LocalWatcher:
         self.pid_path = self.runtime / "local_watcher.pid"
         self.heartbeat_path = self.runtime / "local_watcher.heartbeat.json"
         self.log_path = self.runtime / "local_watcher.log"
+        self.transport_mode = os.environ.get("TRANSPORT_MODE", "git").lower()
+        self.git_lock = threading.Lock()
 
     def log(self, message: str) -> None:
         self.runtime.mkdir(parents=True, exist_ok=True)
@@ -55,14 +57,24 @@ class LocalWatcher:
         self.heartbeat_path.write_text(json.dumps({"pid": os.getpid(), "status": status, "updated_at": datetime.now(timezone.utc).isoformat(), "error": error}, ensure_ascii=False, indent=2), encoding="utf-8")
 
     def sync_transport(self) -> None:
-        if not self.sync: return
+        if not self.sync or self.transport_mode in {"file_queue", "github_api"}: return
         environment = os.environ.copy()
         environment["GIT_TERMINAL_PROMPT"] = "0"
-        try:
-            completed = subprocess.run(["git", "-c", f"safe.directory={self.root}", "pull", "--ff-only"], cwd=self.root, capture_output=True, text=True, check=False, timeout=20, env=environment)
-        except subprocess.TimeoutExpired as error:
-            raise RuntimeError("TRANSPORT_SYNC_TIMEOUT") from error
-        if completed.returncode: raise RuntimeError("TRANSPORT_SYNC_FAILED: " + completed.stderr.strip())
+        environment["GCM_INTERACTIVE"] = "Never"
+        environment["GIT_ASKPASS"] = ""
+        environment["SSH_ASKPASS"] = ""
+        commands = [["fetch", "--prune", "origin"], ["reset", "--hard", "origin/agent/issue-14-runner-bridge"]]
+        with self.git_lock:
+            for step in commands:
+                try:
+                    completed = subprocess.run(["git", "-c", f"safe.directory={self.root}"] + step, cwd=self.root, capture_output=True, text=True, check=False, timeout=30, env=environment)
+                except subprocess.TimeoutExpired:
+                    self.log("TRANSPORT_RETRY step=" + step[0] + " reason=timeout")
+                    raise RuntimeError("TRANSPORT_RETRY: " + step[0] + " timeout")
+                if completed.returncode:
+                    self.log("TRANSPORT_RETRY step=" + step[0] + " exit=" + str(completed.returncode) + " error=" + completed.stderr.strip())
+                    raise RuntimeError("TRANSPORT_RETRY: " + step[0] + " exit=" + str(completed.returncode))
+                self.log("TRANSPORT_SYNC step=" + step[0] + " ok")
 
     def process_once(self) -> int:
         self.sync_transport()
@@ -100,7 +112,7 @@ class LocalWatcher:
                     if count:
                         self.log(f"REQUESTS_PROCESSED count={count}")
                 except Exception as error:
-                    self.heartbeat("BLOCKED", str(error))
+                    self.heartbeat("TRANSPORT_RETRY", str(error))
                     self.log(f"WATCHER_ERROR {error}")
                     if once: raise
                 if once: return
