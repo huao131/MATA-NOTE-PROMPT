@@ -2,7 +2,7 @@
   "runner_version": "1.0.0",
   "runner_path": "runners/releases/1.0.0/runner.py",
   "status": "APPROVED",
-  "sha256": "e9dcb683c1d887c5d339e22c76dca9b738835ea893b03db8dc7ec3dd9c93a404",
+  "sha256": "a877ca441985bfe0b8e5f41cc428413dfc4186fababed7a929b9ff3ea2c838bf",
   "released_at": "2026-08-01T00:00:00Z",
   "minimum_bridge_version": "1.0.0"
 }

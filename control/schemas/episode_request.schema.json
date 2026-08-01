@@ -8,7 +8,8 @@
     "request_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{2,127}$"},
     "request_type": {"type": "string", "enum": ["connection_test", "episode"]},
     "episode_id": {"type": "string", "minLength": 1, "maxLength": 128},
-    "payload": {"type": "object"}
+    "payload": {"type": "object"},
+    "resume_run_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{2,127}$"}
   },
   "allOf": [{
     "if": {"properties": {"request_type": {"const": "connection_test"}}},

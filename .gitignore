@@ -7,3 +7,5 @@ control/state/*.manifest.json
 tools/ffmpeg/
 tools/*.gz
 tools/*.zip
+__pycache__/
+*.pyc
