@@ -37,9 +37,7 @@ function Write-SafeStatus([string]$status, [string]$detail) {
 function Test-Credential {
   $pointer = [IntPtr]::Zero
   try {
-    $ok = [MataCredentialStore]::CredRead($credentialTarget, 1, 0, [ref]$pointer)
-    if (-not $ok) { return $false }
-    return $true
+    return [MataCredentialStore]::CredRead($credentialTarget, 1, 0, [ref]$pointer)
   } finally {
     if ($pointer -ne [IntPtr]::Zero) { [MataCredentialStore]::CredFree($pointer) }
   }
@@ -47,19 +45,19 @@ function Test-Credential {
 
 function Show-TokenDialog {
   $form = New-Object System.Windows.Forms.Form
-  $form.Text = 'MATA GitHub 安全設定'
+  $form.Text = 'MATA GitHub Secure Setup'
   $form.Size = New-Object System.Drawing.Size(550, 210)
   $form.StartPosition = 'CenterScreen'; $form.FormBorderStyle = 'FixedDialog'
   $form.MaximizeBox = $false; $form.MinimizeBox = $false
   $label = New-Object System.Windows.Forms.Label
-  $label.Text = '請貼上 Fine-grained GitHub Token。輸入內容會隱藏，且只儲存於目前使用者的 Windows Credential Manager。'
+  $label.Text = 'Paste the Fine-grained GitHub Token. It is masked and stored only in Windows Credential Manager.'
   $label.Location = New-Object System.Drawing.Point(18, 18); $label.Size = New-Object System.Drawing.Size(500, 48)
   $form.Controls.Add($label)
   $input = New-Object System.Windows.Forms.TextBox
   $input.Location = New-Object System.Drawing.Point(18, 78); $input.Size = New-Object System.Drawing.Size(500, 24); $input.UseSystemPasswordChar = $true
   $form.Controls.Add($input)
-  $save = New-Object System.Windows.Forms.Button; $save.Text = '安全儲存並驗證'; $save.Location = New-Object System.Drawing.Point(288, 122); $save.DialogResult = [System.Windows.Forms.DialogResult]::OK
-  $cancel = New-Object System.Windows.Forms.Button; $cancel.Text = '取消'; $cancel.Location = New-Object System.Drawing.Point(420, 122); $cancel.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
+  $save = New-Object System.Windows.Forms.Button; $save.Text = 'Save and verify'; $save.Location = New-Object System.Drawing.Point(288, 122); $save.DialogResult = [System.Windows.Forms.DialogResult]::OK
+  $cancel = New-Object System.Windows.Forms.Button; $cancel.Text = 'Cancel'; $cancel.Location = New-Object System.Drawing.Point(420, 122); $cancel.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
   $form.AcceptButton = $save; $form.CancelButton = $cancel; $form.Controls.AddRange(@($save,$cancel))
   if ($form.ShowDialog() -ne [System.Windows.Forms.DialogResult]::OK -or [string]::IsNullOrWhiteSpace($input.Text)) { throw 'TOKEN_CONFIGURATION_CANCELLED' }
   return $input.Text
@@ -68,7 +66,7 @@ function Show-TokenDialog {
 try {
   if ($ValidateOnly) {
     if (Test-Credential) { Write-SafeStatus 'CREDENTIAL_PRESENT' 'Credential Manager read succeeded.'; exit 0 }
-    Write-SafeStatus 'CREDENTIAL_MISSING' 'Credential Manager target was not found for this Windows user.'; exit 1
+    Write-SafeStatus 'CREDENTIAL_MISSING' 'Credential target was not found for this Windows user.'; exit 1
   }
   $token = Show-TokenDialog
   $blob = [Runtime.InteropServices.Marshal]::StringToCoTaskMemUni($token)
@@ -80,9 +78,9 @@ try {
   } finally { [Runtime.InteropServices.Marshal]::ZeroFreeCoTaskMemUnicode($blob); $token = $null }
   if (-not (Test-Credential)) { throw 'CREDENTIAL_MANAGER_READBACK_FAILED' }
   Write-SafeStatus 'CREDENTIAL_PRESENT' 'Credential stored and read back successfully.'
-  [System.Windows.Forms.MessageBox]::Show('GitHub Token 已安全儲存並驗證完成。接線測試按鈕現在可以使用。', 'MATA', 'OK', 'Information') | Out-Null
+  [System.Windows.Forms.MessageBox]::Show('GitHub Token was stored and verified. The connection test can now start.', 'MATA', 'OK', 'Information') | Out-Null
 } catch {
   Write-SafeStatus 'CREDENTIAL_ERROR' $_.Exception.Message
-  [System.Windows.Forms.MessageBox]::Show(('安全設定未完成：' + $_.Exception.Message), 'MATA', 'OK', 'Error') | Out-Null
+  [System.Windows.Forms.MessageBox]::Show(('Secure setup failed: ' + $_.Exception.Message), 'MATA', 'OK', 'Error') | Out-Null
   exit 1
 }
