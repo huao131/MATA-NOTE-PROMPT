@@ -5,6 +5,7 @@ import argparse, atexit, json, os, subprocess, threading, time
 from datetime import datetime, timezone
 from pathlib import Path
 from chatgpt_runner_bridge import Bridge
+from github_api_transport import AuthRequired, GitHubApiTransport, TransportError
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -77,6 +78,8 @@ class LocalWatcher:
                 self.log("TRANSPORT_SYNC step=" + step[0] + " ok")
 
     def process_once(self) -> int:
+        if self.transport_mode == "github_rest_api":
+            return self.process_github_api()
         self.sync_transport()
         for folder in (self.inbox, self.processing, self.results): folder.mkdir(parents=True, exist_ok=True)
         count = 0
@@ -102,6 +105,26 @@ class LocalWatcher:
                 raise RuntimeError("TRANSPORT_RESULT_PUSH_FAILED: " + completed.stderr.strip())
         return count
 
+    def process_github_api(self) -> int:
+        transport = GitHubApiTransport()
+        count = 0
+        for item in transport.inbox():
+            if item.get("type") != "file" or not item["name"].endswith(".json"):
+                continue
+            request_value = transport.read(item["path"])
+            result_path = self.results / (request_value["request_id"] + ".json")
+            if result_path.exists():
+                continue
+            try:
+                outcome = Bridge(root=self.root).run(request_value)
+            except Exception as exc:
+                outcome = {"result":"BLOCKED","status":"BLOCKED","error":str(exc)}
+            value = {"request_id":request_value["request_id"],"transport_status":"COMPLETED","outcome":outcome}
+            transport.result(request_value["request_id"], value)
+            result_path.parent.mkdir(parents=True, exist_ok=True); result_path.write_text(json.dumps(value), encoding="utf-8")
+            count += 1
+        return count
+
     def serve(self, once: bool = False) -> None:
         self.acquire_lock()
         try:
@@ -112,7 +135,7 @@ class LocalWatcher:
                     if count:
                         self.log(f"REQUESTS_PROCESSED count={count}")
                 except Exception as error:
-                    self.heartbeat("TRANSPORT_RETRY", str(error))
+                    self.heartbeat("AUTH_REQUIRED" if isinstance(error, AuthRequired) else "TRANSPORT_RETRY", str(error))
                     self.log(f"WATCHER_ERROR {error}")
                     if once: raise
                 if once: return
