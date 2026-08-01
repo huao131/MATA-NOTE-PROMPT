@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Always-on, single-consumer transport watcher for ChatGPT run requests."""
 from __future__ import annotations
-import argparse, json, shutil, subprocess, time
+import argparse, atexit, json, os, subprocess, time
+from datetime import datetime, timezone
 from pathlib import Path
 from chatgpt_runner_bridge import Bridge
 
@@ -13,6 +14,38 @@ class LocalWatcher:
         self.inbox = self.root / "control" / "transport" / "inbox"
         self.processing = self.root / "control" / "transport" / "processing"
         self.results = self.root / "control" / "transport" / "results"
+        self.runtime = self.root / "control" / "runtime"
+        self.pid_path = self.runtime / "local_watcher.pid"
+        self.heartbeat_path = self.runtime / "local_watcher.heartbeat.json"
+
+    def _pid_is_running(self, pid: int) -> bool:
+        try:
+            os.kill(pid, 0)
+            return True
+        except (OSError, ValueError):
+            return False
+
+    def acquire_lock(self) -> None:
+        self.runtime.mkdir(parents=True, exist_ok=True)
+        if self.pid_path.exists():
+            try:
+                existing = int(self.pid_path.read_text(encoding="utf-8").strip())
+            except ValueError:
+                existing = 0
+            if existing and self._pid_is_running(existing):
+                raise RuntimeError(f"WATCHER_ALREADY_RUNNING:{existing}")
+            self.pid_path.unlink(missing_ok=True)
+        try:
+            descriptor = os.open(self.pid_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+        except FileExistsError as error:
+            raise RuntimeError("WATCHER_ALREADY_RUNNING") from error
+        with os.fdopen(descriptor, "w", encoding="utf-8") as output:
+            output.write(str(os.getpid()))
+        atexit.register(lambda: self.pid_path.unlink(missing_ok=True))
+
+    def heartbeat(self, status: str, error: str | None = None) -> None:
+        self.runtime.mkdir(parents=True, exist_ok=True)
+        self.heartbeat_path.write_text(json.dumps({"pid": os.getpid(), "status": status, "updated_at": datetime.now(timezone.utc).isoformat(), "error": error}, ensure_ascii=False, indent=2), encoding="utf-8")
 
     def sync_transport(self) -> None:
         if not self.sync: return
@@ -45,10 +78,19 @@ class LocalWatcher:
         return count
 
     def serve(self, once: bool = False) -> None:
-        while True:
-            self.process_once()
-            if once: return
-            time.sleep(self.poll_seconds)
+        self.acquire_lock()
+        try:
+            while True:
+                try:
+                    count = self.process_once()
+                    self.heartbeat("RUNNING", None)
+                except Exception as error:
+                    self.heartbeat("BLOCKED", str(error))
+                    if once: raise
+                if once: return
+                time.sleep(self.poll_seconds)
+        finally:
+            self.pid_path.unlink(missing_ok=True)
 
 def main() -> int:
     parser = argparse.ArgumentParser(); parser.add_argument("--once", action="store_true"); parser.add_argument("--poll-seconds", type=float, default=10); parser.add_argument("--no-sync", action="store_true")
