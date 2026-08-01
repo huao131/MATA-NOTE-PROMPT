@@ -1,0 +1,6 @@
+{
+  "request_id": "connection-test-001",
+  "request_type": "connection_test",
+  "episode_id": "CONNECTION_TEST",
+  "payload": {}
+}
