@@ -50,7 +50,8 @@ def credential_token() -> str:
         raise AuthRequired(f"CREDENTIAL_READ_FAILED:{ctypes.get_last_error()}")
     try:
         raw = ctypes.string_at(value.contents.CredentialBlob, value.contents.CredentialBlobSize)
-        token = raw.decode("utf-16-le").rstrip("\x00")
+        # A pasted PAT may include a trailing newline; it is never logged.
+        token = raw.decode("utf-16-le").rstrip("\x00").strip()
     finally:
         cred_free(value)
     if not token:

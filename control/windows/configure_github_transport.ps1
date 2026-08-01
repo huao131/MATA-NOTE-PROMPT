@@ -68,7 +68,7 @@ try {
     if (Test-Credential) { Write-SafeStatus 'CREDENTIAL_PRESENT' 'Credential Manager read succeeded.'; exit 0 }
     Write-SafeStatus 'CREDENTIAL_MISSING' 'Credential target was not found for this Windows user.'; exit 1
   }
-  $token = Show-TokenDialog
+  $token = (Show-TokenDialog).Trim()
   $blob = [Runtime.InteropServices.Marshal]::StringToCoTaskMemUni($token)
   try {
     $credential = New-Object MataCredentialStore+CREDENTIAL
