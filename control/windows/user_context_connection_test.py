@@ -1,7 +1,7 @@
 from __future__ import annotations
 import json, os, subprocess, sys, time, uuid
 from pathlib import Path
-ROOT=Path(r"C:\Users\huao3\OneDrive\文件\AI影音生成\MATA-AI-VIDEO-STUDIO-local-watcher")
+ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'control'))
 from github_api_transport import GitHubApiTransport
 def main():

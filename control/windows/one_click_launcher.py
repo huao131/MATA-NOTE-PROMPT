@@ -1,7 +1,7 @@
 from __future__ import annotations
 import ctypes, os, subprocess, sys, time
 from pathlib import Path
-ROOT=Path(r"C:\Users\huao3\OneDrive\文件\AI影音生成\MATA-AI-VIDEO-STUDIO-local-watcher")
+ROOT = Path(__file__).resolve().parents[2]
 RUNTIME=ROOT/'control/runtime'; LOG=RUNTIME/'USER_CONTEXT_LAUNCHER.log'
 def note(text):
  RUNTIME.mkdir(parents=True,exist_ok=True)
