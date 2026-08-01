@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "control"))
-from chatgpt_runner_bridge import Bridge
+from chatgpt_runner_bridge import Bridge, release_sha256
 from local_watcher import LocalWatcher
 
 class BridgeSmokeTest(unittest.TestCase):
@@ -35,13 +35,13 @@ class BridgeSmokeTest(unittest.TestCase):
     def test_unknown_manifest_with_zero_exit_is_blocked(self):
         runner = self.root / "runners" / "releases" / "1.0.0" / "runner.py"
         runner.write_text("import argparse,json\np=argparse.ArgumentParser();p.add_argument('--request');p.add_argument('--output-manifest');a=p.parse_args();open(a.output_manifest,'w').write(json.dumps({'status':'RUNNER_READY','runner_version':'1.0.0'}))")
-        release = json.loads(self.release.read_text()); release["sha256"] = hashlib.sha256(runner.read_bytes()).hexdigest(); self.release.write_text(json.dumps(release))
+        release = json.loads(self.release.read_text()); release["sha256"] = release_sha256(runner); self.release.write_text(json.dumps(release))
         outcome = self.bridge().run(self.request(request_type="episode", episode_id="EP-1")); self.assertEqual(outcome["status"], "BLOCKED")
 
     def test_running_manifest_is_not_promoted_to_success(self):
         runner = self.root / "runners" / "releases" / "1.0.0" / "runner.py"
         runner.write_text("import argparse,json\np=argparse.ArgumentParser();p.add_argument('--request');p.add_argument('--output-manifest');a=p.parse_args();open(a.output_manifest,'w').write(json.dumps({'status':'RUNNING','runner_version':'1.0.0'}))")
-        release = json.loads(self.release.read_text()); release["sha256"] = hashlib.sha256(runner.read_bytes()).hexdigest(); self.release.write_text(json.dumps(release))
+        release = json.loads(self.release.read_text()); release["sha256"] = release_sha256(runner); self.release.write_text(json.dumps(release))
         self.assertEqual(self.bridge().run(self.request(request_type="episode", episode_id="EP-1"))["status"], "RUNNING")
 
     def test_waiting_resume_keeps_completed_stages_and_locked_runner(self):
@@ -55,7 +55,7 @@ class BridgeSmokeTest(unittest.TestCase):
     def test_inflight_episode_uses_old_runner_after_release_update(self):
         runner = self.root / "runners" / "releases" / "1.0.0" / "runner.py"; signal = self.root / "started"; gate = self.root / "continue"
         runner.write_text(f"import argparse,json,time\np=argparse.ArgumentParser();p.add_argument('--request');p.add_argument('--output-manifest');a=p.parse_args();open(r'{signal}','w').write('x')\nwhile not __import__('pathlib').Path(r'{gate}').exists(): time.sleep(.01)\nopen(a.output_manifest,'w').write(json.dumps({{'status':'SUCCESS','runner_version':'1.0.0','completed_stages':['render']}}))")
-        release = json.loads(self.release.read_text()); release["sha256"] = hashlib.sha256(runner.read_bytes()).hexdigest(); self.release.write_text(json.dumps(release))
+        release = json.loads(self.release.read_text()); release["sha256"] = release_sha256(runner); self.release.write_text(json.dumps(release))
         result = {}; thread = threading.Thread(target=lambda: result.setdefault("outcome", self.bridge().run(self.request(request_type="episode", episode_id="EP-2")))); thread.start()
         while not signal.exists(): time.sleep(.01)
         release["runner_version"] = "1.0.1"; self.release.write_text(json.dumps(release)); gate.write_text("go"); thread.join(3)

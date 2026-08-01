@@ -34,6 +34,11 @@ def write_json(path: Path, value: dict[str, Any]) -> None:
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def release_sha256(path: Path) -> str:
+    """Hash source releases canonically so Git's Windows CRLF checkout is harmless."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
 class Bridge:
     def __init__(self, root: Path = ROOT, release_path: Path | None = None) -> None:
         self.root = root.resolve()
@@ -56,7 +61,7 @@ class Bridge:
         approved_root = (self.root / "runners" / "releases").resolve()
         if approved_root not in runner.parents or not runner.is_file():
             raise BridgeError("RUNNER_PATH_INVALID")
-        if hashlib.sha256(runner.read_bytes()).hexdigest() != release["sha256"]:
+        if release_sha256(runner) != release["sha256"]:
             raise BridgeError("RUNNER_SHA256_MISMATCH")
         return release, runner
 
@@ -92,7 +97,7 @@ class Bridge:
         locked = previous_state["locked_release"] if previous_state else {"runner_version": release["runner_version"], "runner_path": release["runner_path"], "runner_sha256": release["sha256"]}
         if previous_state:
             runner = (self.root / locked["runner_path"]).resolve()
-            if not runner.is_file() or hashlib.sha256(runner.read_bytes()).hexdigest() != locked["runner_sha256"]:
+            if not runner.is_file() or release_sha256(runner) != locked["runner_sha256"]:
                 raise BridgeError("LOCKED_RUNNER_UNAVAILABLE")
         run_id = f"{request['request_id']}-{uuid.uuid4().hex[:8]}"
         request_path, state_path = self.state_dir / f"{run_id}.request.json", self.state_dir / f"{run_id}.state.json"
