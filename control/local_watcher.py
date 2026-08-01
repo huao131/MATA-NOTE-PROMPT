@@ -17,6 +17,12 @@ class LocalWatcher:
         self.runtime = self.root / "control" / "runtime"
         self.pid_path = self.runtime / "local_watcher.pid"
         self.heartbeat_path = self.runtime / "local_watcher.heartbeat.json"
+        self.log_path = self.runtime / "local_watcher.log"
+
+    def log(self, message: str) -> None:
+        self.runtime.mkdir(parents=True, exist_ok=True)
+        with self.log_path.open("a", encoding="utf-8") as output:
+            output.write(f"{datetime.now(timezone.utc).isoformat()} {message}\n")
 
     def _pid_is_running(self, pid: int) -> bool:
         try:
@@ -41,6 +47,7 @@ class LocalWatcher:
             raise RuntimeError("WATCHER_ALREADY_RUNNING") from error
         with os.fdopen(descriptor, "w", encoding="utf-8") as output:
             output.write(str(os.getpid()))
+        self.log(f"WATCHER_STARTED pid={os.getpid()}")
         atexit.register(lambda: self.pid_path.unlink(missing_ok=True))
 
     def heartbeat(self, status: str, error: str | None = None) -> None:
@@ -85,13 +92,17 @@ class LocalWatcher:
                 try:
                     count = self.process_once()
                     self.heartbeat("RUNNING", None)
+                    if count:
+                        self.log(f"REQUESTS_PROCESSED count={count}")
                 except Exception as error:
                     self.heartbeat("BLOCKED", str(error))
+                    self.log(f"WATCHER_ERROR {error}")
                     if once: raise
                 if once: return
                 time.sleep(self.poll_seconds)
         finally:
             self.pid_path.unlink(missing_ok=True)
+            self.log("WATCHER_STOPPED")
 
 def main() -> int:
     parser = argparse.ArgumentParser(); parser.add_argument("--once", action="store_true"); parser.add_argument("--poll-seconds", type=float, default=10); parser.add_argument("--no-sync", action="store_true")
