@@ -3,7 +3,7 @@ param([switch]$ValidateOnly)
 
 $ErrorActionPreference = 'Stop'
 $credentialTarget = 'MATA-AI-VIDEO-STUDIO/GitHubTransport'
-$runtimeDirectory = 'C:\Users\huao3\OneDrive\文件\AI影音生成\MATA-AI-VIDEO-STUDIO-local-watcher\control\runtime'
+$runtimeDirectory = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\runtime'))
 $statusFile = Join-Path $runtimeDirectory 'github_transport_credential_status.json'
 
 Add-Type -AssemblyName System.Windows.Forms
