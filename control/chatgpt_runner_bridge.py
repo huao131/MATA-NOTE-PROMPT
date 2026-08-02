@@ -87,7 +87,7 @@ class Bridge:
             state, manifest = json.loads(state_path.read_text(encoding="utf-8")), json.loads(manifest_path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as error:
             raise BridgeError(f"RESUME_STATE_INVALID: {error}") from error
-        if state.get("status") != "WAITING_FOR_FLOW_ASSET" or state.get("episode_id") != request["episode_id"]:
+        if state.get("status") not in {"WAITING_FOR_TOPIC_APPROVAL", "WAITING_FOR_FLOW_ASSET"} or state.get("episode_id") != request["episode_id"]:
             raise BridgeError("RESUME_NOT_ALLOWED")
         return state, manifest
 

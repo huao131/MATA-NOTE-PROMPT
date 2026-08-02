@@ -1,0 +1,9 @@
+{
+  "duration_seconds": 5,
+  "aspect_ratio": "9:16",
+  "target_delivery": "1080x1920",
+  "fps": 30,
+  "input": "SOURCE_IMAGE.png",
+  "output_required": "FLOW_SCENE_03.mp4",
+  "prompt_file": "FLOW_PROMPT.txt"
+}

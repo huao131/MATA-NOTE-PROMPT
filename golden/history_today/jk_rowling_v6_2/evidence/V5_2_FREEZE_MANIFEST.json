@@ -1,0 +1,127 @@
+{
+  "Research": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Script": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Story Structure": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Scene Order": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Scene Duration": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Flow Hero Scene": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Camera Motion": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Local Motion": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Human Presence": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Voice": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Voice-first Timeline": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "faster-whisper alignment": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "VOICE_TIMING_V5_1.json": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "DISPLAY_SUBTITLE_V5_1.json": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "BGM": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Ambience": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "SFX": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Audio Ducking": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Audio Master": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Transition": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Ending": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "Final Duration": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "subtitle size": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "subtitle timing": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  },
+  "subtitle band": {
+    "FROZEN": true,
+    "REUSE": true,
+    "DO_NOT_REBUILD": true
+  }
+}

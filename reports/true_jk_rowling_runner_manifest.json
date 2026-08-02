@@ -1,0 +1,40 @@
+{
+  "request_id": "true_jk_rowling_runner_regression",
+  "episode_id": "JK_ROWLING_TRUE_REGRESSION",
+  "runner_version": "2.0.0",
+  "status": "SUCCESS",
+  "completed_at": "2026-08-02T05:34:23.071242+00:00",
+  "completed_stages": [
+    "CAMERA_MOTION_SCENE_01",
+    "CAMERA_MOTION_SCENE_02",
+    "CAMERA_MOTION_SCENE_04",
+    "CAMERA_MOTION_SCENE_05",
+    "FLOW_HERO",
+    "EDGE_TTS",
+    "FASTER_WHISPER_ALIGNMENT",
+    "PICTURE_TIMELINE",
+    "AUDIO_MIX_DUCKING",
+    "CANONICAL_HEADER_AND_COMPOSITE",
+    "BILINGUAL_SUBTITLE_BAND",
+    "ENDING",
+    "QC_MONTAGE"
+  ],
+  "generated_assets": [
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\camera_scene_01.mp4",
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\camera_scene_02.mp4",
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\camera_scene_04.mp4",
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\camera_scene_05.mp4",
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\camera_scene_03_flow.mp4",
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\PRODUCTION_TRUE_REGRESSION_VOICE_MASTER.mp3",
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\PRODUCTION_TRUE_REGRESSION_SUBTITLE_ZH_TW.srt",
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\picture_timeline.mp4",
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\audio_master.wav",
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\PRODUCTION_TRUE_REGRESSION_MASTER_NO_MAIN_SUBTITLE.mp4",
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\PRODUCTION_TRUE_REGRESSION_MASTER_ZH_TW_EN_SUBTITLE.mp4",
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\final_with_ending.mp4",
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\PRODUCTION_TRUE_REGRESSION_QC_MONTAGE.jpg",
+    "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING\\_SYSTEM_TRUE_REGRESSION_RERUN\\TRUE_SOURCE_PIPELINE_AUDIT.json"
+  ],
+  "episode_root": null,
+  "error": null
+}

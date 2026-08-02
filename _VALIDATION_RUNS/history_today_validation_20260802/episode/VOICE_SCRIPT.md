@@ -1,0 +1,1 @@
+2026-08-02 的歷史上的今天，帶你認識 缅甸君主列表。1260 – Kyawswa of Pagan, last ruler of the Pagan Kingdom (died 1299)。這個時刻提醒我們：每個看似單一的日期，都可能改變後來的世界。

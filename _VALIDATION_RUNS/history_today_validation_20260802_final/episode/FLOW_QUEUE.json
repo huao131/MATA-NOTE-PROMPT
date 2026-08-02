@@ -1,0 +1,6 @@
+{
+  "required": true,
+  "scene": "hero_scene_03",
+  "instruction": "請在 Google Flow 生成完成後，將檔案路徑填入 flow_asset_path 並以相同 run_id resume。",
+  "topic": "person_birth_1"
+}

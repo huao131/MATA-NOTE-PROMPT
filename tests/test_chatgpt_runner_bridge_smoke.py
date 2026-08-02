@@ -19,6 +19,8 @@ class BridgeSmokeTest(unittest.TestCase):
         value = {"request_id": "test-001", "request_type": "connection_test", "episode_id": "CONNECTION_TEST", "payload": {}}
         value.update(overrides); return value
     def bridge(self): return Bridge(root=self.root, release_path=self.release)
+    def runner_path(self): return self.root / json.loads(self.release.read_text())["runner_path"]
+    def runner_version(self): return json.loads(self.release.read_text())["runner_version"]
 
     def test_connection_test_succeeds(self):
         outcome = self.bridge().run(self.request())
@@ -33,14 +35,14 @@ class BridgeSmokeTest(unittest.TestCase):
         self.assertEqual(json.loads((ROOT / "runners" / "CURRENT_RELEASE.json").read_text())["status"], "APPROVED")
 
     def test_unknown_manifest_with_zero_exit_is_blocked(self):
-        runner = self.root / "runners" / "releases" / "1.0.0" / "runner.py"
-        runner.write_text("import argparse,json\np=argparse.ArgumentParser();p.add_argument('--request');p.add_argument('--output-manifest');a=p.parse_args();open(a.output_manifest,'w').write(json.dumps({'status':'RUNNER_READY','runner_version':'1.0.0'}))")
+        runner = self.runner_path(); version = self.runner_version()
+        runner.write_text(f"import argparse,json\np=argparse.ArgumentParser();p.add_argument('--request');p.add_argument('--output-manifest');a=p.parse_args();open(a.output_manifest,'w').write(json.dumps({{'status':'RUNNER_READY','runner_version':'{version}'}}))")
         release = json.loads(self.release.read_text()); release["sha256"] = release_sha256(runner); self.release.write_text(json.dumps(release))
         outcome = self.bridge().run(self.request(request_type="episode", episode_id="EP-1")); self.assertEqual(outcome["status"], "BLOCKED")
 
     def test_running_manifest_is_not_promoted_to_success(self):
-        runner = self.root / "runners" / "releases" / "1.0.0" / "runner.py"
-        runner.write_text("import argparse,json\np=argparse.ArgumentParser();p.add_argument('--request');p.add_argument('--output-manifest');a=p.parse_args();open(a.output_manifest,'w').write(json.dumps({'status':'RUNNING','runner_version':'1.0.0'}))")
+        runner = self.runner_path(); version = self.runner_version()
+        runner.write_text(f"import argparse,json\np=argparse.ArgumentParser();p.add_argument('--request');p.add_argument('--output-manifest');a=p.parse_args();open(a.output_manifest,'w').write(json.dumps({{'status':'RUNNING','runner_version':'{version}'}}))")
         release = json.loads(self.release.read_text()); release["sha256"] = release_sha256(runner); self.release.write_text(json.dumps(release))
         self.assertEqual(self.bridge().run(self.request(request_type="episode", episode_id="EP-1"))["status"], "RUNNING")
 
@@ -50,16 +52,16 @@ class BridgeSmokeTest(unittest.TestCase):
         resumed = self.bridge().run(self.request(request_id="test-002", request_type="episode", episode_id="EP-1", payload={"flow_asset_ready": True}, resume_run_id=Path(waiting["state_path"]).stem.replace(".state", "")))
         manifest = json.loads((self.root / resumed["output_manifest"]).read_text())
         self.assertEqual(resumed["status"], "SUCCESS"); self.assertEqual(manifest["completed_stages"].count("preflight"), 1)
-        self.assertEqual(resumed["locked_release"]["runner_version"], "1.0.0")
+        self.assertEqual(resumed["locked_release"]["runner_version"], self.runner_version())
 
     def test_inflight_episode_uses_old_runner_after_release_update(self):
-        runner = self.root / "runners" / "releases" / "1.0.0" / "runner.py"; signal = self.root / "started"; gate = self.root / "continue"
-        runner.write_text(f"import argparse,json,time\np=argparse.ArgumentParser();p.add_argument('--request');p.add_argument('--output-manifest');a=p.parse_args();open(r'{signal}','w').write('x')\nwhile not __import__('pathlib').Path(r'{gate}').exists(): time.sleep(.01)\nopen(a.output_manifest,'w').write(json.dumps({{'status':'SUCCESS','runner_version':'1.0.0','completed_stages':['render']}}))")
+        runner = self.runner_path(); version = self.runner_version(); signal = self.root / "started"; gate = self.root / "continue"
+        runner.write_text(f"import argparse,json,time\np=argparse.ArgumentParser();p.add_argument('--request');p.add_argument('--output-manifest');a=p.parse_args();open(r'{signal}','w').write('x')\nwhile not __import__('pathlib').Path(r'{gate}').exists(): time.sleep(.01)\nopen(a.output_manifest,'w').write(json.dumps({{'status':'SUCCESS','runner_version':'{version}','completed_stages':['render']}}))")
         release = json.loads(self.release.read_text()); release["sha256"] = release_sha256(runner); self.release.write_text(json.dumps(release))
         result = {}; thread = threading.Thread(target=lambda: result.setdefault("outcome", self.bridge().run(self.request(request_type="episode", episode_id="EP-2")))); thread.start()
         while not signal.exists(): time.sleep(.01)
         release["runner_version"] = "1.0.1"; self.release.write_text(json.dumps(release)); gate.write_text("go"); thread.join(3)
-        self.assertEqual(result["outcome"]["locked_release"]["runner_version"], "1.0.0")
+        self.assertEqual(result["outcome"]["locked_release"]["runner_version"], version)
 
     def test_watcher_processes_transport_request_without_manual_bridge_command(self):
         inbox = self.root / "control" / "transport" / "inbox"; inbox.mkdir(parents=True); (inbox / "watch-001.json").write_text(json.dumps(self.request(request_id="watch-001")))

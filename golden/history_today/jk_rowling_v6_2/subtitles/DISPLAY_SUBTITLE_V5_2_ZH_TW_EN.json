@@ -1,0 +1,58 @@
+[
+  {
+    "cue_id": 1,
+    "start_time": 0,
+    "end_time": 4.47,
+    "zh_tw_text": "如果7月31日是你的生日,这段故事送给你。",
+    "en_text": "A birthday story for July 31."
+  },
+  {
+    "cue_id": 2,
+    "start_time": 5.04,
+    "end_time": 11.81,
+    "zh_tw_text": "1965年的今天,JK罗林出生,他从小就想成为作家。",
+    "en_text": "Born in 1965, J.K. Rowling dreamed of writing."
+  },
+  {
+    "cue_id": 3,
+    "start_time": 12.48,
+    "end_time": 20.29,
+    "zh_tw_text": "1990年,一般严悟的火车上,一个戴眼镜的男孩,突然出现在他的想象里。",
+    "en_text": "On a delayed train, a boy with glasses appeared in her mind."
+  },
+  {
+    "cue_id": 4,
+    "start_time": 21.06,
+    "end_time": 27.53,
+    "zh_tw_text": "他花了五年完成第一本故事,投稿后,也曾被许多出版社拒绝。",
+    "en_text": "Rejections did not stop her."
+  },
+  {
+    "cue_id": 5,
+    "start_time": 28.14,
+    "end_time": 33.53,
+    "zh_tw_text": "直到1997年,哈利波特,神秘的魔法时,出版。",
+    "en_text": "In 1997, Harry Potter found its first readers."
+  },
+  {
+    "cue_id": 6,
+    "start_time": 34.32,
+    "end_time": 39.09,
+    "zh_tw_text": "那个只存在脑海里的世界,开始走进全球读者的生命。",
+    "en_text": "Her story reached readers around the world."
+  },
+  {
+    "cue_id": 7,
+    "start_time": 39.8,
+    "end_time": 44.41,
+    "zh_tw_text": "他留下的不只是魔法世界,而是一个提醒。",
+    "en_text": "Imagination can change a life."
+  },
+  {
+    "cue_id": 8,
+    "start_time": 45.08,
+    "end_time": 48.35,
+    "zh_tw_text": "有些故事,要先有人愿意相信他。",
+    "en_text": "Some stories begin when someone believes."
+  }
+]

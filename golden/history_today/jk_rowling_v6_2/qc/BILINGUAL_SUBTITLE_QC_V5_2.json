@@ -1,0 +1,15 @@
+{
+  "traditional_chinese_only": true,
+  "simplified_character_found": false,
+  "typo_found": false,
+  "english_meaning_matches_chinese": true,
+  "english_natural": true,
+  "english_smaller_than_chinese": true,
+  "timing_matches": true,
+  "header_preserved": true,
+  "flow_preserved": true,
+  "camera_motion_preserved": true,
+  "audio_preserved": true,
+  "ending_preserved": true,
+  "subtitle_overlay_duplicate": false
+}

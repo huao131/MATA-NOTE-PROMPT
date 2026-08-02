@@ -1,0 +1,9 @@
+{
+  "request_id": "history_today_validation_20260802",
+  "request_type": "history_today",
+  "episode_id": "HISTORY_TODAY_VALIDATION_2026_08_02",
+  "stage": "topic_selection",
+  "episode_date": "2026-08-02",
+  "execution_mode": "validation",
+  "payload": {"execution_mode": "validation"}
+}

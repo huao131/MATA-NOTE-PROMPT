@@ -1,0 +1,8 @@
+{
+  "request_id": "history_today_e2e_20260802_selection_r2",
+  "request_type": "history_today",
+  "episode_id": "HISTORY_TODAY_2026_08_02",
+  "stage": "topic_selection",
+  "episode_date": "2026-08-02",
+  "payload": {}
+}

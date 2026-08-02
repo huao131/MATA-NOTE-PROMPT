@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "allowed_preapproval_statuses": ["CANDIDATE", "RELEASE_CANDIDATE"],
+  "approval_requirements": [
+    "golden_baseline_untouched",
+    "golden_regression",
+    "target_module_fix",
+    "new_feature_test",
+    "chatgpt_transport_regression",
+    "real_media_qc",
+    "rollback_ready"
+  ],
+  "current_release_mutation": "PROHIBITED_UNTIL_APPROVAL",
+  "episode_version_lock": true,
+  "rollback": {
+    "required_for_approved_release": true,
+    "default_target_version": "1.0.0",
+    "current_release_file": "runners/CURRENT_RELEASE.json"
+  }
+}

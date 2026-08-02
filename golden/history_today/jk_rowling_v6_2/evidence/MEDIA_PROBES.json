@@ -1,0 +1,18 @@
+{
+  "masters/MASTER_V6_2_NO_MAIN_SUBTITLE.mp4": {
+    "decode_exit_code": 0,
+    "ffprobe_unavailable": true
+  },
+  "masters/MASTER_PREVIEW_V6_2_ZH_TW_EN_SUBTITLE.mp4": {
+    "decode_exit_code": 0,
+    "ffprobe_unavailable": true
+  },
+  "flow/FLOW_SCENE_03.mp4": {
+    "decode_exit_code": 0,
+    "ffprobe_unavailable": true
+  },
+  "ending/ENDING_NORMALIZED.mp4": {
+    "decode_exit_code": 0,
+    "ffprobe_unavailable": true
+  }
+}
