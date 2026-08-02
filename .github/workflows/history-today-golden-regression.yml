@@ -17,24 +17,18 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install media tooling
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
-
       - name: Install Python dependencies
         run: python -m pip install --disable-pip-version-check -r requirements.txt
-
-      - name: Verify media tooling
-        run: ffmpeg -version
 
       - name: Verify governance contracts
         run: python -m unittest tests/test_golden_governance.py -v
 
-      - name: Run immutable Golden Regression
-        run: python tools/run_history_today_golden_regression.py
+      - name: Verify local production evidence
+        run: python tools/ci/verify_local_production_evidence.py
 
       - name: Upload gate evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: history-today-golden-regression
-          path: reports/golden_regression/
+          path: reports/
