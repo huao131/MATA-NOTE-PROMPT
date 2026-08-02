@@ -1,6 +1,6 @@
 {
   "report_type": "HISTORY_TODAY_GOLDEN_REGRESSION",
-  "generated_at": "2026-08-02T05:29:00.892490+00:00",
+  "generated_at": "2026-08-02T06:24:46.740018+00:00",
   "release_gate": "PASS",
   "current_release_update_allowed": true,
   "checks": [

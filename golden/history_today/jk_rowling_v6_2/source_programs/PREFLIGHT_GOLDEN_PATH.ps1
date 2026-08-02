@@ -13,6 +13,7 @@ function ffmpeg {
 $SeriesRoot  = Join-Path $BaseRoot "歷史上的今天"
 $RuntimeRoot = Join-Path $SeriesRoot "_SYSTEM\GOLDEN_PATH_RUNTIME_V1"
 $Ending      = Join-Path $RuntimeRoot "assets\ending\SHIGUANG_ENDING_MASTER_V1.0_GOLDEN_PATH.mp4"
+
 function Fail($Code, $Message) {
   Write-Host "GOLDEN_PATH_PREFLIGHT=FAIL"
   Write-Host "BLOCKER=$Code"
