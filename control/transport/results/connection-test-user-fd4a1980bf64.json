@@ -1,0 +1,18 @@
+{
+  "request_id": "connection-test-user-fd4a1980bf64",
+  "transport_status": "COMPLETED",
+  "outcome": {
+    "result": "CONNECTION_TEST_SUCCESS",
+    "status": "SUCCESS",
+    "exit_code": 0,
+    "log_path": "control\\logs\\connection-test-user-fd4a1980bf64-ed83f17b.log",
+    "output_manifest": "control\\state\\connection-test-user-fd4a1980bf64-ed83f17b.manifest.json",
+    "state_path": "control\\state\\connection-test-user-fd4a1980bf64-ed83f17b.state.json",
+    "locked_release": {
+      "runner_version": "1.0.0",
+      "runner_path": "runners/releases/1.0.0/runner.py",
+      "runner_sha256": "a877ca441985bfe0b8e5f41cc428413dfc4186fababed7a929b9ff3ea2c838bf"
+    },
+    "error": null
+  }
+}
