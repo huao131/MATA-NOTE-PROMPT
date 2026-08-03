@@ -1,0 +1,34 @@
+{
+  "request_id": "history-today-20260803-columbus-production-v1",
+  "request_type": "episode",
+  "episode_id": "HISTORY_TODAY_2026_08_03_COLUMBUS_DEPARTURE",
+  "execution_mode": "production",
+  "payload": {
+    "series": "history_today",
+    "stage": "production",
+    "episode_date": "2026-08-03",
+    "approved_topic_id": "COLUMBUS_DEPARTURE_1492_08_03",
+    "topic_title": "哥倫布從西班牙帕洛斯港啟航",
+    "story_direction": "出發之前，沒有人知道能不能回來；結尾轉向兩個世界相遇後的歷史改變",
+    "hook": "出發那天，港口的人不知道，這一次告別，將改變世界。",
+    "voice_script_version": "V1.1_APPROVED",
+    "voice_script": "出發那天，港口的人不知道，這一次告別，將改變世界。\n\n1492年8月3日，哥倫布帶著三艘船，從西班牙帕洛斯港緩緩啟航。\n\n在那個沒有衛星、沒有引擎，甚至沒有完整世界地圖的年代，沒有人知道前方有什麼，也沒有人確定，他們還能不能回來。\n\n哥倫布相信，只要一路向西，就能找到通往亞洲的新航路。\n\n但他不知道，海洋的另一端，是一個歐洲人尚未真正認識的世界。\n\n這趟原本為了尋找亞洲而開始的航行，讓長久分隔的兩個世界，從此再也無法分開。\n\n歷史有時不是從知道答案開始，而是從一群不知道能不能回來的人，升起船帆，駛向未知。\n\n只是他們改變的，不只自己的命運，而是兩個世界的未來。",
+    "scene_count": 5,
+    "storyboard_status": "APPROVED",
+    "video_tool_mode": "FLOW_META_MIXED",
+    "scene_tool_map": {
+      "scene_01": "FLOW",
+      "scene_02": "META",
+      "scene_03": "FLOW",
+      "scene_04": "FLOW",
+      "scene_05": "META"
+    },
+    "flow_asset_ready": false,
+    "auto_continue": true,
+    "no_additional_confirmation_required": true,
+    "auto_save": true,
+    "save_trigger": "ON_QC_PASS_OR_MATA_APPROVAL",
+    "static_video_mode": "disabled",
+    "delivery_root": "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天"
+  }
+}
