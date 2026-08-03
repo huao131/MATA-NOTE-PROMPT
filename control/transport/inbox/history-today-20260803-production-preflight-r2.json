@@ -1,0 +1,15 @@
+{
+  "request_id": "history-today-20260803-production-preflight-r2",
+  "request_type": "episode",
+  "episode_id": "HISTORY_TODAY_2026_08_03_COLUMBUS",
+  "execution_mode": "validation",
+  "payload": {
+    "series": "history_today",
+    "stage": "production",
+    "episode_date": "2026-08-03",
+    "approved_topic_id": "COLUMBUS_DEPARTURE",
+    "delivery_root": "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天",
+    "flow_asset_ready": false,
+    "preflight_only": true
+  }
+}
