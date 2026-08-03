@@ -1,10 +1,10 @@
 {
-  "runner_version": "1.0.0",
-  "runner_path": "runners/releases/1.0.0/runner.py",
+  "runner_version": "2.0.0",
+  "runner_path": "runners/releases/2.0.0/history_today_production_runner.py",
   "status": "APPROVED",
-  "sha256": "a877ca441985bfe0b8e5f41cc428413dfc4186fababed7a929b9ff3ea2c838bf",
-  "released_at": "2026-08-01T00:00:00Z",
-  "minimum_bridge_version": "1.0.0"
-  ,"release_role": "bridge_connection_test"
-  ,"connection_test_only": true
+  "sha256": "ce4e790d7f60712701a51f04cf2ab9f9109d04c4f52efe8d6684c12e3e9a6f18",
+  "released_at": "2026-08-03T05:03:00Z",
+  "minimum_bridge_version": "1.1.0",
+  "release_role": "history_today_production",
+  "connection_test_only": false
 }
