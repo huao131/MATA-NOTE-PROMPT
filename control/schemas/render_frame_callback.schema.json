@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Render Frame Watcher Callback",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["request_id", "transport_status", "outcome"],
+  "properties": {
+    "request_id": {"type": "string"},
+    "transport_status": {"const": "COMPLETED"},
+    "outcome": {
+      "type": "object",
+      "required": ["status", "exit_code"],
+      "properties": {
+        "request_type": {"const": "render_frame"},
+        "status": {"enum": ["WAITING_FOR_CODEX_IMAGE", "SUCCESS", "BLOCKED"]},
+        "exit_code": {"type": "integer"},
+        "scene_id": {"type": "string"},
+        "frame_role": {"enum": ["START", "END"]},
+        "output_path": {"type": "string"},
+        "qc": {"type": "object"},
+        "sha256": {"type": "string"},
+        "asset_index": {"type": "string"},
+        "production_state": {"type": "string"},
+        "flow_prompt": {"type": ["string", "null"]},
+        "codex_job": {"type": "string"}
+      }
+    }
+  }
+}

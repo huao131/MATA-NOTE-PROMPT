@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any
 
 from jsonschema import Draft202012Validator
+from render_frame_bridge import RenderFrameBridge, RenderFrameError
 
 ROOT = Path(__file__).resolve().parents[1]
 BRIDGE_VERSION = "1.1.0"
@@ -93,6 +94,11 @@ class Bridge:
 
     def run(self, request: dict[str, Any]) -> dict[str, Any]:
         request = self.validate_request(request)
+        if request["request_type"] == "render_frame":
+            try:
+                return RenderFrameBridge(self.root).run(request)
+            except RenderFrameError as error:
+                return {"result": "BLOCKED", "status": "BLOCKED", "exit_code": 1, "error": str(error)}
         previous_state, previous_manifest = self._resume(request)
         release, runner = self.load_release()
         if request["request_type"] == "episode" and not self._release_path_explicit and release.get("release_role") != "history_today_production":
