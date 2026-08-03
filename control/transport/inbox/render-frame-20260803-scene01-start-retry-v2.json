@@ -1,0 +1,16 @@
+{
+  "request_id": "render-frame-20260803-scene01-start-retry-v2",
+  "request_type": "render_frame",
+  "episode_id": "HISTORY_TODAY_2026_0803_COLUMBUS_DEPARTURE",
+  "payload": {
+    "action": "prepare",
+    "episode_path": "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0803\\0803_COLUMBUS_DEPARTURE_1492_08_03",
+    "scene_id": "SCENE_01",
+    "frame_role": "START",
+    "visual_prompt": "1492年8月3日清晨，西班牙帕洛斯港。前景是岸邊送別者的肩後視角與微微抬起的手；中景有水手、繩索、木桶，以及仍靠近碼頭的三艘十五世紀帆船；遠景是淡藍晨霧中的港灣出口。氣氛克制、不捨、未知。寫實歷史電影質感，自然光，35mm景深，單一滿版垂直電影畫面。",
+    "negative_prompt": "no text, no subtitles, no logo, no UI, no table, no infographic, no collage, no storyboard layout, no split screen, no frame border, no modern objects, no extra ships, no duplicated people",
+    "output_path": "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0803\\0803_COLUMBUS_DEPARTURE_1492_08_03\\03_視覺素材\\SCENE_01_START_V1.png",
+    "width": 1080,
+    "height": 1920
+  }
+}
