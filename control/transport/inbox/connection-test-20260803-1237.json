@@ -1,0 +1,10 @@
+{
+  "request_id": "connection-test-20260803-1237",
+  "request_type": "connection_test",
+  "episode_id": "CONNECTION_TEST",
+  "payload": {
+    "requested_by": "MATA",
+    "purpose": "verify ChatGPT to Windows local watcher live connection",
+    "requested_at": "2026-08-03T12:37:00+08:00"
+  }
+}
