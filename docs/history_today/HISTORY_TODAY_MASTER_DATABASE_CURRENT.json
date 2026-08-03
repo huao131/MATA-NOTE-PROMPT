@@ -1,38 +1,23 @@
 {
   "document_id": "HISTORY_TODAY_MASTER_DATABASE",
-  "current_version": "2.4",
-  "document_path": "docs/history_today/HISTORY_TODAY_MASTER_DATABASE_V2.4.md",
-  "codex_prompt_path": "docs/history_today/HISTORY_TODAY_CODEX_SYSTEM_PROMPT_V2.4.md",
-  "single_frame_render_path": "docs/history_today/HISTORY_TODAY_SINGLE_FRAME_RENDER_GOLDEN_PATH_V1.0.md",
+  "current_version": "2.5",
+  "document_path": "docs/history_today/HISTORY_TODAY_MASTER_DATABASE_V2.5.md",
   "project_chat_startup_protocol_path": "docs/history_today/HISTORY_TODAY_PROJECT_CHAT_STARTUP_PROTOCOL_V1.0.md",
-  "startup_triggers": {
-    "new_episode": "[歷史上的今天]",
-    "resume_episode": "[繼續歷史上的今天]"
-  },
+  "active_production_state_path": "docs/history_today/HISTORY_TODAY_ACTIVE_PRODUCTION_STATE_CURRENT.md",
   "status": "CURRENT_EFFECTIVE",
   "read_first": true,
   "single_source_of_truth": true,
   "effective_date": "2026-08-03",
-  "required_consumers": [
-    "ChatGPT",
-    "Work",
-    "Codex",
-    "LocalWatcher",
-    "Runner",
-    "RendererOrchestrator",
-    "FlowMetaHandoff",
-    "PostProduction",
-    "QC",
-    "OneDriveArchive"
-  ],
+  "startup_triggers": {
+    "new_episode": "[歷史上的今天]",
+    "resume_episode": "[繼續歷史上的今天]"
+  },
+  "required_consumers": ["ChatGPT", "Work", "Codex", "RendererOrchestrator", "FlowMetaCanvaHandoff", "PostProduction", "QC", "OneDriveArchive"],
   "required_startup_reads": [
-    "docs/history_today/HISTORY_TODAY_MASTER_DATABASE_V2.4.md",
-    "docs/history_today/HISTORY_TODAY_CODEX_SYSTEM_PROMPT_V2.4.md",
-    "docs/history_today/HISTORY_TODAY_SINGLE_FRAME_RENDER_GOLDEN_PATH_V1.0.md",
-    "docs/history_today/HISTORY_TODAY_PROJECT_CHAT_STARTUP_PROTOCOL_V1.0.md"
+    "docs/history_today/HISTORY_TODAY_MASTER_DATABASE_V2.5.md",
+    "docs/history_today/HISTORY_TODAY_PROJECT_CHAT_STARTUP_PROTOCOL_V1.0.md",
+    "docs/history_today/HISTORY_TODAY_ACTIVE_PRODUCTION_STATE_CURRENT.md"
   ],
-  "supersedes": [
-    "HISTORY_TODAY_MASTER_DATABASE_V2.3"
-  ],
+  "supersedes": ["HISTORY_TODAY_MASTER_DATABASE_V2.4"],
   "fail_closed": true
 }

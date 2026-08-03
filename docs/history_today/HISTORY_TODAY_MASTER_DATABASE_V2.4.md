@@ -1,7 +1,8 @@
 # 《歷史上的今天》AI 自動化主控資料庫 V2.4
 
 **文件代號：** `HISTORY_TODAY_MASTER_DATABASE_V2.4`  
-**狀態：** `CURRENT_EFFECTIVE / READ_FIRST / SINGLE_SOURCE_OF_TRUTH`  
+**狀態：** `SUPERSEDED`  
+**SUPERSEDED_BY：** `HISTORY_TODAY_MASTER_DATABASE_V2.5`  
 **建立日期：** 2026-08-03  
 **適用時區：** Asia/Taipei  
 **適用範圍：** ChatGPT、Codex、Local Watcher、Runner、首尾幀 Renderer、Flow／Meta、後製、QC、OneDrive 歸檔  
@@ -484,7 +485,8 @@ C:\Users\huao3\OneDrive\A自媒體\歷史上的今天\
 
 ```text
 MASTER_DATABASE_VERSION = 2.4
-STATUS = CURRENT_EFFECTIVE
+STATUS = SUPERSEDED
+SUPERSEDED_BY = HISTORY_TODAY_MASTER_DATABASE_V2.5
 READ_FIRST = TRUE
 SINGLE_SOURCE_OF_TRUTH = TRUE
 CODEX_PROMPT_VERSION = 2.4
