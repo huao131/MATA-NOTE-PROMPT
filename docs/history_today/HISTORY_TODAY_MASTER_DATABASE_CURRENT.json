@@ -4,6 +4,11 @@
   "document_path": "docs/history_today/HISTORY_TODAY_MASTER_DATABASE_V2.4.md",
   "codex_prompt_path": "docs/history_today/HISTORY_TODAY_CODEX_SYSTEM_PROMPT_V2.4.md",
   "single_frame_render_path": "docs/history_today/HISTORY_TODAY_SINGLE_FRAME_RENDER_GOLDEN_PATH_V1.0.md",
+  "project_chat_startup_protocol_path": "docs/history_today/HISTORY_TODAY_PROJECT_CHAT_STARTUP_PROTOCOL_V1.0.md",
+  "startup_triggers": {
+    "new_episode": "[歷史上的今天]",
+    "resume_episode": "[繼續歷史上的今天]"
+  },
   "status": "CURRENT_EFFECTIVE",
   "read_first": true,
   "single_source_of_truth": true,
@@ -23,7 +28,8 @@
   "required_startup_reads": [
     "docs/history_today/HISTORY_TODAY_MASTER_DATABASE_V2.4.md",
     "docs/history_today/HISTORY_TODAY_CODEX_SYSTEM_PROMPT_V2.4.md",
-    "docs/history_today/HISTORY_TODAY_SINGLE_FRAME_RENDER_GOLDEN_PATH_V1.0.md"
+    "docs/history_today/HISTORY_TODAY_SINGLE_FRAME_RENDER_GOLDEN_PATH_V1.0.md",
+    "docs/history_today/HISTORY_TODAY_PROJECT_CHAT_STARTUP_PROTOCOL_V1.0.md"
   ],
   "supersedes": [
     "HISTORY_TODAY_MASTER_DATABASE_V2.3"
