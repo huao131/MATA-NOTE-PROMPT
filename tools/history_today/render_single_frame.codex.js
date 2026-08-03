@@ -7,7 +7,6 @@
  * CODEX_HOME/generated_images and the caller then copies the selected PNG.
  */
 export async function render_single_frame(
-  tools,
   scene_id,
   frame_role,
   visual_prompt,
@@ -16,6 +15,10 @@ export async function render_single_frame(
   width = 1080,
   height = 1920,
 ) {
+  const runtimeTools = globalThis.tools;
+  if (!runtimeTools?.image_gen__imagegen) {
+    throw new Error("Codex built-in image_gen runtime is unavailable");
+  }
   if (!scene_id || !frame_role || !visual_prompt || !output_path) {
     throw new Error("scene_id, frame_role, visual_prompt, and output_path are required");
   }
@@ -32,7 +35,7 @@ export async function render_single_frame(
     `Avoid: ${negative_prompt || "text, captions, tables, collage, split panels, logos, watermark, modern objects"}.`,
   ].join(" ");
 
-  const result = await tools.image_gen__imagegen({ prompt });
+  const result = await runtimeTools.image_gen__imagegen({ prompt });
   return {
     scene_id,
     frame_role,
