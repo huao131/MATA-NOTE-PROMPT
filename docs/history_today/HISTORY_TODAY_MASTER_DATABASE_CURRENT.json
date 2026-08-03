@@ -1,23 +1,33 @@
 {
   "document_id": "HISTORY_TODAY_MASTER_DATABASE",
-  "current_version": "2.5",
-  "document_path": "docs/history_today/HISTORY_TODAY_MASTER_DATABASE_V2.5.md",
+  "current_version": "2.6",
+  "document_path": "docs/history_today/HISTORY_TODAY_MASTER_DATABASE_V2.6.md",
   "project_chat_startup_protocol_path": "docs/history_today/HISTORY_TODAY_PROJECT_CHAT_STARTUP_PROTOCOL_V1.0.md",
-  "active_production_state_path": "docs/history_today/HISTORY_TODAY_ACTIVE_PRODUCTION_STATE_CURRENT.md",
   "status": "CURRENT_EFFECTIVE",
   "read_first": true,
   "single_source_of_truth": true,
   "effective_date": "2026-08-03",
-  "startup_triggers": {
-    "new_episode": "[歷史上的今天]",
-    "resume_episode": "[繼續歷史上的今天]"
-  },
-  "required_consumers": ["ChatGPT", "Work", "Codex", "RendererOrchestrator", "FlowMetaCanvaHandoff", "PostProduction", "QC", "OneDriveArchive"],
-  "required_startup_reads": [
-    "docs/history_today/HISTORY_TODAY_MASTER_DATABASE_V2.5.md",
-    "docs/history_today/HISTORY_TODAY_PROJECT_CHAT_STARTUP_PROTOCOL_V1.0.md",
-    "docs/history_today/HISTORY_TODAY_ACTIVE_PRODUCTION_STATE_CURRENT.md"
+  "startup_trigger_format": "[歷史上的今天 YYYY-MM-DD]",
+  "example_trigger": "[歷史上的今天 2026-08-04]",
+  "episode_key": "EXPLICIT_DATE",
+  "required_consumers": [
+    "ChatGPT",
+    "Work",
+    "Codex",
+    "RendererOrchestrator",
+    "FlowMetaCanvaHandoff",
+    "PostProduction",
+    "QC",
+    "EditorDelivery",
+    "OneDriveArchive"
   ],
-  "supersedes": ["HISTORY_TODAY_MASTER_DATABASE_V2.4"],
-  "fail_closed": true
+  "required_startup_reads": [
+    "docs/history_today/HISTORY_TODAY_MASTER_DATABASE_V2.6.md",
+    "docs/history_today/HISTORY_TODAY_PROJECT_CHAT_STARTUP_PROTOCOL_V1.0.md"
+  ],
+  "supersedes": [
+    "HISTORY_TODAY_MASTER_DATABASE_V2.5"
+  ],
+  "fail_closed": true,
+  "no_loss_required": true
 }
