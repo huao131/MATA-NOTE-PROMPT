@@ -1,0 +1,47 @@
+[
+  {
+    "scene": "Scene 01",
+    "function": "Birthday Hook",
+    "headline": "07.31",
+    "narration": "如果 7 月 31 日是你的生日，這段故事送給你。",
+    "visual": "1960年代英格蘭清晨，溫暖低飽和歷史電影感；窗邊桌面、舊書、手寫紙張與柔和晨光，不出現任何文字、Logo、書封或角色IP。9:16滿版，前中後景清楚，大片乾淨區域留給左上標題與下方字幕。",
+    "motion": "極慢 Slow Push-in，約 2–3% 畫幅變化",
+    "sfx": "Clock Tick"
+  },
+  {
+    "scene": "Scene 02",
+    "function": "人物進場",
+    "headline": "1965年的今天",
+    "narration": "1965 年的今天，J.K. 羅琳出生。她從小就想成為作家。",
+    "visual": "1970年代英國鄉村室內，一位熱愛閱讀與寫作的英國女孩坐在堆滿書籍的小桌旁寫故事；暖棕、米色、自然窗光，寫實歷史電影攝影，情緒克制，不模仿任何電影角色，不顯示可讀文字。",
+    "motion": "Slow Pan + subtle reframe",
+    "sfx": "Page-turn transition + very light room tone"
+  },
+  {
+    "scene": "Scene 03",
+    "function": "核心轉折",
+    "headline": "一班延誤的火車",
+    "narration": "1990 年，一班延誤的火車上，一個戴眼鏡的男孩，突然出現在她的想像裡。",
+    "visual": "1990年代初英國火車車廂，一位年輕女作家靠窗沉思，窗外灰藍英國田野掠過；手邊沒有筆，表情像突然抓到一個故事概念。不得出現哈利波特角色、霍格華茲、商標或可識別IP服裝。歷史電影質感，淺景深，暖灰與棕色。",
+    "motion": "Slow Pull / window-side reframe",
+    "sfx": "Soft train ambience + page-turn transition"
+  },
+  {
+    "scene": "Scene 04",
+    "function": "行動／困難／突破",
+    "headline": "五年，和一次次拒絕",
+    "narration": "她花了五年完成第一本故事，投稿後，也曾被許多出版社拒絕。直到 1997 年，《哈利波特：神秘的魔法石》出版。",
+    "visual": "1990年代愛丁堡咖啡館與書桌意象，一位女作家在手稿、信封與打字稿之間持續修改；畫面可用幾封未具可讀文字的退稿信作象徵，後段以出版社包裹與新書出爐的抽象出版場景帶出突破，但不複製真實書封。",
+    "motion": "Slow Push-in with slight lateral drift",
+    "sfx": "Paper/archive touch x3 + subtle café room tone"
+  },
+  {
+    "scene": "Scene 05",
+    "function": "今天的意義／金句",
+    "headline": "她留下的，不只是魔法",
+    "narration": "那個只存在腦海裡的世界，開始走進全球讀者的生命。她留下的不只是魔法世界，而是一個提醒：有些故事，要先有人願意相信它。",
+    "visual": "不同年齡與不同國家的讀者在溫暖圖書館與家中閱讀奇幻小說的電影式蒙太奇感單一畫面；書頁、光線、想像力與世界連結的象徵，不出現任何受版權保護角色、Logo或可讀書封。暖金情緒抬升，留足字幕安全區。",
+    "motion": "Very slow cinematic push-in, emotional lift",
+    "sfx": "Page-turn transition + gentle harmonic lift"
+  }
+]

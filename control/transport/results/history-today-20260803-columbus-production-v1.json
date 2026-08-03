@@ -1,0 +1,18 @@
+{
+  "request_id": "history-today-20260803-columbus-production-v1",
+  "transport_status": "COMPLETED",
+  "outcome": {
+    "result": "WAITING_FOR_FLOW_ASSET",
+    "status": "WAITING_FOR_FLOW_ASSET",
+    "exit_code": 0,
+    "log_path": "control\\logs\\history-today-20260803-columbus-production-v1-87f52497.log",
+    "output_manifest": "control\\state\\history-today-20260803-columbus-production-v1-87f52497.manifest.json",
+    "state_path": "control\\state\\history-today-20260803-columbus-production-v1-87f52497.state.json",
+    "locked_release": {
+      "runner_version": "2.0.0",
+      "runner_path": "runners/releases/2.0.0/history_today_production_runner.py",
+      "runner_sha256": "ce4e790d7f60712701a51f04cf2ab9f9109d04c4f52efe8d6684c12e3e9a6f18"
+    },
+    "error": null
+  }
+}

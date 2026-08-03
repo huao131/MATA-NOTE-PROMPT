@@ -1,0 +1,9 @@
+{
+  "request_id": "connection-test-live-20260801",
+  "transport_status": "COMPLETED",
+  "outcome": {
+    "result": "BLOCKED",
+    "status": "BLOCKED",
+    "error": "RUNNER_SHA256_MISMATCH"
+  }
+}

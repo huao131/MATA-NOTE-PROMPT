@@ -1,0 +1,13 @@
+{
+  "test": "single Codex built-in image_gen invocation",
+  "output": "SMOKE_TEST_01.png",
+  "width": 941,
+  "height": 1672,
+  "format": "PNG",
+  "standalone_image": true,
+  "text": false,
+  "table": false,
+  "collage": false,
+  "sha256": "BC0301CA7885515DFDFD1914FE8EB2AD65618892C3329CB561D22695DD7D5745",
+  "status": "PASS"
+}

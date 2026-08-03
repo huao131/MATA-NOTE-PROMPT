@@ -1,0 +1,34 @@
+{
+  "scene_id": "SCENE_03",
+  "flow_asset_mode": "APPROVED_REGRESSION_ASSET",
+  "source_image_path": "golden/history_today/jk_rowling_v6_2/flow/SOURCE_IMAGE.png",
+  "source_image_preview": "golden/history_today/jk_rowling_v6_2/flow/SOURCE_IMAGE.png",
+  "source_image_sha256": "6e54e85554b5cb9042b4468c55f5ca6e7230445fb7d59e0555374b2234cf513d",
+  "scene_duration": 5,
+  "visual_purpose": "呈現1990年代初期，一位年輕作家在安靜室內構思魔法故事的關鍵轉折，作為全片情緒與敘事核心。",
+  "character_or_subject": "與核准來源圖片相同的紅髮女性作家，坐在書桌前書寫",
+  "camera_motion": "極慢速電影感推鏡，鏡頭穩定向人物與手稿靠近，不旋轉、不突然變焦、不水平鏡像。",
+  "subject_motion": "人物只有自然呼吸、極細微眨眼與頭部姿態變化，手部維持書寫姿勢，不做誇張動作或對嘴。",
+  "environment_motion": "窗外細雨與柔和背景光影緩慢流動，桌面紙張只有極輕微自然反應，室內物件位置保持固定。",
+  "continuity_requirements": [
+    "人物臉孔、紅髮、年齡與體型必須完全延續來源圖",
+    "服裝、坐姿、書桌、手稿與室內構圖不得變更",
+    "維持1990年代英國寫實歷史電影質感與低調暖冷混合光線",
+    "不得新增人物、物件、文字、標誌或現代設備"
+  ],
+  "negative_prompt": [
+    "任何文字", "任何字幕", "任何Logo", "任何水印", "Storyboard版面", "資訊圖表",
+    "現代物件", "角色變臉", "多餘人物", "多餘肢體或手指", "水平鏡像", "過度誇張動作",
+    "對嘴或說話", "快速攝影機運動", "突然縮放", "服裝或場景漂移"
+  ],
+  "aspect_ratio": "9:16",
+  "resolution": "1080x1920",
+  "fps": 30,
+  "output_filename": "FLOW_SCENE_03.mp4",
+  "flow_prompt_zh_tw": "製作一段寫實、克制、具有高級歷史紀錄片與英國時代電影質感的直式短片。年代設定在1990年代初期，一位與來源圖片完全相同的紅髮年輕女性作家坐在安靜室內的書桌前，專注地在手稿上書寫並構思一個魔法故事。必須完整保留來源圖中的人物身份、臉孔、紅髮、年齡、體型、服裝、坐姿、手部位置、書桌、紙張、室內陳設與整體構圖。人物動作只能包含自然呼吸、極細微眨眼、非常輕微的頭部與肩膀姿態變化；手部維持可信的書寫狀態，不對嘴、不說話、不做大幅度動作。窗外細雨、柔和背景光影與室內空氣感可緩慢流動，桌面紙張只有幾乎察覺不到的自然反應。鏡頭採用極慢速、穩定、細膩的電影感推鏡，逐步靠近人物與手稿，不旋轉、不突然變焦、不左右翻轉。光線低調而自然，以柔和窗光、微暖室內反射與細緻陰影塑造安靜、孤獨、充滿想像力與希望的情緒。畫面必須保持歷史寫實感、自然皮膚質感、合理手部結構與連續一致的角色造型。禁止任何文字、字幕、Logo、水印、Storyboard、資訊圖表、現代物件、角色變臉、多餘人物、多餘肢體、多餘手指、水平鏡像、過度誇張動作、對嘴、快速鏡頭、突然縮放、服裝漂移或場景重構。輸出5秒、9:16、1080x1920、30fps的MP4。",
+  "flow_prompt_en": "Create a restrained, photorealistic vertical historical documentary drama shot with premium British period-film texture. The scene is set in the early 1990s. Show the exact same young red-haired woman writer from the supplied source image, seated at the same desk in the same quiet interior, writing on a manuscript while imagining a magical story. Preserve the source identity, face, red hair, age, body proportions, wardrobe, seated posture, hand placement, desk, papers, room dressing, lighting logic, and composition without redesign. Subject motion must be limited to natural breathing, a tiny blink, and extremely subtle head or shoulder posture movement. Her hands remain in a believable writing position. No speech and no lip synchronization. Let fine rain outside the window, soft background light, and the atmosphere of the room move slowly; paper may react only with nearly imperceptible natural motion. Use a very slow, stable cinematic push toward the writer and manuscript. Do not rotate, snap zoom, mirror, or reframe aggressively. Use soft window light, restrained warm interior bounce, and detailed shadows to create a quiet, solitary, imaginative, hopeful mood. Maintain realistic skin, anatomically correct hands, historical authenticity, and strict character and wardrobe continuity. Negative prompt: no text, no subtitles, no logo, no watermark, no storyboard, no infographic, no modern objects, no face change, no identity drift, no extra people, no extra limbs, no extra fingers, no horizontal mirroring, no exaggerated movement, no lip sync, no fast camera, no sudden zoom, no wardrobe drift, and no environment redesign. Output a five-second 9:16 1080x1920 MP4 at 30 fps.",
+  "manual_steps": [
+    "唯一人工步驟：在Google Flow上傳指定SOURCE_IMAGE.png，貼入任一完整提示詞生成一次，下載並命名為FLOW_SCENE_03.mp4，再放入resume_watch_folder；J.K. Rowling Regression直接使用既有核准Flow資產，不重新生成或消耗點數。"
+  ],
+  "resume_watch_folder": "control/flow_watch/HISTORY_TODAY_0731_JK_ROWLING/SCENE_03"
+}

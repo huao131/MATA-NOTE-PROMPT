@@ -1,0 +1,139 @@
+{
+  "report_type": "HISTORY_TODAY_GOLDEN_REGRESSION",
+  "generated_at": "2026-08-02T06:24:46.740018+00:00",
+  "release_gate": "PASS",
+  "current_release_update_allowed": true,
+  "checks": [
+    {
+      "check_id": "golden_baseline_untouched",
+      "result": "PASS",
+      "evidence": {
+        "mismatches": [],
+        "undeclared": []
+      }
+    },
+    {
+      "check_id": "camera_motion_direction",
+      "result": "PASS",
+      "evidence": "run_v6_motion.py contains scene-specific motion implementation"
+    },
+    {
+      "check_id": "approved_flow_scene",
+      "result": "PASS",
+      "evidence": {
+        "path": "C:\\Users\\huao3\\OneDrive\\文件\\AI影音生成\\MATA-AI-VIDEO-STUDIO-local-watcher\\golden\\history_today\\jk_rowling_v6_2\\flow\\FLOW_SCENE_03.mp4",
+        "sha256": "19afbc3279389484450d3489b04ae97dc502d1aac04d1c9e437dc6b5b18c376d",
+        "decode_error": ""
+      }
+    },
+    {
+      "check_id": "flow_prompt_package",
+      "result": "PASS",
+      "evidence": {
+        "schema_valid": true,
+        "english_prompt": true,
+        "chinese_prompt": true,
+        "negative_prompt": true,
+        "source_image_sha256": true,
+        "approved_regression_asset": true,
+        "queue_and_filename": true,
+        "manual_resume": true
+      }
+    },
+    {
+      "check_id": "edge_tts_environment",
+      "result": "PASS",
+      "evidence": "7.2.8"
+    },
+    {
+      "check_id": "faster_whisper_environment",
+      "result": "PASS",
+      "evidence": "1.2.1"
+    },
+    {
+      "check_id": "audio_layers_and_ducking",
+      "result": "PASS",
+      "evidence": {
+        "audio": [
+          "C:\\Users\\huao3\\OneDrive\\文件\\AI影音生成\\MATA-AI-VIDEO-STUDIO-local-watcher\\golden\\history_today\\jk_rowling_v6_2\\audio\\BGM.wav",
+          "C:\\Users\\huao3\\OneDrive\\文件\\AI影音生成\\MATA-AI-VIDEO-STUDIO-local-watcher\\golden\\history_today\\jk_rowling_v6_2\\audio\\AMBIENCE_SPACE.wav",
+          "C:\\Users\\huao3\\OneDrive\\文件\\AI影音生成\\MATA-AI-VIDEO-STUDIO-local-watcher\\golden\\history_today\\jk_rowling_v6_2\\audio\\SFX.wav"
+        ],
+        "ducking_implementation": true
+      }
+    },
+    {
+      "check_id": "canonical_header_and_gold_line",
+      "result": "PASS",
+      "evidence": "header_style_v5_2.json"
+    },
+    {
+      "check_id": "traditional_chinese_subtitle",
+      "result": "PASS",
+      "evidence": "bilingual ASS contains CJK text"
+    },
+    {
+      "check_id": "english_small_subtitle",
+      "result": "PASS",
+      "evidence": "bilingual ASS contains English"
+    },
+    {
+      "check_id": "dark_translucent_band",
+      "result": "PASS",
+      "evidence": "ASS background style"
+    },
+    {
+      "check_id": "fixed_time_page_ending",
+      "result": "PASS",
+      "evidence": {
+        "sha256": "233e4f48a29fe396346a9cd96e6a3683186cbe99e6464022606a9bb9180c31a0",
+        "decode_error": ""
+      }
+    },
+    {
+      "check_id": "two_approved_masters",
+      "result": "PASS",
+      "evidence": {
+        "MASTER_V6_2_NO_MAIN_SUBTITLE.mp4": {
+          "decode": true,
+          "sha256": "b6278397551462a8959990f9d2f98b3fd9fb1f3114f2358990ff77b45814b89a",
+          "error": ""
+        },
+        "MASTER_PREVIEW_V6_2_ZH_TW_EN_SUBTITLE.mp4": {
+          "decode": true,
+          "sha256": "aaef7d27ba97a1e2efd8e0fb13cc00643b0cecc1779aef493c5f81737389adab",
+          "error": ""
+        }
+      }
+    },
+    {
+      "check_id": "qc_and_onedrive_classification",
+      "result": "PASS",
+      "evidence": {
+        "qc": "C:\\Users\\huao3\\OneDrive\\文件\\AI影音生成\\MATA-AI-VIDEO-STUDIO-local-watcher\\golden\\history_today\\jk_rowling_v6_2\\qc\\QC_MONTAGE_V6_2.jpg",
+        "delivery": "C:\\Users\\huao3\\OneDrive\\文件\\AI影音生成\\MATA-AI-VIDEO-STUDIO-local-watcher\\golden\\history_today\\jk_rowling_v6_2\\delivery\\DELIVERY_MANIFEST_V5_2.json"
+      }
+    },
+    {
+      "check_id": "chatgpt_transport_chain",
+      "result": "PASS",
+      "evidence": [
+        "C:\\Users\\huao3\\OneDrive\\文件\\AI影音生成\\MATA-AI-VIDEO-STUDIO-local-watcher\\control\\github_api_transport.py",
+        "C:\\Users\\huao3\\OneDrive\\文件\\AI影音生成\\MATA-AI-VIDEO-STUDIO-local-watcher\\control\\local_watcher.py",
+        "C:\\Users\\huao3\\OneDrive\\文件\\AI影音生成\\MATA-AI-VIDEO-STUDIO-local-watcher\\control\\chatgpt_runner_bridge.py"
+      ]
+    },
+    {
+      "check_id": "feature_flags_default_off",
+      "result": "PASS",
+      "evidence": {
+        "new_topic_source": false,
+        "new_tts_engine": false,
+        "multi_flow_scene": false,
+        "flow_prompt_package_v2": false,
+        "new_camera_motion": false,
+        "capcut_package": false
+      }
+    }
+  ]
+}

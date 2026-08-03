@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0.0",
+  "defaults": {
+    "new_topic_source": false,
+    "new_tts_engine": false,
+    "multi_flow_scene": false,
+    "flow_prompt_package_v2": false,
+    "new_camera_motion": false,
+    "capcut_package": false
+  },
+  "rule": "Unknown flags and missing defaults fail closed. APPROVED Golden Path is used when every flag is false."
+}

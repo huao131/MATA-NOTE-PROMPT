@@ -1,0 +1,35 @@
+{
+  "status": "PASS",
+  "outputs": [
+    {
+      "file": "MASTER_NO_MAIN_SUBTITLE.mp4",
+      "size_bytes": 77667,
+      "sha256": "8be4623f79b1b072864b620a8e1709fc62c4f2de25fc0683add1ed8b218247ed"
+    },
+    {
+      "file": "MASTER_PREVIEW_ZH_TW_EN_SUBTITLE.mp4",
+      "size_bytes": 77667,
+      "sha256": "8be4623f79b1b072864b620a8e1709fc62c4f2de25fc0683add1ed8b218247ed"
+    },
+    {
+      "file": "SUBTITLE_ZH_TW.srt",
+      "size_bytes": 268,
+      "sha256": "f4bcc8007428a7765cdceb9f72d8181b0ec4c072aebb024aaf7a143d866208d6"
+    },
+    {
+      "file": "SUBTITLE_ZH_TW_EN.ass",
+      "size_bytes": 119,
+      "sha256": "72125b9183c95d38e35d14f11430ac8ecad1523f6f54bf652015e16180e9fe31"
+    },
+    {
+      "file": "VOICE_MASTER.wav",
+      "size_bytes": 2304044,
+      "sha256": "ad6b4cea78723b3d060cad53ee4e27a848604056436f6edb6dd26b6e771fc29f"
+    },
+    {
+      "file": "QC_MONTAGE.jpg",
+      "size_bytes": 4484,
+      "sha256": "83e0b3ce72dc3151041248dc9a058210e4ceac65d0209b6201584e1a15170bbe"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "request_id": "history-today-20260803-production-preflight-r2",
+  "transport_status": "COMPLETED",
+  "outcome": {
+    "result": "BLOCKED",
+    "status": "BLOCKED",
+    "error": "PRODUCTION_CURRENT_RELEASE_UNAVAILABLE"
+  }
+}

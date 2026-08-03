@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MATA AI Video Studio Episode Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["request_id", "request_type", "episode_id"],
+  "properties": {
+    "request_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{2,127}$"},
+    "request_type": {"type": "string", "enum": ["connection_test", "episode", "history_today", "render_frame"]},
+    "episode_id": {"type": "string", "minLength": 1, "maxLength": 128},
+    "payload": {"type": "object"},
+    "resume_run_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{2,127}$"},
+    "stage": {"type": "string", "enum": ["topic_selection", "production"]},
+    "episode_date": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+    "approved_topic_id": {"type": "string", "minLength": 1, "maxLength": 128}
+    ,"execution_mode": {"type": "string", "enum": ["validation", "production"]}
+  },
+  "allOf": [{
+    "if": {"properties": {"request_type": {"const": "connection_test"}}},
+    "then": {"properties": {"episode_id": {"const": "CONNECTION_TEST"}}}
+  }, {
+    "if": {"properties": {"request_type": {"const": "history_today"}}},
+    "then": {"required": ["stage", "episode_date"]}
+  }, {
+    "if": {"properties": {"request_type": {"const": "render_frame"}}},
+    "then": {
+      "required": ["payload"],
+      "properties": {
+        "payload": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["action", "episode_path", "scene_id", "frame_role", "visual_prompt", "negative_prompt", "output_path"],
+          "properties": {
+            "action": {"enum": ["prepare", "complete"]},
+            "episode_path": {"type": "string", "minLength": 3},
+            "scene_id": {"type": "string", "pattern": "^[A-Za-z0-9_-]{2,64}$"},
+            "frame_role": {"enum": ["START", "END"]},
+            "visual_prompt": {"type": "string", "minLength": 20},
+            "negative_prompt": {"type": "string", "minLength": 1},
+            "output_path": {"type": "string", "pattern": "\\.png$"},
+            "width": {"type": "integer", "const": 1080},
+            "height": {"type": "integer", "const": 1920},
+            "generated_path": {"type": "string", "minLength": 3}
+          },
+          "allOf": [{
+            "if": {"properties": {"action": {"const": "complete"}}},
+            "then": {"required": ["generated_path"]}
+          }]
+        }
+      }
+    }
+  }]
+}

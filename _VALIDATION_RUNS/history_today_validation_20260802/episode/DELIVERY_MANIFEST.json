@@ -1,0 +1,14 @@
+{
+  "status": "SUCCESS",
+  "files": [
+    "MASTER_NO_MAIN_SUBTITLE.mp4",
+    "MASTER_PREVIEW_ZH_TW_EN_SUBTITLE.mp4",
+    "SUBTITLE_ZH_TW.srt",
+    "SUBTITLE_ZH_TW_EN.ass",
+    "VOICE_MASTER.wav",
+    "QC_MONTAGE.jpg",
+    "FINAL_QC.json"
+  ],
+  "onedrive_archive": "C:\\Users\\huao3\\OneDrive\\文件\\AI影音生成\\MATA-AI-VIDEO-STUDIO-local-watcher\\_VALIDATION_RUNS\\history_today_validation_20260802\\episode",
+  "classification": "VALIDATION_ONLY"
+}

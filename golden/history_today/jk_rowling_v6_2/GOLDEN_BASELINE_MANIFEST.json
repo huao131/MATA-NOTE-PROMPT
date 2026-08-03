@@ -1,0 +1,308 @@
+{
+  "baseline_id": "history_today/jk_rowling_v6_2",
+  "classification": "APPROVED_IMMUTABLE_GOLDEN_BASELINE",
+  "created_at": "2026-08-02T03:31:30.640154+00:00",
+  "source_episode": "C:\\Users\\huao3\\OneDrive\\A自媒體\\歷史上的今天\\2026\\0731\\0731_JK_ROWLING",
+  "prohibited_source_prefixes": [
+    "_SYSTEM_TRUE_REGRESSION_RERUN",
+    "_VALIDATION_RUNS"
+  ],
+  "immutability": {
+    "overwrite": false,
+    "delete": false,
+    "rename": false,
+    "direct_edit": false
+  },
+  "files": [
+    {
+      "path": "ENVIRONMENT.json",
+      "size_bytes": 370,
+      "sha256": "4c6c586b2b60814b08516c605bbc1c6fb5d95761c7188fecb675f7e9f02f4cad"
+    },
+    {
+      "path": "audio/AMBIENCE_SPACE.wav",
+      "size_bytes": 9615438,
+      "sha256": "e964c2d015c5f03345ca29a102371598dd1e24e72a74145de7f7dd27724760a8"
+    },
+    {
+      "path": "audio/BGM.wav",
+      "size_bytes": 9615438,
+      "sha256": "55b58b659808192026764d3bf7b68e517b371e5f0a2e744cd794b4ce8e48326e"
+    },
+    {
+      "path": "audio/SFX.wav",
+      "size_bytes": 7698126,
+      "sha256": "d3f9df2b682fdf44d15b5b483d6977fb4fc5f7e3030551cfac0a006a61d308c4"
+    },
+    {
+      "path": "configuration/audio_style.json",
+      "size_bytes": 48,
+      "sha256": "1be5aa6ec2376fd0987d21bad0bfadb96b0426848e21489a9c89374a5c43a1ae"
+    },
+    {
+      "path": "configuration/canonical_render_format.json",
+      "size_bytes": 291,
+      "sha256": "d1732ff2ae8d07ef0ee5c006c43e405d4936b56bf44579f40f44078c375d9c1e"
+    },
+    {
+      "path": "configuration/final_timeline_asset_map.json",
+      "size_bytes": 450,
+      "sha256": "62cad18146c2048094fe89ba4a145317c049df42c563abe13a431a3213768774"
+    },
+    {
+      "path": "configuration/header_style_v5_2.json",
+      "size_bytes": 148,
+      "sha256": "dd1c2722c062b5e4320545a3db2488cf675ad1125f527234658556500d9a0197"
+    },
+    {
+      "path": "configuration/motion_presets.json",
+      "size_bytes": 69,
+      "sha256": "2604cea60193272cfa62f49c528dd6c19ea15c95ad4c6653485eb552485d108b"
+    },
+    {
+      "path": "configuration/narration_style.json",
+      "size_bytes": 69,
+      "sha256": "80108e0264a144df72fc0d72107a1b71e1e6f2edfb1a86b523ad9dcd02f0f806"
+    },
+    {
+      "path": "configuration/subtitle_style.json",
+      "size_bytes": 74,
+      "sha256": "7c0232696fd47f1eb89c39df58cf797676a00b1cbe857173bf52e826c96a8c7e"
+    },
+    {
+      "path": "delivery/DELIVERY_CONFIG_V1.0.json",
+      "size_bytes": 414,
+      "sha256": "f4df8de0469a6a74380100d17cdca689824ddb734bcb3b167ef1837cbb02476c"
+    },
+    {
+      "path": "delivery/DELIVERY_MANIFEST_V5_2.json",
+      "size_bytes": 9497,
+      "sha256": "a710a07a22d4147f648edfb880c56d0dea39e172dc3333d2dc7a46dfbe12e375"
+    },
+    {
+      "path": "ending/ENDING_NORMALIZED.mp4",
+      "size_bytes": 504755,
+      "sha256": "233e4f48a29fe396346a9cd96e6a3683186cbe99e6464022606a9bb9180c31a0"
+    },
+    {
+      "path": "evidence/MEDIA_PROBES.json",
+      "size_bytes": 446,
+      "sha256": "474f9ca6e9515341ff7c44069a91034e12d7a5505aa3b8314598bd23f5e501b3"
+    },
+    {
+      "path": "evidence/V5_2_BILINGUAL_BUILD_LOG.txt",
+      "size_bytes": 6,
+      "sha256": "d938fa189912f8776c3deb31a6bec42f403f57b9c8e3ed936bdb076caf6bd61c"
+    },
+    {
+      "path": "evidence/V5_2_FREEZE_MANIFEST.json",
+      "size_bytes": 2418,
+      "sha256": "651b92dcb4a2d6fbeae8eabf9861ba65b6891287ba01da40d864e3581221e8c8"
+    },
+    {
+      "path": "flow/FLOW_PROMPT.txt",
+      "size_bytes": 524,
+      "sha256": "9fa0f4bb7cd4f3a8da9f073e348b035e6fb7765d3e823a2acb06ddb95a946471"
+    },
+    {
+      "path": "flow/FLOW_SCENE_03.mp4",
+      "size_bytes": 1511566,
+      "sha256": "19afbc3279389484450d3489b04ae97dc502d1aac04d1c9e437dc6b5b18c376d"
+    },
+    {
+      "path": "flow/FLOW_SETTINGS.json",
+      "size_bytes": 219,
+      "sha256": "0bdfb79e8238248695ddef138b585763e9580286096ff8cada38bab569bd56fa"
+    },
+    {
+      "path": "flow/README_ACTION.txt",
+      "size_bytes": 449,
+      "sha256": "9c99b9322fa92373c443a38cd0d9631fb02d8678d1193f6be810286a2db13c5e"
+    },
+    {
+      "path": "flow/SOURCE_IMAGE.png",
+      "size_bytes": 1921081,
+      "sha256": "6e54e85554b5cb9042b4468c55f5ca6e7230445fb7d59e0555374b2234cf513d"
+    },
+    {
+      "path": "masters/MASTER_PREVIEW_V6_2_ZH_TW_EN_SUBTITLE.mp4",
+      "size_bytes": 12018553,
+      "sha256": "aaef7d27ba97a1e2efd8e0fb13cc00643b0cecc1779aef493c5f81737389adab"
+    },
+    {
+      "path": "masters/MASTER_V6_2_NO_MAIN_SUBTITLE.mp4",
+      "size_bytes": 11384368,
+      "sha256": "b6278397551462a8959990f9d2f98b3fd9fb1f3114f2358990ff77b45814b89a"
+    },
+    {
+      "path": "qc/BILINGUAL_SUBTITLE_QC_V5_2.json",
+      "size_bytes": 433,
+      "sha256": "1da1f4a7d3ffe15131d625acee0def0c2131c586f2c91424ef36546839de8a30"
+    },
+    {
+      "path": "qc/CANONICAL_FORMAT_QC_V6_2.json",
+      "size_bytes": 115,
+      "sha256": "b9bd450315aea909857191c81a978ee7f8357c0170b1f552dc90dfdfe28fac94"
+    },
+    {
+      "path": "qc/QC_MONTAGE_V6_2.jpg",
+      "size_bytes": 81515,
+      "sha256": "eb87e72081889d65e07468740af578384a61ff6baeda6f31f8c957caa8ff357e"
+    },
+    {
+      "path": "scenes/Scene_01.png",
+      "size_bytes": 1644387,
+      "sha256": "cd17f09c6b809d641416e0cd9216b579e866effd63ad830de85c32ab92b77181"
+    },
+    {
+      "path": "scenes/Scene_02.png",
+      "size_bytes": 2401644,
+      "sha256": "7f4ae2e0e51fc411a5bad8524b02d22b10c2c8db457157fd6028fbf3991e634e"
+    },
+    {
+      "path": "scenes/Scene_03.png",
+      "size_bytes": 2159916,
+      "sha256": "51bf287203a627f8ad5385344b0252d8d2827d37571e5acbec7dd74014f289ca"
+    },
+    {
+      "path": "scenes/Scene_04.png",
+      "size_bytes": 1754014,
+      "sha256": "78b3ef85390f8e6bc35bd90e97cc02f30339568b46cee7b8d168bb7e53d4f263"
+    },
+    {
+      "path": "scenes/Scene_05.png",
+      "size_bytes": 1953566,
+      "sha256": "bbf59ef8eec1b5648eb613460c607580c5004a6ed9dc93610b1baeddde54587d"
+    },
+    {
+      "path": "source_programs/INSTALL_ON_WINDOWS.ps1",
+      "size_bytes": 1040,
+      "sha256": "98d2ab38e8c010678f43ab6e479fa5cd0c4c52bdb566306613d7250a434a5ed8"
+    },
+    {
+      "path": "source_programs/PREFLIGHT_GOLDEN_PATH.ps1",
+      "size_bytes": 2698,
+      "sha256": "061d5ee822030c2f49cd80d314e192844a99eab60efa9151a1e9b628a71c08a6"
+    },
+    {
+      "path": "source_programs/RUN_DAILY_GOLDEN_PATH.ps1",
+      "size_bytes": 2335,
+      "sha256": "dc06c1d911fce25d351dccf8d37bf66365fd337b176f1c00d40cd3eebb160c17"
+    },
+    {
+      "path": "source_programs/RUN_END_TO_END_GOLDEN_PATH.ps1",
+      "size_bytes": 13463,
+      "sha256": "ea6c5c5cc593c683782bd200caa531deb4241e42cb2107a79dbc7944afd082b8"
+    },
+    {
+      "path": "source_programs/align_subtitles.py",
+      "size_bytes": 972,
+      "sha256": "e8a2ce635d65ee38131f064dd92f5dfffc0ed1d174eb196e62b27a7922c2f9f1"
+    },
+    {
+      "path": "source_programs/build_mata_video.py",
+      "size_bytes": 17440,
+      "sha256": "a6d16bbff9191c811d5d65b3a075045c28928a40c45b090a7437739b7d595bf9"
+    },
+    {
+      "path": "source_programs/build_v5_2_bilingual.py",
+      "size_bytes": 3624,
+      "sha256": "53a473d39434d42e245cbeee87bd0dce523a804f64eb82d6098b3d8bf3176eea"
+    },
+    {
+      "path": "source_programs/cinematic_tech_test.py",
+      "size_bytes": 3350,
+      "sha256": "f0a5fbf54097414004956540dabc0f978357475d72e8737721aedf2a65132912"
+    },
+    {
+      "path": "source_programs/fix_b_composite.py",
+      "size_bytes": 2411,
+      "sha256": "72dcf0bdce0328980f5add0b84a6294aa1b6f9ee08163b4a9aa39b8f7a4cab3b"
+    },
+    {
+      "path": "source_programs/generate_voice_and_srt.py",
+      "size_bytes": 1421,
+      "sha256": "c5e304e67f683df975bc0d07e14ad68f7b470ee6c9e419d13b61e5c5f4c2a8b1"
+    },
+    {
+      "path": "source_programs/render_motion_intensity.py",
+      "size_bytes": 1675,
+      "sha256": "1c74b3e1014edc13c4c00c5185024941b0b83fba2e4354d23b711b865776bad9"
+    },
+    {
+      "path": "source_programs/render_v5_1.py",
+      "size_bytes": 2231,
+      "sha256": "171bd06daf87fabe9124273b0d590ae7e1fe0b7e5fbd27de7fd6ad8e70e05f24"
+    },
+    {
+      "path": "source_programs/render_v5_jacqueline.py",
+      "size_bytes": 3990,
+      "sha256": "460f439a52930fa64a845e162ff986f3a5a78d2fed2a2586910f7c100b2fac18"
+    },
+    {
+      "path": "source_programs/run_v2_pipeline.ps1",
+      "size_bytes": 4409,
+      "sha256": "66ce9a38c36070d6e5f30d0e9ad89d63cceba29d4864fde6fe6444304930f05b"
+    },
+    {
+      "path": "source_programs/run_v3_golden_sample.ps1",
+      "size_bytes": 3705,
+      "sha256": "ced7aa8112a63d9f8647ba74f66336170a3219e5f957c52914bd50ed0d0aa4c7"
+    },
+    {
+      "path": "source_programs/run_v5_1_subtitle_pipeline.py",
+      "size_bytes": 1938,
+      "sha256": "c0843c78e534eeafe0188fdbc7b8c23811417e0888d55ea934095c1a6d5c9f5e"
+    },
+    {
+      "path": "source_programs/run_v5_2.py",
+      "size_bytes": 5104,
+      "sha256": "4aecd952841b903777f6fc5b92ff08db61613feff489dffccc583a396d903e20"
+    },
+    {
+      "path": "source_programs/run_v6_1_graphic_restore.py",
+      "size_bytes": 1893,
+      "sha256": "46e5e50f1e0f12e1dde96e008d837e4377245cf9c46080db88f6fa623986651b"
+    },
+    {
+      "path": "source_programs/run_v6_2_approved_format_recomposition.py",
+      "size_bytes": 1538,
+      "sha256": "2ea3c8baa6f0133104615f89c86afb1505992994282b7d695564099b201afb25"
+    },
+    {
+      "path": "source_programs/run_v6_motion.py",
+      "size_bytes": 1569,
+      "sha256": "bef67f75d218b4d3b2275928329628fe7da6baaf7b8d09aebc1bc9be0067517c"
+    },
+    {
+      "path": "source_programs/run_v6_picture_layer_replacement.py",
+      "size_bytes": 1870,
+      "sha256": "b525df76284a21f1c6577c3f75633f8a5b9762eb567dd66fd13d031adf94e7c9"
+    },
+    {
+      "path": "story/narration.txt",
+      "size_bytes": 569,
+      "sha256": "162a3ae743b7702f1b22ca11064333a870c1cb991742650876b8c3e72950311f"
+    },
+    {
+      "path": "story/scene_plan.json",
+      "size_bytes": 3174,
+      "sha256": "1b8566b15c3e3e40cce00d738c53df1c7dd68413acd511f713735bf5168d30cb"
+    },
+    {
+      "path": "subtitles/DISPLAY_SUBTITLE_V5_2_ZH_TW_EN.json",
+      "size_bytes": 1798,
+      "sha256": "f6c6c4c6785a237960aa238b2d57157d6f40cf05f3eb1317e5c833c791d2a46d"
+    },
+    {
+      "path": "subtitles/SUBTITLE_ZH_TW_EN_V5_2.ass",
+      "size_bytes": 2438,
+      "sha256": "35b8803b247a583b5d21a38ef09800461fdf81335759cf3591da147f85d7b3d4"
+    },
+    {
+      "path": "subtitles/SUBTITLE_ZH_TW_V5_2.srt",
+      "size_bytes": 781,
+      "sha256": "5eaa30a822b9e76891638d7dd4df31748706761ca6bee1b7fc360095244a40be"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "request_id": "true_jk_rowling_runner_regression",
+  "request_type": "history_today",
+  "episode_id": "JK_ROWLING_TRUE_REGRESSION",
+  "stage": "production",
+  "episode_date": "2026-07-31",
+  "execution_mode": "validation",
+  "payload": {"true_regression_jk_rowling": true}
+}
