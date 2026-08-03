@@ -1,0 +1,25 @@
+{
+  "document_id": "HISTORY_TODAY_MASTER_DATABASE",
+  "current_version": "2.4",
+  "document_path": "docs/history_today/HISTORY_TODAY_MASTER_DATABASE_V2.4.md",
+  "codex_prompt_path": "docs/history_today/HISTORY_TODAY_CODEX_SYSTEM_PROMPT_V2.4.md",
+  "status": "CURRENT_EFFECTIVE",
+  "read_first": true,
+  "single_source_of_truth": true,
+  "effective_date": "2026-08-03",
+  "required_consumers": [
+    "ChatGPT",
+    "Codex",
+    "LocalWatcher",
+    "Runner",
+    "RendererOrchestrator",
+    "FlowMetaHandoff",
+    "PostProduction",
+    "QC",
+    "OneDriveArchive"
+  ],
+  "supersedes": [
+    "HISTORY_TODAY_MASTER_DATABASE_V2.3"
+  ],
+  "fail_closed": true
+}
