@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🐾 ・Gemini Notebook 簡報 Prompt 生成器 2.0</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="168-3.png">
   <!-- PDF.js & jsPDF for Browser PDF Processing -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -51,8 +53,15 @@
     }
 
     .header-title { display: flex; align-items: center; gap: 14px; }
-    .cat-logo { font-size: 38px; animation: gentle-tilt 3s infinite ease-in-out; }
-    @keyframes gentle-tilt { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(8deg) scale(1.05); } }
+    .custom-brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      object-fit: cover;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      animation: gentle-tilt 3s infinite ease-in-out;
+    }
+    @keyframes gentle-tilt { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(4deg) scale(1.04); } }
     .title-text h1 { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; display: flex; align-items: center; gap: 8px; }
     .title-text p { font-size: 13px; color: var(--accent-orange); font-weight: 600; margin-top: 2px; }
 
@@ -260,7 +269,8 @@
   <!-- Top Navigation & Branding -->
   <div class="header-bar">
     <div class="header-title">
-      <div class="cat-logo">🐾</div>
+      <!-- 替換為專屬標誌 (支援 168-3.png 或本機圖片) -->
+      <img src="168-3.png" alt="Logo" class="custom-brand-logo" onerror="this.onerror=null; this.src='https://api.iconify.design/noto:cat-face.svg';">
       <div class="title-text">
         <h1>Gemini Notebook 簡報 Prompt 生成器 2.0</h1>
         <p>🐱 MATA讓AI更簡單（指令生成 + 風格範本 + PDF 去水印加Logo）</p>
@@ -368,7 +378,7 @@
               <select id="outToneStyle" onchange="updateOutlinePrompt()">
                 <option value="簡潔俐落且重點導向（金句提煉、邏輯嚴謹）" selected>簡潔俐落且重點導向</option>
                 <option value="親切熱情、具啟發與激勵性（引導行動）">親切熱情、激勵引導</option>
-                <option value="權威專業、客觀數據分析（嚴謹信賴）">權威專業、數據信賴</option>
+                <option value="權威專業、客反數據分析（嚴謹信賴）">權威專業、數據信賴</option>
                 <option value="故事敘事型（情境代入、引人入勝）">故事敘事型</option>
               </select>
             </div>
