@@ -1,0 +1,16 @@
+{
+  "name": "Gemini Notebook 簡報 Prompt 生成器 2.0",
+  "short_name": "拾光喵簡報",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0f111a",
+  "theme_color": "#ff6b8b",
+  "icons": [
+    {
+      "src": "168-3.png",
+      "sizes": "450x450 192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
