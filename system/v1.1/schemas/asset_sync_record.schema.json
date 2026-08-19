@@ -1,9 +1,0 @@
-{
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "type": "object",
-  "required": ["asset_id", "file_name", "version", "status", "drive_file_id", "drive_parent_folder_id", "sha256", "timestamp", "reference_eligible"],
-  "properties": {
-    "asset_id": {"type": "string"}, "file_name": {"type": "string"}, "version": {"type": "string"}, "status": {"type": "string"}, "drive_file_id": {"type": "string"}, "drive_parent_folder_id": {"type": "string"}, "sha256": {"type": "string"}, "timestamp": {"type": "string"}, "reference_eligible": {"type": "boolean"}
-  },
-  "additionalProperties": false
-}
