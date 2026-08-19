@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🐾 橘子喵・Gemini Notebook 簡報 Prompt 生成器 2.0</title>
+  <title>🐾 拾光喵助手・Gemini Notebook 簡報 Prompt 生成器 2.0</title>
   <!-- PDF.js & jsPDF for Browser PDF Processing -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -46,7 +46,7 @@
     .cat-logo { font-size: 38px; animation: gentle-tilt 3s infinite ease-in-out; }
     @keyframes gentle-tilt { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(8deg) scale(1.05); } }
     .title-text h1 { font-size: 22px; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; display: flex; align-items: center; gap: 8px; }
-    .title-text p { font-size: 12px; color: var(--accent-orange); font-weight: 600; margin-top: 2px; }
+    .title-text p { font-size: 13px; color: var(--accent-orange); font-weight: 600; margin-top: 2px; }
 
     /* Nav Tabs */
     .nav-tabs { display: flex; flex-wrap: wrap; gap: 8px; background: var(--card-dark); padding: 5px; border-radius: 30px; border: 1px solid var(--border-dark); }
@@ -104,7 +104,7 @@
       background: var(--card-dark); color: var(--text-main); font-size: 13px; outline: none; transition: 0.2s;
     }
     select:focus, input:focus, textarea:focus { border-color: var(--primary-pink); box-shadow: 0 0 0 2px rgba(255, 107, 139, 0.2); }
-    textarea { resize: vertical; min-height: 120px; font-size: 12.5px; }
+    textarea { resize: vertical; min-height: 140px; font-size: 12.5px; }
 
     /* Segmented Toggle Buttons */
     .segmented-control { display: flex; gap: 8px; }
@@ -216,7 +216,7 @@
       <div class="cat-logo">🐾</div>
       <div class="title-text">
         <h1>Gemini Notebook 簡報 Prompt 生成器 2.0</h1>
-        <p>🐱 橘子喵助手・全方位復刻版（大綱生成 + 簡報Prompt + 風格庫 + PDF後製）</p>
+        <p>🐱 拾光喵助手 . MATA老師設計（指令生成 + 風格範本 + PDF 去水印加Logo）</p>
       </div>
     </div>
     <div class="nav-tabs">
@@ -271,7 +271,7 @@
             <div class="form-group">
               <label>簡報角色 (發言身份)</label>
               <select id="outPresenterRole" onchange="updateOutlinePrompt()">
-                <option value="自訂角色（如：橘子導覽喵）" selected>自訂角色 (如主角/導覽員)</option>
+                <option value="自訂角色（如：拾光導覽喵）" selected>自訂角色 (如主角/導覽員)</option>
                 <option value="資深行業顧問 / 專家">資深行業顧問 / 專家</option>
                 <option value="產品經理 / 創業團隊">產品經理 / 創業團隊</option>
                 <option value="團隊培訓講師 / 導師">團隊培訓講師 / 導師</option>
@@ -372,14 +372,10 @@
           </div>
           <div class="form-group">
             <label>將第一步生成並修訂好的大綱貼在下方（AI 會嚴格遵循標題，防止標題跑掉）：</label>
-            <textarea id="outlineText" placeholder="請貼上你的簡報大綱..." oninput="updateSlidePrompt()">第1頁：封面 - 2026 Gemini Notebook 打造個人 AI 知識庫
-第2頁：痛點分析 - 告別「讀不完」的龐大資訊焦慮
-第3頁：核心定位 - 零幻覺、高精準度的專屬 AI 智慧研究助理
-第4頁：多模態整合 - 支援多媒體、影音與超大資料量萃取
-第5頁：實戰拆解 - Deep Research 深度研究代理架構
-第6頁：終極進階 - 一鍵產出沉浸式音訊、簡報與心智圖
-第7頁：高效落地 - 打造團隊標準化知識資產與變現系統
-第8頁：總結行動 - 開啟你的智慧 AI 工作流</textarea>
+            <textarea id="outlineText" placeholder="【請在此貼上 NotebookLM 產出並整理好的大綱內容】&#10;範例格式如下：&#10;第1頁：封面 - 主題名稱&#10;第2頁：痛點分析 - 核心問題剖析&#10;第3頁：解決方案 - 關鍵核心優勢&#10;第4頁：實戰步驟 - 落地執行清單&#10;..." oninput="updateSlidePrompt()"></textarea>
+            <div style="font-size:11px; color:var(--text-muted); margin-top:5px;">
+              💡 提示：若此處為空，AI 指令將自動轉為「依據來源資料提煉出邏輯嚴密的章節大綱」。
+            </div>
           </div>
         </div>
 
@@ -416,7 +412,7 @@
 
           <div class="form-group" id="heroImageGroup">
             <label>來源主角圖檔名稱 (需在 NotebookLM 來源重新命名為此名稱)</label>
-            <input type="text" id="heroImageName" value="主角.png" placeholder="如：主角.png 或 橘子.png" oninput="updateSlidePrompt()">
+            <input type="text" id="heroImageName" value="主角.png" placeholder="如：主角.png 或 拾光喵.png" oninput="updateSlidePrompt()">
             <div style="font-size:11px; color:var(--accent-orange); margin-top:4px;">
               💡 提示：若 NotebookLM 讀不到人物，請將角色真實感降低 10% 或生成 2.5D Q版全身圖！
             </div>
@@ -710,7 +706,7 @@
       p += `請嚴格遵循以下章節大綱順序與標題生成各頁投影片內容，嚴禁自行擅自更動主標題：\n`;
       p += `${outline}\n\n`;
     } else {
-      p += `請依據來源資料提煉出邏輯嚴密的大綱結構生成。\n\n`;
+      p += `請依據來源資料提煉出邏輯嚴密的大綱結構（包含封面、痛點、核心解法、實戰拆解與行動總結）生成簡報。\n\n`;
     }
 
     p += `【二、 視覺美學與排版規範】\n`;
