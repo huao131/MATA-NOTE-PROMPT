@@ -41,29 +41,76 @@
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-dark);
       margin-bottom: 20px;
+      gap: 16px;
     }
+    @media (max-width: 860px) {
+      .header-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+
     .header-title { display: flex; align-items: center; gap: 14px; }
     .cat-logo { font-size: 38px; animation: gentle-tilt 3s infinite ease-in-out; }
     @keyframes gentle-tilt { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(8deg) scale(1.05); } }
-    .title-text h1 { font-size: 22px; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; display: flex; align-items: center; gap: 8px; }
+    .title-text h1 { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; display: flex; align-items: center; gap: 8px; }
     .title-text p { font-size: 13px; color: var(--accent-orange); font-weight: 600; margin-top: 2px; }
 
-    /* Nav Tabs */
-    .nav-tabs { display: flex; flex-wrap: wrap; gap: 8px; background: var(--card-dark); padding: 5px; border-radius: 30px; border: 1px solid var(--border-dark); }
-    .tab-btn {
-      background: transparent; color: var(--text-muted); border: none; padding: 8px 16px;
-      font-size: 13px; font-weight: 700; border-radius: 20px; cursor: pointer; transition: all 0.2s;
+    /* 4-Card Nav Tabs */
+    .nav-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background: transparent;
+      padding: 0;
+      border: none;
     }
-    .tab-btn:hover { color: #fff; }
-    .tab-btn.active { background: var(--primary-pink); color: #fff; box-shadow: 0 4px 12px rgba(255, 107, 139, 0.4); }
+    @media (max-width: 600px) {
+      .nav-tabs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .tab-btn {
+      background: var(--card-dark);
+      color: var(--text-muted);
+      border: 1px solid var(--border-dark);
+      padding: 12px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+      min-height: 54px;
+    }
+    .tab-btn span.tab-num {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+    .tab-btn:hover {
+      color: #fff;
+      border-color: var(--primary-pink);
+    }
+    .tab-btn.active {
+      background: var(--primary-pink);
+      color: #fff;
+      border-color: var(--primary-pink);
+      box-shadow: 0 4px 14px rgba(255, 107, 139, 0.35);
+    }
 
     /* Step flow indicator */
     .step-flow {
-      display: flex; justify-content: center; align-items: center; gap: 12px;
+      display: flex; justify-content: center; align-items: center; gap: 10px;
       margin-bottom: 20px; font-size: 12px; color: var(--text-muted); flex-wrap: wrap;
     }
     .step-badge {
-      background: var(--card-dark); border: 1px solid var(--border-dark); padding: 4px 12px;
+      background: var(--card-dark); border: 1px solid var(--border-dark); padding: 6px 14px;
       border-radius: 20px; color: #cbd5e1; display: inline-flex; align-items: center; gap: 6px;
     }
     .step-badge.highlight { border-color: var(--accent-orange); color: var(--accent-orange); font-weight: bold; }
@@ -219,21 +266,34 @@
         <p>🐱 拾光喵助手 . MATA老師設計（指令生成 + 風格範本 + PDF 去水印加Logo）</p>
       </div>
     </div>
+    <!-- 4 卡片整齊排版導航 -->
     <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('outlineTab', this)">① 生成大綱 Prompt</button>
-      <button class="tab-btn" onclick="switchTab('promptTab', this)">② 風格與生成簡報</button>
-      <button class="tab-btn" onclick="switchTab('galleryTab', this)">③ 簡報風格範本庫</button>
-      <button class="tab-btn" onclick="switchTab('pdfTab', this)">④ PDF 後製 (去Logo / 加頁碼)</button>
+      <button class="tab-btn active" onclick="switchTab('outlineTab', this)">
+        <span class="tab-num">① 步驟一</span>
+        <span>生成大綱 Prompt</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('promptTab', this)">
+        <span class="tab-num">② 步驟二</span>
+        <span>風格與生成簡報</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('galleryTab', this)">
+        <span class="tab-num">③ 視覺庫</span>
+        <span>簡報風格範本庫</span>
+      </button>
+      <button class="tab-btn" onclick="switchTab('pdfTab', this)">
+        <span class="tab-num">④ 後製台</span>
+        <span>PDF 後製 (去Logo / 加頁碼)</span>
+      </button>
     </div>
   </div>
 
-  <!-- Step Flow Guide -->
+  <!-- Step Flow Guide (已移除「工具」2個字) -->
   <div class="step-flow">
     <span class="step-badge highlight">🐾 4 步驟標準工作流：</span>
     <span class="step-badge">① 在此生成大綱指令 ➔ 貼到 NotebookLM 對話產出大綱</span>
     <span class="step-badge">② 複製大綱貼入本工具 ➔ 選風格與角色 ➔ 複製簡報 Prompt</span>
     <span class="step-badge">③ 貼入 NotebookLM 簡報模式 ➔ 一鍵產出高質感簡報</span>
-    <span class="step-badge">④ 匯出 PDF ➔ 上傳 PDF 後製工具抹除 Logo / 壓企業 Logo 與頁碼</span>
+    <span class="step-badge">④ 匯出 PDF ➔ 上傳 PDF 後製抹除 Logo / 壓企業 Logo 與頁碼</span>
   </div>
 
   <!-- ================= TAB 1: OUTLINE PROMPT GENERATOR ================= -->
@@ -351,7 +411,7 @@
               <li>點擊上方【一鍵複製大綱指令】。</li>
               <li>進入 NotebookLM，在下方「對話框」（不是簡報模式）貼上並送出。</li>
               <li>AI 產出大綱後，新增為筆記並點選【轉換為來源】。</li>
-              <li>複製整份大綱，切換到上方【② 風格與生成簡報】標籤頁貼入！</li>
+              <li>複製整份大綱，切換到上方【② 步驟二：風格與生成簡報】標籤頁貼入！</li>
             </ol>
           </div>
         </div>
