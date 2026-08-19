@@ -4,8 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🐾 ・Gemini Notebook 簡報 Prompt 生成器 2.0</title>
-  <!-- Favicon -->
+  
+  <!-- 標準 Favicon -->
   <link rel="icon" type="image/png" href="168-3.png">
+  <link rel="shortcut icon" type="image/png" href="168-3.png">
+  
+  <!-- 手機主螢幕捷徑專用圖示 (Android Chrome & iOS Safari Web App) -->
+  <link rel="apple-touch-icon" href="168-3.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="168-3.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="168-3.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="168-3.png">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="拾光喵簡報助手">
+
   <!-- PDF.js & jsPDF for Browser PDF Processing -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -269,11 +281,10 @@
   <!-- Top Navigation & Branding -->
   <div class="header-bar">
     <div class="header-title">
-      <!-- 替換為專屬標誌 (支援 168-3.png 或本機圖片) -->
       <img src="168-3.png" alt="Logo" class="custom-brand-logo" onerror="this.onerror=null; this.src='https://api.iconify.design/noto:cat-face.svg';">
       <div class="title-text">
         <h1>Gemini Notebook 簡報 Prompt 生成器 2.0</h1>
-        <p>🐱 MATA讓AI更簡單（指令生成 + 風格範本 + PDF 去水印加Logo）</p>
+        <p>🐱  MATA讓AI更簡單（指令生成 + 風格範本 + PDF 去水印加Logo）</p>
       </div>
     </div>
     <!-- 4 卡片整齊排版導航 -->
@@ -297,7 +308,7 @@
     </div>
   </div>
 
-  <!-- Step Flow Guide (已移除「工具」2個字) -->
+  <!-- Step Flow Guide -->
   <div class="step-flow">
     <span class="step-badge highlight">🐾 4 步驟標準工作流：</span>
     <span class="step-badge">① 在此生成大綱指令 ➔ 貼到 NotebookLM 對話產出大綱</span>
@@ -378,7 +389,7 @@
               <select id="outToneStyle" onchange="updateOutlinePrompt()">
                 <option value="簡潔俐落且重點導向（金句提煉、邏輯嚴謹）" selected>簡潔俐落且重點導向</option>
                 <option value="親切熱情、具啟發與激勵性（引導行動）">親切熱情、激勵引導</option>
-                <option value="權威專業、客反數據分析（嚴謹信賴）">權威專業、數據信賴</option>
+                <option value="權威專業、客觀數據分析（嚴謹信賴）">權威專業、數據信賴</option>
                 <option value="故事敘事型（情境代入、引人入勝）">故事敘事型</option>
               </select>
             </div>
