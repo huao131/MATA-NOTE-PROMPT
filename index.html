@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🐾 ・Gemini Notebook 簡報 Prompt 生成器 2.0</title>
-    <!-- 標準 Favicon (450x450) -->
+  <title>🐾 拾光喵助手・Gemini Notebook 簡報 Prompt 生成器 2.0</title>
+  
+  <!-- 標準 Favicon (450x450) -->
   <link rel="icon" type="image/png" sizes="450x450" href="168-3.png">
   <link rel="shortcut icon" type="image/png" href="168-3.png">
   
-  <!-- Web App Manifest (Android Chrome 建立捷徑強制讀取圖示) -->
+  <!-- Web App Manifest (Android Chrome 建立捷徑抓取圖示) -->
   <link rel="manifest" href="manifest.json">
   
-  <!-- 手機主畫面捷徑專用圖示 (450x450) -->
+  <!-- 手機主畫面捷徑專用圖示 (450x450 原生解析度) -->
   <link rel="apple-touch-icon" href="168-3.png">
   <link rel="apple-touch-icon" sizes="450x450" href="168-3.png">
   <link rel="icon" type="image/png" sizes="450x450" href="168-3.png">
@@ -20,9 +21,12 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="拾光喵簡報">
   <meta name="theme-color" content="#0f111a">
+
   <!-- PDF.js & jsPDF for Browser PDF Processing -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- PptxGenJS for Client-side PPTX Generation -->
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
   <script>
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   </script>
@@ -67,22 +71,15 @@
     }
 
     .header-title { display: flex; align-items: center; gap: 14px; }
-    .custom-brand-logo {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      object-fit: cover;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      animation: gentle-tilt 3s infinite ease-in-out;
-    }
-    @keyframes gentle-tilt { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(4deg) scale(1.04); } }
+    .cat-logo { font-size: 38px; animation: gentle-tilt 3s infinite ease-in-out; }
+    @keyframes gentle-tilt { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(8deg) scale(1.05); } }
     .title-text h1 { font-size: 20px; font-weight: 800; letter-spacing: 0.5px; color: #ffffff; display: flex; align-items: center; gap: 8px; }
     .title-text p { font-size: 13px; color: var(--accent-orange); font-weight: 600; margin-top: 2px; }
 
-    /* 4-Card Nav Tabs */
+    /* 3-Card Nav Tabs */
     .nav-tabs {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
       background: transparent;
       padding: 0;
@@ -90,7 +87,7 @@
     }
     @media (max-width: 600px) {
       .nav-tabs {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
       }
     }
 
@@ -98,8 +95,8 @@
       background: var(--card-dark);
       color: var(--text-muted);
       border: 1px solid var(--border-dark);
-      padding: 12px 10px;
-      font-size: 12px;
+      padding: 12px 14px;
+      font-size: 12.5px;
       font-weight: 700;
       border-radius: var(--radius-md);
       cursor: pointer;
@@ -174,7 +171,7 @@
       background: var(--card-dark); color: var(--text-main); font-size: 13px; outline: none; transition: 0.2s;
     }
     select:focus, input:focus, textarea:focus { border-color: var(--primary-pink); box-shadow: 0 0 0 2px rgba(255, 107, 139, 0.2); }
-    textarea { resize: vertical; min-height: 140px; font-size: 12.5px; }
+    textarea { resize: vertical; min-height: 120px; font-size: 12.5px; }
 
     /* Segmented Toggle Buttons */
     .segmented-control { display: flex; gap: 8px; }
@@ -214,17 +211,19 @@
     .prompt-header h3 { font-size: 15px; color: var(--accent-orange); display: flex; align-items: center; gap: 6px; }
     .btn-copy {
       background: linear-gradient(135deg, var(--primary-pink), #ff4757); color: #fff; border: none;
-      padding: 8px 18px; font-size: 13px; font-weight: 700; border-radius: 20px; cursor: pointer;
+      padding: 9px 20px; font-size: 13px; font-weight: 700; border-radius: 20px; cursor: pointer;
       display: flex; align-items: center; gap: 6px; transition: 0.2s; box-shadow: 0 4px 12px rgba(255, 71, 87, 0.3);
     }
     .btn-copy:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(255, 71, 87, 0.4); }
+    .btn-copy:active { transform: scale(0.96); }
+    
     .prompt-output {
       background: #090a0f; border: 1px solid var(--border-dark); border-radius: var(--radius-md);
       padding: 14px; font-family: monospace; font-size: 12px; line-height: 1.6; color: #e2e8f0;
-      white-space: pre-wrap; max-height: 480px; overflow-y: auto;
+      white-space: pre-wrap; max-height: 480px; overflow-y: auto; user-select: all;
     }
 
-    /* Tab 3: Style Gallery */
+    /* Tab 2: Style Gallery */
     .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
     .gallery-card {
       background: var(--panel-dark); border: 1px solid var(--border-dark); border-radius: var(--radius-lg);
@@ -243,7 +242,7 @@
     }
     .btn-apply-style:hover { background: var(--primary-pink); border-color: var(--primary-pink); }
 
-    /* Tab 4: PDF Post-Processing */
+    /* Tab 3: PDF Post-Processing */
     .dropzone {
       border: 2px dashed var(--primary-pink); border-radius: var(--radius-lg); padding: 36px 20px;
       text-align: center; background: rgba(255, 107, 139, 0.03); cursor: pointer; transition: 0.2s; margin-bottom: 20px;
@@ -275,6 +274,16 @@
 
     .post-settings-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 20px; }
     @media (max-width: 768px) { .post-settings-grid { grid-template-columns: 1fr; } }
+    
+    .btn-export-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-ppt {
+      background: linear-gradient(135deg, #d35400, #e67e22) !important;
+      box-shadow: 0 4px 12px rgba(211, 84, 0, 0.3) !important;
+    }
   </style>
 </head>
 <body>
@@ -283,58 +292,54 @@
   <!-- Top Navigation & Branding -->
   <div class="header-bar">
     <div class="header-title">
-      <!-- 替換為專屬標誌 (支援 168-3.png 或本機圖片) -->
       <div class="cat-logo">🐾</div>
       <div class="title-text">
         <h1>Gemini Notebook 簡報 Prompt 生成器 2.0</h1>
-        <p>🐱 MATA讓AI更簡單（指令生成 + 風格範本 + PDF 去水印加Logo）</p>
+        <p>🐱 拾光喵助手 . MATA老師設計（指令生成 + 風格範本 + PDF 去水印加Logo）</p>
       </div>
     </div>
-    <!-- 4 卡片整齊排版導航 -->
+    <!-- 3 卡片整齊排版導航 -->
     <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('outlineTab', this)">
-        <span class="tab-num">① 步驟一</span>
-        <span>生成大綱 Prompt</span>
-      </button>
-      <button class="tab-btn" onclick="switchTab('promptTab', this)">
-        <span class="tab-num">② 步驟二</span>
-        <span>風格與生成簡報</span>
+      <button class="tab-btn active" onclick="switchTab('promptTab', this)">
+        <span class="tab-num">① 一站式</span>
+        <span>生成簡報 Prompt</span>
       </button>
       <button class="tab-btn" onclick="switchTab('galleryTab', this)">
-        <span class="tab-num">③ 視覺庫</span>
+        <span class="tab-num">② 視覺庫</span>
         <span>簡報風格範本庫</span>
       </button>
       <button class="tab-btn" onclick="switchTab('pdfTab', this)">
-        <span class="tab-num">④ 後製台</span>
-        <span>PDF 後製 (去Logo / 加頁碼)</span>
+        <span class="tab-num">③ 後製台</span>
+        <span>PDF 後製 (去Logo / 轉PPT)</span>
       </button>
     </div>
   </div>
 
-  <!-- Step Flow Guide (已移除「工具」2個字) -->
+  <!-- Step Flow Guide -->
   <div class="step-flow">
     <span class="step-badge highlight">🐾 4 步驟標準工作流：</span>
-    <span class="step-badge">① 在此生成大綱指令 ➔ 貼到 NotebookLM 對話產出大綱</span>
-    <span class="step-badge">② 複製大綱貼入本工具 ➔ 選風格與角色 ➔ 複製簡報 Prompt</span>
+    <span class="step-badge">① 在下方設定頁數、受眾、風格與角色 ➔ 貼上大綱或留空</span>
+    <span class="step-badge">② 點擊右側【一鍵複製簡報指令】</span>
     <span class="step-badge">③ 貼入 NotebookLM 簡報模式 ➔ 一鍵產出高質感簡報</span>
-    <span class="step-badge">④ 匯出 PDF ➔ 上傳 PDF 後製抹除 Logo / 壓企業 Logo 與頁碼</span>
+    <span class="step-badge">④ 匯出 PDF ➔ 上傳後製台抹除 Logo / 一鍵下載 PDF 或 PPT 簡報檔</span>
   </div>
 
-  <!-- ================= TAB 1: OUTLINE PROMPT GENERATOR ================= -->
-  <div id="outlineTab" class="tab-content active">
+  <!-- ================= TAB 1: UNIFIED PROMPT GENERATOR ================= -->
+  <div id="promptTab" class="tab-content active">
     <div class="grid-layout">
       <!-- Left Config Controls -->
       <div class="config-col">
+        <!-- 1. 基本規格與受眾 -->
         <div class="card">
           <div class="card-heading">
-            <span>步驟一：設定大綱規格與受眾</span>
-            <span class="badge">產出大綱指令</span>
+            <span>1. 預計規格、受眾與發表場景</span>
+            <span class="badge">規格設定</span>
           </div>
 
           <div class="form-grid-3">
             <div class="form-group">
               <label>預計簡報頁數 (張)</label>
-              <select id="outSlideCount" onchange="updateOutlinePrompt()">
+              <select id="slideCount" onchange="updateAll()">
                 <option value="6">6 頁 (超精簡)</option>
                 <option value="8">8 頁 (短講分享)</option>
                 <option value="10">10 頁 (標準發表)</option>
@@ -345,7 +350,7 @@
             </div>
             <div class="form-group">
               <label>預計報告時間 (分鐘)</label>
-              <select id="outTalkDuration" onchange="updateOutlinePrompt()">
+              <select id="talkDuration" onchange="updateAll()">
                 <option value="5">5 分鐘 (電梯簡報)</option>
                 <option value="10" selected>10 分鐘 (標準展示)</option>
                 <option value="20">20 分鐘 (主題演講)</option>
@@ -354,7 +359,7 @@
             </div>
             <div class="form-group">
               <label>簡報角色 (發言身份)</label>
-              <select id="outPresenterRole" onchange="updateOutlinePrompt()">
+              <select id="presenterRole" onchange="updateAll()">
                 <option value="自訂角色（如：拾光導覽喵）" selected>自訂角色 (如主角/導覽員)</option>
                 <option value="資深行業顧問 / 專家">資深行業顧問 / 專家</option>
                 <option value="產品經理 / 創業團隊">產品經理 / 創業團隊</option>
@@ -368,7 +373,7 @@
           <div class="form-grid-2">
             <div class="form-group">
               <label>目標受眾 (對誰報告)</label>
-              <select id="outTargetAudience" onchange="updateOutlinePrompt()">
+              <select id="targetAudience" onchange="updateAll()">
                 <option value="一般大眾與消費者（淺顯易懂、直擊痛點）" selected>一般大眾與消費者</option>
                 <option value="團隊夥伴與新進代理（步驟化教學、複製落地）">團隊夥伴與新手代理</option>
                 <option value="企業高管與商務投資人（數據導向、商業回報）">企業高管與投資人</option>
@@ -377,7 +382,7 @@
             </div>
             <div class="form-group">
               <label>簡報發表場景</label>
-              <select id="outPresentationScene" onchange="updateOutlinePrompt()">
+              <select id="presentationScene" onchange="updateAll()">
                 <option value="工作坊與培訓課程" selected>工作坊與培訓課程</option>
                 <option value="商業提案與招商 OPP (Pitch Deck)">商業提案 / 招商 OPP</option>
                 <option value="大型公開主題演講">大型公開主題演講</option>
@@ -389,81 +394,29 @@
           <div class="form-grid-2">
             <div class="form-group">
               <label>講者語氣與人設風格</label>
-              <select id="outToneStyle" onchange="updateOutlinePrompt()">
+              <select id="toneStyle" onchange="updateAll()">
                 <option value="簡潔俐落且重點導向（金句提煉、邏輯嚴謹）" selected>簡潔俐落且重點導向</option>
                 <option value="親切熱情、具啟發與激勵性（引導行動）">親切熱情、激勵引導</option>
-                <option value="權威專業、客反數據分析（嚴謹信賴）">權威專業、數據信賴</option>
+                <option value="權威專業、客觀數據分析（嚴謹信賴）">權威專業、數據信賴</option>
                 <option value="故事敘事型（情境代入、引人入勝）">故事敘事型</option>
               </select>
             </div>
             <div class="form-group">
-              <label>簡報目的 / 類型</label>
-              <select id="outGoalType" onchange="updateOutlinePrompt()">
-                <option value="教育培訓與賦能（模組化步驟、複製落地）" selected>教育培訓與賦能</option>
-                <option value="商業招募與創業商機說明 (OPP)">商業招募與創業商機 (OPP)</option>
-                <option value="產品發表與品牌價值傳遞">產品發表與品牌價值</option>
-                <option value="專案成果與績效總結">專案成果與績效總結</option>
-              </select>
+              <label>講者備註 (Speaker Notes 旁白)</label>
+              <div class="segmented-control">
+                <div class="segment-btn" id="notesYes" onclick="setNotes(true)">✔ 需要 (附講稿)</div>
+                <div class="segment-btn active" id="notesNo" onclick="setNotes(false)">✖ 不需要 (純投影片)</div>
+              </div>
             </div>
           </div>
 
           <div class="form-group">
             <label>補充說明與特別要求（自由填寫）：</label>
-            <input type="text" id="outCustomNotes" placeholder="例如：請著重介紹產品優勢與行動清單、請附帶講師與聯絡資訊" oninput="updateOutlinePrompt()">
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Output -->
-      <div class="output-col">
-        <div class="prompt-container">
-          <div class="card" style="background: #12141f; border-color: #ff6b8b;">
-            <div class="prompt-header">
-              <h3><span>🐾</span> 生成大綱專用 Prompt</h3>
-              <button class="btn-copy" onclick="copyText('outPromptText', 'outCopyLabel', 'outCopyIcon')">
-                <span id="outCopyIcon">📋</span> <span id="outCopyLabel">一鍵複製大綱指令</span>
-              </button>
-            </div>
-            <div class="prompt-output" id="outPromptText"></div>
-          </div>
-
-          <div class="card" style="background: rgba(255,159,67,0.05); border: 1px dashed var(--accent-orange);">
-            <div class="card-heading" style="color: var(--accent-orange); border-bottom-color: rgba(255,159,67,0.2);">
-              <span>💡 使用技巧（影片示範操作）</span>
-            </div>
-            <ol style="font-size:12px; color: #cbd5e1; padding-left:18px; line-height:1.7;">
-              <li>點擊上方【一鍵複製大綱指令】。</li>
-              <li>進入 NotebookLM，在下方「對話框」（不是簡報模式）貼上並送出。</li>
-              <li>AI 產出大綱後，新增為筆記並點選【轉換為來源】。</li>
-              <li>複製整份大綱，切換到上方【② 步驟二：風格與生成簡報】標籤頁貼入！</li>
-            </ol>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= TAB 2: SLIDE PROMPT GENERATOR ================= -->
-  <div id="promptTab" class="tab-content">
-    <div class="grid-layout">
-      <!-- Left Config Controls -->
-      <div class="config-col">
-        <!-- 1. 貼入大綱 -->
-        <div class="card">
-          <div class="card-heading">
-            <span>1. 貼上在 NotebookLM 整理好的大綱</span>
-            <span class="badge">精準控制內容</span>
-          </div>
-          <div class="form-group">
-            <label>將第一步生成並修訂好的大綱貼在下方（AI 會嚴格遵循標題，防止標題跑掉）：</label>
-            <textarea id="outlineText" placeholder="【請在此貼上 NotebookLM 產出並整理好的大綱內容】&#10;範例格式如下：&#10;第1頁：封面 - 主題名稱&#10;第2頁：痛點分析 - 核心問題剖析&#10;第3頁：解決方案 - 關鍵核心優勢&#10;第4頁：實戰步驟 - 落地執行清單&#10;..." oninput="updateSlidePrompt()"></textarea>
-            <div style="font-size:11px; color:var(--text-muted); margin-top:5px;">
-              💡 提示：若此處為空，AI 指令將自動轉為「依據來源資料提煉出邏輯嚴密的章節大綱」。
-            </div>
+            <input type="text" id="customNotes" placeholder="例如：請著重介紹產品優勢與行動清單、請附帶講師與聯絡資訊" oninput="updateAll()">
           </div>
         </div>
 
-        <!-- 2. 視覺風格、主角與版面留邊 -->
+        <!-- 2. 視覺風格、角色與配色 -->
         <div class="card">
           <div class="card-heading">
             <span>2. 選擇視覺風格、配色與主角</span>
@@ -496,7 +449,7 @@
 
           <div class="form-group" id="heroImageGroup">
             <label>來源主角圖檔名稱 (需在 NotebookLM 來源重新命名為此名稱)</label>
-            <input type="text" id="heroImageName" value="主角.png" placeholder="如：主角.png 或 拾光喵.png" oninput="updateSlidePrompt()">
+            <input type="text" id="heroImageName" value="主角.png" placeholder="如：主角.png 或 拾光喵.png" oninput="updateAll()">
             <div style="font-size:11px; color:var(--accent-orange); margin-top:4px;">
               💡 提示：若 NotebookLM 讀不到人物，請將角色真實感降低 10% 或生成 2.5D Q版全身圖！
             </div>
@@ -521,7 +474,7 @@
           <!-- 投影片背景底色 -->
           <div class="form-group">
             <label>投影片背景底色 (強烈建議白底方便後續去水印/壓Logo)</label>
-            <select id="slideBgColor" onchange="updateSlidePrompt()">
+            <select id="slideBgColor" onchange="updateAll()">
               <option value="純白色背景（#ffffff，極度乾淨，便於後續抹除浮水印與壓制企業 Logo）" selected>純白色 (最推：好去背/去水印/壓Logo)</option>
               <option value="米白微暖色（#fcfaf6，柔和舒適護眼）">米白色 (柔和無壓力)</option>
               <option value="極淡淺灰（#f4f5f7，商務科技感）">極淡淺灰 (科技質感)</option>
@@ -533,6 +486,18 @@
           <label style="margin-top:12px;">指定 5 色配色計畫 (Color Palette)：</label>
           <div class="color-presets-grid" id="paletteContainer"></div>
         </div>
+
+        <!-- 3. 大綱輸入 -->
+        <div class="card">
+          <div class="card-heading">
+            <span>3. 簡報結構大綱 (選填)</span>
+            <span class="badge">精準控制內容</span>
+          </div>
+          <div class="form-group">
+            <label>貼上自訂大綱（若有貼，AI 嚴格遵循；若留空，AI 依來源自動規劃）：</label>
+            <textarea id="outlineText" placeholder="【選填：請在此貼上你的大綱內容，留空則由 AI 自動規劃】&#10;範例格式如下：&#10;第1頁：封面 - 主題名稱&#10;第2頁：痛點分析 - 核心問題剖析&#10;第3頁：解決方案 - 關鍵核心優勢&#10;第4頁：實戰步驟 - 落地執行清單&#10;..." oninput="updateAll()"></textarea>
+          </div>
+        </div>
       </div>
 
       <!-- Right Output & Copy Section -->
@@ -541,11 +506,11 @@
           <div class="card" style="background: #12141f; border-color: #ff6b8b;">
             <div class="prompt-header">
               <h3><span>🐾</span> 生成簡報專用 Prompt</h3>
-              <button class="btn-copy" onclick="copyText('slidePromptText', 'slideCopyLabel', 'slideCopyIcon')">
-                <span id="slideCopyIcon">📋</span> <span id="slideCopyLabel">一鍵複製簡報指令</span>
+              <button class="btn-copy" onclick="copyUnifiedPrompt()">
+                <span id="copyIcon">📋</span> <span id="copyLabel">一鍵複製簡報指令</span>
               </button>
             </div>
-            <div class="prompt-output" id="slidePromptText"></div>
+            <div class="prompt-output" id="finalPromptText" onclick="selectText(this)"></div>
           </div>
 
           <div class="card" style="background: rgba(255,159,67,0.05); border: 1px dashed var(--accent-orange);">
@@ -553,9 +518,11 @@
               <span>🐱 貼入 NotebookLM 簡報模式步驟</span>
             </div>
             <ol style="font-size:12px; color: #cbd5e1; padding-left:18px; line-height:1.7;">
-              <li>進入 NotebookLM，左側<strong>只勾選 2 個來源</strong>：【整理過的大綱筆記】與【主角.png】。</li>
+              <li>點擊上方<strong>【一鍵複製簡報指令】</strong>。</li>
+              <li>進入 NotebookLM，左側<strong>只勾選 2 個來源</strong>：【資料來源】與【主角.png】。</li>
               <li>點擊簡報按鈕 ➔ 選擇【精簡】模式（避免字數過多造成亂碼）。</li>
-              <li>將複製的指令貼入並生成，生成後下載 PDF！</li>
+              <li>貼上指令並送出生成，完成後下載 PDF！</li>
+              <li>點擊上方【③ 後製台】抹除 Logo，一鍵下載 <strong>PDF</strong> 或 <strong>PPTX 投影片檔</strong>。</li>
             </ol>
           </div>
         </div>
@@ -563,7 +530,7 @@
     </div>
   </div>
 
-  <!-- ================= TAB 3: STYLE GALLERY ================= -->
+  <!-- ================= TAB 2: STYLE GALLERY ================= -->
   <div id="galleryTab" class="tab-content">
     <div class="card">
       <div class="card-heading">
@@ -577,20 +544,20 @@
     </div>
   </div>
 
-  <!-- ================= TAB 4: PDF POST-PROCESSING ================= -->
+  <!-- ================= TAB 3: PDF POST-PROCESSING ================= -->
   <div id="pdfTab" class="tab-content">
     <div class="card">
       <div class="card-heading">
-        <span>🛠️ PDF 後製工作台：抹除 NotebookLM Logo、壓制專屬 Logo 與頁碼</span>
-        <span class="badge">純瀏覽器本機安全處理・不需上傳伺服器</span>
+        <span>🛠️ PDF 後製工作台：抹除 NotebookLM Logo、壓制專屬 Logo 與一鍵轉 PPT</span>
+        <span class="badge">純瀏覽器本機安全處理・支援 PDF / PPTX 匯出</span>
       </div>
 
       <!-- File Upload Zone -->
       <div class="dropzone" id="pdfDropzone" onclick="document.getElementById('pdfFileInput').click()">
         <div class="dropzone-icon">📄🐾</div>
         <strong>點此選擇或拖曳 NotebookLM 匯出的 PDF 簡報檔案</strong>
-        <p>支援多頁 PDF 即時解析、框選自動抹除右下角 Logo、批次套用企業 Logo 與頁碼</p>
-        <input type="file" id="pdfFileInput" accept="application/pdf" style="display:none" onchange="handlePdfUpload(event)">
+        <p>支援多頁 PDF 即時解析、極小化抹除右下角 Logo、批次套用企業 Logo 與頁碼，並支援匯出 PDF 或 PPT 檔</p>
+        <input type="file" id="pdfFileInput" accept="application/pdf,image/*" style="display:none" onchange="handlePdfUpload(event)">
       </div>
 
       <!-- PDF Processing Workspace -->
@@ -601,11 +568,14 @@
             📄 檔案：<span id="pdfFileName" style="color:var(--accent-orange);">未選擇</span> 
             （共 <span id="pdfPageCount" style="color:var(--primary-pink);">0</span> 頁）
           </div>
-          <div style="display:flex; gap:10px;">
-            <button class="tab-btn" style="background:#2c2f48; color:#fff;" onclick="selectAllSlides(true)">全選所有頁</button>
+          <div class="btn-export-group">
+            <button class="tab-btn" style="background:#2c2f48; color:#fff;" onclick="selectAllSlides(true)">全選</button>
             <button class="tab-btn" style="background:#2c2f48; color:#fff;" onclick="selectAllSlides(false)">取消全選</button>
             <button class="btn-copy" style="padding:6px 14px; font-size:12px;" onclick="renderProcessedPdf()">
-              🚀 匯出已後製 PDF
+              🚀 下載已後製 PDF
+            </button>
+            <button class="btn-copy btn-ppt" style="padding:6px 14px; font-size:12px;" onclick="renderProcessedPptx()">
+              📊 下載已後製 PPT (.pptx)
             </button>
           </div>
         </div>
@@ -620,7 +590,7 @@
             <div class="form-group">
               <label>抹除模式：</label>
               <select id="maskMode" onchange="updatePdfPreview()">
-                <option value="auto_corner" selected>自動抹除右下角 (預設覆蓋區塊)</option>
+                <option value="auto_corner" selected>精準抹除右下角 (極小區塊僅覆蓋 Logo)</option>
                 <option value="none">不抹除</option>
               </select>
             </div>
@@ -702,6 +672,7 @@
 <script>
   let currentSelectedStyle = "白底商務簡約風格";
   let currentPaletteName = "晨曦玫瑰與深海";
+  let hasSpeakerNotes = false;
   let hasStyleMode = true;
   let hasHero = true;
   let hasMargin = true;
@@ -733,8 +704,7 @@
   function initApp() {
     renderPalettes();
     renderGallery();
-    updateOutlinePrompt();
-    updateSlidePrompt();
+    updateAll();
   }
 
   function switchTab(tabId, btn) {
@@ -742,75 +712,6 @@
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById(tabId).classList.add('active');
     btn.classList.add('active');
-  }
-
-  function updateOutlinePrompt() {
-    const slideCount = document.getElementById('outSlideCount').value;
-    const talkDuration = document.getElementById('outTalkDuration').value;
-    const presenterRole = document.getElementById('outPresenterRole').value;
-    const targetAudience = document.getElementById('outTargetAudience').value;
-    const presentationScene = document.getElementById('outPresentationScene').value;
-    const toneStyle = document.getElementById('outToneStyle').value;
-    const goalType = document.getElementById('outGoalType').value;
-    const notes = document.getElementById('outCustomNotes').value.trim();
-
-    let p = `請擔任專業的簡報資訊架構師與首席內容企劃，依據我所提供的來源文件，為我生成一份精準的【簡報大綱規劃】：\n\n`;
-    p += `【基本規格要求】\n`;
-    p += `1. 投影片總張數：請精準規劃為 ${slideCount} 頁，不多不少。\n`;
-    p += `2. 預計報告時長：約 ${talkDuration} 分鐘。\n`;
-    p += `3. 講者人設角色：${presenterRole}。\n`;
-    p += `4. 目標受眾：${targetAudience}。\n`;
-    p += `5. 簡報發表場景：${presentationScene}。\n`;
-    p += `6. 簡報核心目的：${goalType}。\n`;
-    p += `7. 語氣與文字風格：${toneStyle}。\n`;
-    if (notes) {
-      p += `8. 特別需求補充：${notes}。\n`;
-    }
-    p += `\n【輸出格式規範】\n`;
-    p += `請使用乾淨俐落的 Markdown 格式輸出，每一頁必須包含：\n`;
-    p += `- 頁碼與主標題（例如：第1頁：封面 - 主題名稱）\n`;
-    p += `- 核心內容重點（1-2 句精華提煉，避免贅字）\n`;
-    p += `請確保各頁標題吸睛且具備邏輯遞進關係（封面、痛點、核心論點、實戰拆解、總結行動）。`;
-
-    document.getElementById('outPromptText').innerText = p;
-  }
-
-  function updateSlidePrompt() {
-    const heroName = document.getElementById('heroImageName').value.trim() || '主角.png';
-    const slideBg = document.getElementById('slideBgColor').value;
-    const outline = document.getElementById('outlineText').value.trim();
-
-    const selectedPal = palettes.find(p => p.name === currentPaletteName) || palettes[0];
-    const paletteStr = `${selectedPal.name} (${selectedPal.colors.join(', ')})`;
-
-    let p = `請擔任頂級簡報資訊架構師與視覺設計總監，依據我所提供的來源大綱與以下嚴格規範，生成專業簡報內容：\n\n`;
-
-    p += `【一、 簡報大綱與各頁標題要求】\n`;
-    if (outline) {
-      p += `請嚴格遵循以下章節大綱順序與標題生成各頁投影片內容，嚴禁自行擅自更動主標題：\n`;
-      p += `${outline}\n\n`;
-    } else {
-      p += `請依據來源資料提煉出邏輯嚴密的大綱結構（包含封面、痛點、核心解法、實戰拆解與行動總結）生成簡報。\n\n`;
-    }
-
-    p += `【二、 視覺美學與排版規範】\n`;
-    if (hasStyleMode) {
-      p += `1. 視覺主題風格：${currentSelectedStyle}。\n`;
-    }
-    p += `2. 投影片背景底色：${slideBg}。\n`;
-    p += `3. 色彩計畫配色：${paletteStr}。請依此 5 色配置主標題、副標題、強調重點與視覺背景區塊。\n`;
-    if (hasMargin) {
-      p += `4. 版面安全留邊：嚴格保持四周安全留邊（Margin Safe Area），文字與圖表避免靠邊或切齊邊緣，預留頂部 Logo 與底部頁碼空間。\n`;
-    }
-    if (hasHero) {
-      p += `5. IP 角色一致性：請在需要引導或圖解的頁面中，固定調用來源圖片中的 [${heroName}] 形象作為導覽主角，保持每頁角色外觀與服裝高度一致。\n`;
-    }
-    p += `6. 文案精簡排版：文字採 Markdown 階層列點呈現，文字精準俐落，避免大段冗長文字產生視覺擁擠。\n\n`;
-
-    p += `【三、 輸出格式要求】\n`;
-    p += `請以結構化的 Markdown 格式完整輸出，標明 [第 X 頁：標題]、內容重點及視覺排版建議。`;
-
-    document.getElementById('slidePromptText').innerText = p;
   }
 
   function renderPalettes() {
@@ -848,29 +749,36 @@
         c.classList.remove('active');
       }
     });
-    switchTab('promptTab', document.querySelectorAll('.tab-btn')[1]);
-    updateSlidePrompt();
+    switchTab('promptTab', document.querySelectorAll('.tab-btn')[0]);
+    updateAll();
   }
 
   function selectStyleChip(el, styleName) {
     document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
     currentSelectedStyle = styleName;
-    updateSlidePrompt();
+    updateAll();
   }
 
   function selectPalette(paletteName, el) {
     document.querySelectorAll('.palette-card').forEach(c => c.classList.remove('active'));
     el.classList.add('active');
     currentPaletteName = paletteName;
-    updateSlidePrompt();
+    updateAll();
+  }
+
+  function setNotes(val) {
+    hasSpeakerNotes = val;
+    document.getElementById('notesYes').classList.toggle('active', val);
+    document.getElementById('notesNo').classList.toggle('active', !val);
+    updateAll();
   }
 
   function setStyleMode(val) {
     hasStyleMode = val;
     document.getElementById('styleYes').classList.toggle('active', val);
     document.getElementById('styleNo').classList.toggle('active', !val);
-    updateSlidePrompt();
+    updateAll();
   }
 
   function setHero(val) {
@@ -878,28 +786,129 @@
     document.getElementById('heroYes').classList.toggle('active', val);
     document.getElementById('heroNo').classList.toggle('active', !val);
     document.getElementById('heroImageGroup').style.display = val ? 'block' : 'none';
-    updateSlidePrompt();
+    updateAll();
   }
 
   function setMargin(val) {
     hasMargin = val;
     document.getElementById('marginYes').classList.toggle('active', val);
     document.getElementById('marginNo').classList.toggle('active', !val);
-    updateSlidePrompt();
+    updateAll();
   }
 
-  function copyText(elementId, labelId, iconId) {
-    const text = document.getElementById(elementId).innerText;
-    navigator.clipboard.writeText(text).then(() => {
-      const lbl = document.getElementById(labelId);
-      const icon = document.getElementById(iconId);
-      lbl.innerText = '已複製到剪貼簿！';
-      icon.innerText = '🐾';
-      setTimeout(() => {
-        lbl.innerText = '一鍵複製指令';
-        icon.innerText = '📋';
-      }, 2000);
-    });
+  function updateAll() {
+    const slideCount = document.getElementById('slideCount').value;
+    const talkDuration = document.getElementById('talkDuration').value;
+    const presenterRole = document.getElementById('presenterRole').value;
+    const targetAudience = document.getElementById('targetAudience').value;
+    const presentationScene = document.getElementById('presentationScene').value;
+    const toneStyle = document.getElementById('toneStyle').value;
+    const customNotes = document.getElementById('customNotes').value.trim();
+    const heroName = document.getElementById('heroImageName').value.trim() || '主角.png';
+    const slideBg = document.getElementById('slideBgColor').value;
+    const outline = document.getElementById('outlineText').value.trim();
+
+    const selectedPal = palettes.find(p => p.name === currentPaletteName) || palettes[0];
+    const paletteStr = `${selectedPal.name} (${selectedPal.colors.join(', ')})`;
+
+    let p = `請擔任頂級簡報資訊架構師與視覺設計總監，依據我所提供的來源資料與以下嚴格規範，生成一份共 ${slideCount} 頁的專業簡報內容：\n\n`;
+
+    p += `【一、 基本規格與發表設定】\n`;
+    p += `1. 投影片總頁數：精準限制為 ${slideCount} 頁，不可隨意增減頁數。\n`;
+    p += `2. 預計報告時長：約 ${talkDuration} 分鐘。\n`;
+    p += `3. 講者角色人設：${presenterRole}。\n`;
+    p += `4. 目標受眾定位：${targetAudience}。\n`;
+    p += `5. 簡報發表場景：${presentationScene}。\n`;
+    p += `6. 講者語氣風格：${toneStyle}。\n`;
+    if (customNotes) {
+      p += `7. 特別補充要求：${customNotes}。\n`;
+    }
+    if (hasSpeakerNotes) {
+      p += `8. 講者備註 (Speaker Notes)：每一頁均需附帶 100-150 字精練的口播旁白演講稿。\n\n`;
+    } else {
+      p += `8. 講者備註：不需要額外旁白備註，聚焦於投影片本體的視覺排版與核心文字精華。\n\n`;
+    }
+
+    p += `【二、 內容架構與章節大綱】\n`;
+    if (outline) {
+      p += `請嚴格遵循以下章節大綱順序與標題生成各頁投影片內容，嚴禁自行擅自更動主標題：\n`;
+      p += `${outline}\n\n`;
+    } else {
+      p += `請依據來源資料提煉出邏輯嚴密的 ${slideCount} 頁結構（包含封面、痛點分析、核心解法、實戰拆解、效益驗證與行動總結）。\n\n`;
+    }
+
+    p += `【三、 視覺美學與排版規範】\n`;
+    if (hasStyleMode) {
+      p += `1. 視覺主題風格：${currentSelectedStyle}。\n`;
+    }
+    p += `2. 投影片背景底色：${slideBg}。\n`;
+    p += `3. 色彩計畫配色：${paletteStr}。請依此 5 色配置主標題、副標題、強調重點與視覺背景區塊。\n`;
+    if (hasMargin) {
+      p += `4. 版面安全留邊：嚴格保持四周安全留邊（Margin Safe Area），文字與圖表避免靠邊或切齊邊緣，預留頂部 Logo 與底部頁碼空間。\n`;
+    }
+    if (hasHero) {
+      p += `5. IP 角色一致性：請在需要引導或圖解的頁面中，固定調用來源圖片中的 [${heroName}] 形象作為導覽主角，保持每頁角色外觀與服裝高度一致。\n`;
+    }
+    p += `6. 文案精簡排版：文字採 Markdown 階層列點呈現，文字精準俐落，避免大段冗長文字產生視覺擁擠。\n\n`;
+
+    p += `【四、 輸出格式要求】\n`;
+    p += `請以結構化的 Markdown 格式完整輸出，標明 [第 X 頁：標題]、內容重點及視覺排版建議。`;
+
+    document.getElementById('finalPromptText').innerText = p;
+  }
+
+  // 強化版萬用語音/剪貼簿複製函數（支援所有手機與瀏覽器）
+  function copyUnifiedPrompt() {
+    const text = document.getElementById('finalPromptText').innerText;
+    const lbl = document.getElementById('copyLabel');
+    const icon = document.getElementById('copyIcon');
+
+    // 方法 1: 標準 Clipboard API
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => {
+        showSuccessCopy(lbl, icon);
+      }).catch(() => {
+        fallbackCopyText(text, lbl, icon);
+      });
+    } else {
+      // 方法 2: 傳統 execCommand 兼容手機 Webview / 非 HTTPS
+      fallbackCopyText(text, lbl, icon);
+    }
+  }
+
+  function fallbackCopyText(text, lbl, icon) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-999999px";
+    textArea.style.top = "-999999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      showSuccessCopy(lbl, icon);
+    } catch (err) {
+      alert("已為您選取文字，請點擊螢幕上的【複製】按鈕！");
+    }
+    document.body.removeChild(textArea);
+  }
+
+  function showSuccessCopy(lbl, icon) {
+    lbl.innerText = '已複製到剪貼簿！';
+    icon.innerText = '🐾';
+    setTimeout(() => {
+      lbl.innerText = '一鍵複製簡報指令';
+      icon.innerText = '📋';
+    }, 2000);
+  }
+
+  function selectText(container) {
+    const range = document.createRange();
+    range.selectNodeContents(container);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
   }
 
   /* ================= PDF Client-side Processing ================= */
@@ -974,11 +983,12 @@
     const w = canvas.width;
     const h = canvas.height;
 
+    // 精準微型抹除 (寬 8.2%、高 3.8%)，不切到角色
     const maskMode = document.getElementById('maskMode').value;
     if (maskMode === 'auto_corner') {
       const maskColor = document.getElementById('maskColor').value;
-      const maskW = w * 0.16;
-      const maskH = h * 0.10;
+      const maskW = w * 0.082;
+      const maskH = h * 0.038;
       ctx.fillStyle = maskColor;
       ctx.fillRect(w - maskW, h - maskH, maskW, maskH);
     }
@@ -1060,6 +1070,7 @@
     }
   }
 
+  /* 匯出 PDF 檔案 */
   async function renderProcessedPdf() {
     if (!uploadedPdfDoc) return;
     const { jsPDF } = window.jspdf;
@@ -1076,7 +1087,36 @@
         addedFirst = true;
       }
     }
-    doc.save(`GeminiNotebook_Processed_${Date.now()}.pdf`);
+    doc.save(`拾光喵簡報_${Date.now()}.pdf`);
+  }
+
+  /* 匯出 PPT (.pptx) 檔案 */
+  async function renderProcessedPptx() {
+    if (!uploadedPdfDoc) return;
+    if (typeof PptxGenJS === "undefined") {
+      alert("正在載入 PPT 引擎，請稍候 3 秒後再點擊！");
+      return;
+    }
+    const pptx = new PptxGenJS();
+    pptx.layout = 'LAYOUT_16x9';
+
+    for (let i = 1; i <= uploadedPdfDoc.numPages; i++) {
+      const slideData = pdfPages.find(p => p.pageNum === i);
+      if (slideData && slideData.selected) {
+        const canvas = document.getElementById(`pdfCanvas_${i}`);
+        const imgData = canvas.toDataURL('image/jpeg', 0.95);
+        
+        const slide = pptx.addSlide();
+        slide.addImage({
+          data: imgData,
+          x: 0,
+          y: 0,
+          w: '100%',
+          h: '100%'
+        });
+      }
+    }
+    pptx.writeFile({ fileName: `拾光喵簡報_${Date.now()}.pptx` });
   }
 
   window.onload = initApp;
