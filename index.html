@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🐾 拾光喵助手・Gemini Notebook 簡報 Prompt 生成器 2.0</title>
-  
-  <!-- 標準 Favicon (450x450) -->
-  <link rel="icon" type="image/png" sizes="450x450" href="168-3.png">
-  <link rel="shortcut icon" type="image/png" href="168-3.png">
-  
-  <!-- Web App Manifest (Android Chrome 建立捷徑抓取圖示) -->
+
+  <!-- 1. 網頁分頁圖示 (Favicon) - 帶上 ?v=2 破除快取 -->
+  <link rel="icon" type="image/png" href="/168-3.png?v=2">
+  <link rel="shortcut icon" type="image/png" href="/168-3.png?v=2">
+
+  <!-- 2. Web App Manifest -->
   <link rel="manifest" href="manifest.json">
-  
-  <!-- 手機主畫面捷徑專用圖示 (450x450 原生解析度) -->
-  <link rel="apple-touch-icon" href="168-3.png">
-  <link rel="apple-touch-icon" sizes="450x450" href="168-3.png">
-  <link rel="icon" type="image/png" sizes="450x450" href="168-3.png">
+
+  <!-- 3. 手機桌面捷徑圖示 -->
+  <link rel="apple-touch-icon" href="/168-3.png?v=2">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,6 +29,16 @@
   <script>
     pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
   </script>
+
+  <!-- PDF.js & jsPDF for Browser PDF Processing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <!-- PptxGenJS for Client-side PPTX Generation -->
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  </script>
+
   <style>
     :root {
       --bg-dark: #0f111a;
@@ -172,6 +181,40 @@
     }
     select:focus, input:focus, textarea:focus { border-color: var(--primary-pink); box-shadow: 0 0 0 2px rgba(255, 107, 139, 0.2); }
     textarea { resize: vertical; min-height: 120px; font-size: 12.5px; }
+
+    /* 特製自訂大綱卡片（米白色背景 + 深色字） */
+    .card-custom-outline {
+      background: #faf7f2 !important;
+      border: 1.5px solid #e8dfd5 !important;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    }
+    .card-custom-outline .card-heading {
+      color: #1f2937 !important;
+      border-bottom-color: #e5dacd !important;
+    }
+    .card-custom-outline .card-heading span.badge {
+      background: #fef3c7 !important;
+      color: #9a3412 !important;
+      font-weight: 700;
+      border: 1px solid #fde68a;
+    }
+    .card-custom-outline label {
+      color: #4b5563 !important;
+      font-weight: 700;
+    }
+    .card-custom-outline textarea {
+      background: #ffffff !important;
+      color: #111827 !important;
+      border: 1.5px solid #dcd1c4 !important;
+      font-weight: 500;
+    }
+    .card-custom-outline textarea:focus {
+      border-color: var(--accent-orange) !important;
+      box-shadow: 0 0 0 2px rgba(255, 159, 67, 0.25) !important;
+    }
+    .card-custom-outline textarea::placeholder {
+      color: #9ca3af !important;
+    }
 
     /* Segmented Toggle Buttons */
     .segmented-control { display: flex; gap: 8px; }
@@ -402,10 +445,9 @@
               </select>
             </div>
             <div class="form-group">
-              <label>講者備註 (Speaker Notes 旁白)</label>
-              <div class="segmented-control">
-                <div class="segment-btn" id="notesYes" onclick="setNotes(true)">✔ 需要 (附講稿)</div>
-                <div class="segment-btn active" id="notesNo" onclick="setNotes(false)">✖ 不需要 (純投影片)</div>
+              <label>💡 講者演講講稿說明：</label>
+              <div style="background: rgba(255, 159, 67, 0.08); border: 1px dashed var(--accent-orange); border-radius: var(--radius-sm); padding: 8px 12px; font-size: 11.5px; color: #ffb86c; line-height: 1.5;">
+                📢 <strong>演講口播稿提示：</strong> NotebookLM 簡報模式專注於極簡排版，請於生成簡報後，至左下方<strong>「對話框」</strong>輸入：<em>「請依各頁大綱為我撰寫演講口播逐字稿」</em> 即可！
               </div>
             </div>
           </div>
@@ -487,8 +529,8 @@
           <div class="color-presets-grid" id="paletteContainer"></div>
         </div>
 
-        <!-- 3. 大綱輸入 -->
-        <div class="card">
+        <!-- 3. 自訂大綱卡片（米白色背景 + 深色字） -->
+        <div class="card card-custom-outline">
           <div class="card-heading">
             <span>3. 簡報結構大綱 (選填)</span>
             <span class="badge">精準控制內容</span>
@@ -672,7 +714,6 @@
 <script>
   let currentSelectedStyle = "白底商務簡約風格";
   let currentPaletteName = "晨曦玫瑰與深海";
-  let hasSpeakerNotes = false;
   let hasStyleMode = true;
   let hasHero = true;
   let hasMargin = true;
@@ -767,13 +808,6 @@
     updateAll();
   }
 
-  function setNotes(val) {
-    hasSpeakerNotes = val;
-    document.getElementById('notesYes').classList.toggle('active', val);
-    document.getElementById('notesNo').classList.toggle('active', !val);
-    updateAll();
-  }
-
   function setStyleMode(val) {
     hasStyleMode = val;
     document.getElementById('styleYes').classList.toggle('active', val);
@@ -820,13 +854,11 @@
     p += `4. 目標受眾定位：${targetAudience}。\n`;
     p += `5. 簡報發表場景：${presentationScene}。\n`;
     p += `6. 講者語氣風格：${toneStyle}。\n`;
+    p += `7. 簡報文字排版原則：不需要額外塞入講者旁白，專注於投影片本體的精練視覺排版與核心論點。\n`;
     if (customNotes) {
-      p += `7. 特別補充要求：${customNotes}。\n`;
-    }
-    if (hasSpeakerNotes) {
-      p += `8. 講者備註 (Speaker Notes)：每一頁均需附帶 100-150 字精練的口播旁白演講稿。\n\n`;
+      p += `8. 特別補充要求：${customNotes}。\n\n`;
     } else {
-      p += `8. 講者備註：不需要額外旁白備註，聚焦於投影片本體的視覺排版與核心文字精華。\n\n`;
+      p += `\n`;
     }
 
     p += `【二、 內容架構與章節大綱】\n`;
