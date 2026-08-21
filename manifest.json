@@ -1,6 +1,6 @@
 {
-  "name": "Gemini Notebook 簡報 Prompt 生成器 2.0",
-  "short_name": "拾光喵簡報",
+  "name": "Gemini Notebook 簡報提示詞生成器 ",
+  "short_name": "AI168簡報",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#0f111a",
